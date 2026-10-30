@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix - Halaman Tidak Ditemukan (404)</title>
+    <meta name="description" content="Maaf, halaman yang Anda cari di Mineplix tidak ditemukan atau telah dipindahkan.">
+    
+    <meta property="og:title" content="Mineplix - Halaman Tidak Ditemukan (404)">
+    <meta property="og:description" content="Maaf, halaman yang Anda cari di Mineplix tidak ditemukan.">
+    <meta property="og:image" content="/img/banner.png">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mineplix - Halaman Tidak Ditemukan (404)">
+    <meta name="twitter:description" content="Maaf, halaman yang Anda cari di Mineplix tidak ditemukan.">
+    <meta name="twitter:image" content="/img/banner.png">
+
+    <link rel="icon" href="/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css?v=2">
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="navigateToHome()">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            MINEPLIX
+        </div>
+
+        <ul class="nav-links" id="desktopNavLinks">
+            <li><div class="nav-link-item" id="desktopHome" onclick="navigateToHome()">Home</div></li>
+            <li><div class="nav-link-item" id="desktopStatus" onclick="navigateToStatus()">Status Orderan</div></li>
+            <li><div class="nav-link-item" id="desktopSupport" onclick="navigateToSupport()">About & Support</div></li>
+        </ul>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="error-hero">
+        <h1 class="hero-title">
+            Oops! Halaman <br>
+            <span class="selected-highlight">Error 404 <i class="fa-solid fa-triangle-exclamation" style="font-size: 0.9rem;"></i></span> Tidak Ditemukan
+        </h1>
+
+        <p class="hero-description">
+            Maaf, halaman yang Anda tuju tidak tersedia, telah dihapus, atau alamat URL yang Anda masukkan salah. Mari kembali ke beranda utama.
+        </p>
+
+        <div class="discord-bar" onclick="navigateToHome()">
+            <i class="fa-solid fa-house discord-icon"></i>
+            <span>Kembali ke Beranda</span>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper" id="contact">
+        <div class="trustpilot-box" onclick="window.open('https://www.trustpilot.com/review/mineplix.biz.id', '_blank')">
+            <p class="trustpilot-title">See trusted in Trustpilot</p>
+            <div class="trustpilot-stars">
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <h2 class="footer-banner-title">Butuh Bantuan Navigasi atau Layanan Lain?</h2>
+            <p class="footer-banner-desc">
+                Hubungi tim support kami atau jelajahi kategori layanan server Minecraft dan web design terbaik bersama Mineplix.
+            </p>
+            <a href="mailto:mineplixhelp@gmail.com" class="footer-cta-btn">
+                Hubungi Kami Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom-info">
+                <p class="footer-copy">&copy; 2026 Mineplix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-bottom-nav">
+        <div class="bottom-nav-item" id="mobHome" onclick="navigateToHome()">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" id="mobStatus" onclick="navigateToStatus()">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>Status</span>
+        </div>
+        <div class="bottom-nav-item" id="mobSupport" onclick="navigateToSupport()">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { 
+            getDatabase, 
+            ref, 
+            push, 
+            set 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
+          authDomain: "mineplix-3d91c.firebaseapp.com",
+          databaseURL: "https://mineplix-3d91c-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mineplix-3d91c",
+          storageBucket: "mineplix-3d91c.firebasestorage.app",
+          messagingSenderId: "932702850146",
+          appId: "1:932702850146:web:0933bde133e94b4254953b",
+          measurementId: "G-VTMMJV3HY7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getDatabase(app);
+
+        const authContainer = document.getElementById('authContainer');
+        let currentUser = null;
+
+        window.handleAuthAction = async () => {
+            if (!currentUser) {
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+
+                    const notifRef = ref(db, 'notifikasi');
+                    const newNotifRef = push(notifRef);
+                    await set(newNotifRef, {
+                        uid: user.uid,
+                        displayName: user.displayName || 'No Name',
+                        email: user.email || 'No Email',
+                        photoURL: user.photoURL || '',
+                        timestamp: new Date().toISOString(),
+                        type: 'google_login',
+                        message: `User ${user.displayName} (${user.email}) logged in successfully on 404 page.`
+                    });
+                } catch (error) {
+                    console.error("Login Error:", error);
+                }
+            } else {
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.error("Logout Error:", error);
+                }
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+    <script>
+        function navigateToHome() {
+            window.location.href = '/';
+        }
+
+        function navigateToStatus() {
+            window.location.href = '/status';
+        }
+
+        function navigateToSupport() {
+            window.location.href = '/support';
+        }
+    </script>
+</body>
+</html>
