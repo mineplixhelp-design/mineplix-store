@@ -23,18 +23,18 @@ app.get('/support', (req, res) => {
 });
 
 // 4. Layanan 1
-app.get('/layanan-1', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'layanan-1.html'));
+app.get('/layanan/frontend-design', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'frontend-design.html'));
 });
 
 // 5. Layanan 2
-app.get('/layanan-2', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'layanan-2.html'));
+app.get('/layanan/graphic-design', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'graphic-design.html'));
 });
 
 // 6. Layanan 3
-app.get('/layanan-3', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'layanan-3.html'));
+app.get('/layanan/maps-builder', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'maps-builder.html'));
 });
 
 // Menjalankan server lokal
