@@ -8,12 +8,13 @@
     
     <meta property="og:title" content="Mineplix - Status Pemesanan & Lacak Project">
     <meta property="og:description" content="Lacak status progress pengerjaan project Anda di Mineplix secara transparan.">
-    <meta property="og:image" content="../public/img/banner.png">
+    <meta property="og:image" content="/img/banner.png">
     <meta property="og:type" content="website">
 
-    <link rel="icon" href="../public/img/icon.png" type="image/png">
+    <link rel="icon" href="/img/icon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css?v=2">
 
     <style>
         :root {
@@ -639,7 +640,7 @@
 
     <nav class="navbar">
         <div class="logo" onclick="navigateToHome()">
-            <img src="../public/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
             MINEPLIX
         </div>
 
@@ -920,8 +921,8 @@
                         <div class="payment-action-box">
                             <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 4px;">Silakan Lakukan Pembayaran QRIS</h4>
                             <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Scan kode QRIS di bawah ini sesuai dengan nominal harga total pesanan Anda.</p>
-                            <img src="../public/img/qris.png" alt="QRIS Mineplix" class="qris-img-full">
-                            <a href="../public/img/qris.jpeg" download="QRIS-Mineplix.jpeg" class="download-qris-btn">
+                            <img src="/img/qris.png" alt="QRIS Mineplix" class="qris-img-full">
+                            <a href="/img/qris.jpeg" download="QRIS-Mineplix.jpeg" class="download-qris-btn">
                                 <i class="fa-solid fa-download"></i> Download QRIS
                             </a>
                             <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Setelah transfer, konfirmasikan bukti pembayaran ke Discord Ticket.</p>
@@ -991,15 +992,15 @@
         }
 
         window.navigateToHome = function() {
-            window.location.href = '../';
+            window.location.href = '/';
         }
 
         window.navigateToStatus = function() {
-            window.location.href = '../status';
+            window.location.href = '/status';
         }
 
         window.navigateToSupport = function() {
-            window.location.href = '../support';
+            window.location.href = '/support';
         }
     </script>
 </body>
