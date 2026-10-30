@@ -32,41 +32,11 @@ const db = getDatabase(app);
 const authContainer = document.getElementById('authContainer');
 let currentUser = null;
 
-window.handleAuthAction = async () => {
-    if (!currentUser) {
-        try {
-            const result = await signInWithPopup(auth, provider);
-            const user = result.user;
-            closeLoginModal();
-
-            const notifRef = ref(db, 'notifikasi');
-            const newNotifRef = push(notifRef);
-            await set(newNotifRef, {
-                uid: user.uid,
-                displayName: user.displayName || 'No Name',
-                email: user.email || 'No Email',
-                photoURL: user.photoURL || '',
-                timestamp: new Date().toISOString(),
-                type: 'google_login',
-                message: `User ${user.displayName} logged in.`
-            });
-        } catch (error) {
-            console.error("Login Error:", error);
-        }
-    } else {
-        try {
-            await signOut(auth);
-        } catch (error) {
-            console.error("Logout Error:", error);
-        }
-    }
-};
-
-window.handleAuthActionFromModal = async () => {
+async function executeGoogleLogin() {
     try {
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
-        closeLoginModal();
+        window.closeLoginModal();
 
         const notifRef = ref(db, 'notifikasi');
         const newNotifRef = push(notifRef);
@@ -82,46 +52,67 @@ window.handleAuthActionFromModal = async () => {
     } catch (error) {
         console.error("Login Error:", error);
     }
+}
+
+window.handleAuthAction = async () => {
+    if (!currentUser) {
+        await executeGoogleLogin();
+    } else {
+        try {
+            await signOut(auth);
+        } catch (error) {
+            console.error("Logout Error:", error);
+        }
+    }
+};
+
+window.handleAuthActionFromModal = async () => {
+    await executeGoogleLogin();
 };
 
 onAuthStateChanged(auth, (user) => {
     currentUser = user;
     if (user) {
         const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
-        authContainer.innerHTML = `
-            <div class="auth-bar" onclick="handleAuthAction()">
-                <div class="auth-icon-circle">${initial}</div>
-                <span>Logout</span>
-            </div>
-        `;
+        if (authContainer) {
+            authContainer.innerHTML = `
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle">${initial}</div>
+                    <span>Logout</span>
+                </div>
+            `;
+        }
     } else {
-        authContainer.innerHTML = `
-            <div class="auth-bar" onclick="handleAuthAction()">
-                <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
-                <span>Login</span>
-            </div>
-        `;
+        if (authContainer) {
+            authContainer.innerHTML = `
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            `;
+        }
     }
 });
 
-// Form Submission Handler Universal
 window.handleOrderSubmit = async function(event) {
     event.preventDefault();
-    clearAllErrors();
+    window.clearAllErrors();
 
-    const theme = document.getElementById('mapTheme').value.trim();
-    const desc = document.getElementById('mapDesc').value.trim();
+    const themeInput = document.getElementById('mapTheme');
+    const descInput = document.getElementById('mapDesc');
+    const theme = themeInput ? themeInput.value.trim() : '';
+    const desc = descInput ? descInput.value.trim() : '';
     let isValid = true;
     let firstInvalidInputId = null;
 
     if (!desc) {
-        showError('mapDesc', 'descError');
+        window.showError('mapDesc', 'descError');
         isValid = false;
         firstInvalidInputId = 'mapDesc';
     }
 
     if (!theme) {
-        showError('mapTheme', 'themeError');
+        window.showError('mapTheme', 'themeError');
         isValid = false;
         firstInvalidInputId = 'mapTheme';
     }
@@ -137,12 +128,13 @@ window.handleOrderSubmit = async function(event) {
 
     if (isValid) {
         if (!currentUser) {
-            openLoginModal();
+            window.openLoginModal();
             return;
         }
 
         try {
-            const totalPrice = document.getElementById('priceDisplay').innerText;
+            const priceDisplay = document.getElementById('priceDisplay');
+            const totalPrice = priceDisplay ? priceDisplay.innerText : '';
             const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
             const currentDate = new Date().toISOString();
 
@@ -157,7 +149,6 @@ window.handleOrderSubmit = async function(event) {
                 status: 'Pending'
             };
 
-            // Deteksi halaman berdasarkan elemen spesifik
             const mapTypeEl = document.getElementById('mapType');
             const variantCountEl = document.getElementById('variantCount');
             const pageComplexityEl = document.getElementById('pageComplexity');
@@ -183,12 +174,14 @@ window.handleOrderSubmit = async function(event) {
             const checkoutRef = ref(db, `account/data/checkout/${randomId}`);
             await set(checkoutRef, orderData);
 
-            document.getElementById('modalDisplayOrderId').innerText = randomId;
-            openSuccessModal();
+            const modalDisplayOrderId = document.getElementById('modalDisplayOrderId');
+            if (modalDisplayOrderId) modalDisplayOrderId.innerText = randomId;
+            window.openSuccessModal();
 
-            document.getElementById('orderForm').reset();
-            if (typeof calculatePrice === 'function') calculatePrice();
-            if (typeof calculateMapPrice === 'function') calculateMapPrice();
+            const orderForm = document.getElementById('orderForm');
+            if (orderForm) orderForm.reset();
+            if (typeof window.calculatePrice === 'function') window.calculatePrice();
+            if (typeof window.calculateMapPrice === 'function') window.calculateMapPrice();
         } catch (error) {
             console.error("Gagal menyimpan pesanan:", error);
             alert("Terjadi kesalahan saat menyimpan pesanan. Silakan coba lagi.");
@@ -196,7 +189,6 @@ window.handleOrderSubmit = async function(event) {
     }
 };
 
-// UI Modals & Navigation Helpers
 window.openLoginModal = function() {
     const modal = document.getElementById('loginModalOverlay');
     if (modal) modal.classList.add('show');
@@ -218,7 +210,8 @@ window.closeSuccessModal = function() {
 }
 
 window.copyOrderIdToClipboard = function() {
-    const orderIdText = document.getElementById('modalDisplayOrderId').innerText;
+    const modalDisplayOrderId = document.getElementById('modalDisplayOrderId');
+    const orderIdText = modalDisplayOrderId ? modalDisplayOrderId.innerText : '';
     navigator.clipboard.writeText(orderIdText).then(() => {
         const btn = document.querySelector('.copy-id-btn');
         if (btn) {
@@ -236,14 +229,13 @@ window.navigateToHome = function() { window.location.href = '../'; }
 window.navigateToStatus = function() { window.location.href = '../status'; }
 window.navigateToSupport = function() { window.location.href = '../support'; }
 
-// Dropdown Toggles
 window.toggleDropdownMenu = function(e) {
     e.stopPropagation();
     const menu = document.getElementById('dropdownMenuList');
     const chevron = document.getElementById('dropdownChevron');
-    const isShown = menu.classList.contains('show');
-    closeAllDropdowns();
-    closeAllTooltips();
+    const isShown = menu ? menu.classList.contains('show') : false;
+    window.closeAllDropdowns();
+    window.closeAllTooltips();
     if (!isShown && menu) {
         menu.classList.add('show');
         if (chevron) chevron.style.transform = 'rotate(180deg)';
@@ -255,16 +247,16 @@ window.selectMapOption = function(value, text) {
     const mapText = document.getElementById('selectedMapText');
     if (inputType) inputType.value = value;
     if (mapText) mapText.innerText = text;
-    closeAllDropdowns();
+    window.closeAllDropdowns();
 }
 
 window.toggleVariantDropdownMenu = function(e) {
     e.stopPropagation();
     const menu = document.getElementById('variantDropdownMenuList');
     const chevron = document.getElementById('variantDropdownChevron');
-    const isShown = menu.classList.contains('show');
-    closeAllDropdowns();
-    closeAllTooltips();
+    const isShown = menu ? menu.classList.contains('show') : false;
+    window.closeAllDropdowns();
+    window.closeAllTooltips();
     if (!isShown && menu) {
         menu.classList.add('show');
         if (chevron) chevron.style.transform = 'rotate(180deg)';
@@ -276,17 +268,17 @@ window.selectVariantOption = function(value, text) {
     const selectedVariantText = document.getElementById('selectedVariantText');
     if (variantCount) variantCount.value = value;
     if (selectedVariantText) selectedVariantText.innerText = text;
-    closeAllDropdowns();
-    calculatePrice();
+    window.closeAllDropdowns();
+    window.calculatePrice();
 }
 
 window.togglePageDropdownMenu = function(e) {
     e.stopPropagation();
     const menu = document.getElementById('pageDropdownMenuList');
     const chevron = document.getElementById('pageDropdownChevron');
-    const isShown = menu.classList.contains('show');
-    closeAllDropdowns();
-    closeAllTooltips();
+    const isShown = menu ? menu.classList.contains('show') : false;
+    window.closeAllDropdowns();
+    window.closeAllTooltips();
     if (!isShown && menu) {
         menu.classList.add('show');
         if (chevron) chevron.style.transform = 'rotate(180deg)';
@@ -298,11 +290,10 @@ window.selectPageOption = function(value, text) {
     const selectedPageText = document.getElementById('selectedPageText');
     if (pageComplexity) pageComplexity.value = value;
     if (selectedPageText) selectedPageText.innerText = text;
-    closeAllDropdowns();
-    calculatePrice();
+    window.closeAllDropdowns();
+    window.calculatePrice();
 }
 
-// Kalkulator Harga & Slider
 window.calculatePrice = function() {
     const countEl = document.getElementById('variantCount');
     const complexityEl = document.getElementById('pageComplexity');
@@ -335,7 +326,7 @@ window.updateSliderFill = function(slider) {
 window.calculateMapPrice = function() {
     const slider = document.getElementById('mapSize');
     if (!slider) return;
-    updateSliderFill(slider);
+    window.updateSliderFill(slider);
 
     const size = parseInt(slider.value, 10);
     const sizeVal = document.getElementById('sizeVal');
@@ -356,13 +347,12 @@ window.calculateMapPrice = function() {
     if (priceDisplay) priceDisplay.innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
 }
 
-// Tooltips & Errors
 window.toggleTooltip = function(e, tooltipId) {
     e.stopPropagation();
     const tooltip = document.getElementById(tooltipId);
     const isShown = tooltip ? tooltip.classList.contains('show') : false;
-    closeAllTooltips();
-    closeAllDropdowns();
+    window.closeAllTooltips();
+    window.closeAllDropdowns();
     if (!isShown && tooltip) tooltip.classList.add('show');
 }
 
@@ -397,16 +387,16 @@ window.clearError = function(inputId, errorId) {
 }
 
 window.clearAllErrors = function() {
-    clearError('mapTheme', 'themeError');
-    clearError('mapDesc', 'descError');
+    window.clearError('mapTheme', 'themeError');
+    window.clearError('mapDesc', 'descError');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    if (typeof calculatePrice === 'function') calculatePrice();
-    if (typeof calculateMapPrice === 'function') calculateMapPrice();
+    if (typeof window.calculatePrice === 'function') window.calculatePrice();
+    if (typeof window.calculateMapPrice === 'function') window.calculateMapPrice();
 });
 
 window.addEventListener('click', function(e) {
-    closeAllDropdowns();
-    closeAllTooltips();
+    window.closeAllDropdowns();
+    window.closeAllTooltips();
 });
