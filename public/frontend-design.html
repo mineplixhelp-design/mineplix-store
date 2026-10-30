@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix - Frontend Web Design</title>
+    <meta name="description" content="Layanan frontend web design profesional untuk server, store, atau landing page Anda.">
+    
+    <meta property="og:title" content="Mineplix - Frontend Web Design">
+    <meta property="og:description" content="Layanan frontend web design profesional untuk server Anda.">
+    <meta property="og:image" content="../public/img/banner.png">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mineplix - Frontend Web Design">
+    <meta name="twitter:description" content="Layanan frontend web design profesional untuk server Anda.">
+    <meta name="twitter:image" content="../public/img/banner.png">
+
+    <link rel="icon" href="../public/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #16131a;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --card-bg: #7c3aed;
+            --purple-primary: #7c3aed;
+            --star-green: #00b67a;
+            --discord-bg: #5865f2;
+            --discord-bg-hover: #4752c4;
+            --translucent-white-85: rgba(255, 255, 255, 0.85);
+            --translucent-white-90: rgba(255, 255, 255, 0.9);
+            --translucent-white-20: rgba(255, 255, 255, 0.2);
+            --shadow-black-15: rgba(0, 0, 0, 0.15);
+            --nav-height: 80px;
+            --nav-padding-x: 48px;
+        }
+
+        ::selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+        ::-moz-selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--nav-padding-x);
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-dark);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-link-item {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.25s ease;
+        }
+
+        .nav-link-item.active {
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
+        .nav-link-item:hover {
+            color: var(--text-white);
+        }
+
+        .nav-right-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2b2633;
+            color: var(--text-white);
+            padding: 8px 18px 8px 10px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .auth-bar:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .auth-icon-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        .hero {
+            background-color: var(--bg-dark);
+            padding: 150px 24px 60px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-bottom: 32px;
+        }
+
+        .selected-highlight {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            padding: 2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+
+        .selected-highlight::before,
+        .selected-highlight::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-white);
+            border: 2px solid var(--purple-primary);
+            border-radius: 50%;
+        }
+
+        .selected-highlight::before {
+            top: -4px;
+            left: -4px;
+        }
+
+        .selected-highlight::after {
+            bottom: -4px;
+            right: -4px;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        .order-form-wrapper {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .form-dual-containers {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 24px;
+            align-items: start;
+            text-align: left;
+        }
+
+        .form-left-container, .form-right-container {
+            background-color: #211c29;
+            border-radius: 32px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .form-right-container {
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: var(--text-white);
+        }
+
+        .form-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .form-header-center {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .form-label-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .form-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tooltip-trigger-btn {
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #2b2633;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .tooltip-trigger-btn:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .custom-dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-toggle-bar {
+            width: 100%;
+            padding: 16px 20px;
+            background-color: #16131a;
+            border-radius: 20px;
+            color: var(--text-white);
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-toggle-bar:hover {
+            background-color: #1b1622;
+        }
+
+        .dropdown-toggle-bar i {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu-list {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background-color: #2b2633;
+            border-radius: 20px;
+            overflow: hidden;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px) scale(0.98);
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s ease;
+            pointer-events: none;
+        }
+
+        .dropdown-menu-list.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .dropdown-item-option {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-white);
+            background-color: #2b2633;
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-item-option:hover {
+            background-color: #383144;
+        }
+
+        .floating-tooltip {
+            position: absolute;
+            right: 0;
+            top: 42px;
+            background-color: #2b2633;
+            color: var(--text-white);
+            padding: 14px 18px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.95);
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s ease;
+            max-width: 280px;
+            line-height: 1.5;
+            text-align: left;
+            pointer-events: none;
+        }
+
+        .floating-tooltip.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .floating-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            right: 14px;
+            width: 10px;
+            height: 10px;
+            background-color: #2b2633;
+            transform: rotate(45deg);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .error-tooltip {
+            position: absolute;
+            bottom: -36px;
+            left: 12px;
+            background-color: #ef4444;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 250;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-6px) scale(0.95);
+            transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s ease;
+            pointer-events: none;
+        }
+
+        .error-tooltip.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .error-tooltip::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 16px;
+            width: 8px;
+            height: 8px;
+            background-color: #ef4444;
+            transform: rotate(45deg);
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background-color: #16131a;
+            border: none;
+            border-radius: 20px;
+            color: var(--text-white);
+            font-size: 1rem;
+            outline: none;
+            transition: background-color 0.25s ease;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .summary-card {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .price-summary-box {
+            background-color: #16131a;
+            padding: 24px 20px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-row-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .price-row-item.total {
+            border-top: 1px solid #2b2633;
+            padding-top: 12px;
+            margin-top: 4px;
+            font-size: 1.1rem;
+            color: var(--text-white);
+            font-weight: 800;
+        }
+
+        .price-row-item.total span:last-child {
+            font-size: 1.4rem;
+            color: var(--text-white);
+        }
+
+        .price-info-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .submit-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        /* Custom Modal Styling */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .custom-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal-box {
+            background-color: #211c29;
+            border-radius: 28px;
+            padding: 36px;
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-modal-overlay.show .custom-modal-box {
+            transform: scale(1);
+        }
+
+        .custom-modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 10px;
+            margin-top: 10px;
+        }
+
+        .custom-modal-desc {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .custom-modal-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background-color: #ffffff;
+            color: #16131a;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .modal-google-btn:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .modal-google-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close-btn {
+            background-color: #2b2633;
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            transform: scale(0.98);
+            background-color: #383144;
+        }
+
+        .modal-action-primary-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .modal-action-primary-btn:hover {
+            transform: scale(0.98);
+            opacity: 0.9;
+        }
+
+        .order-id-highlight-box {
+            background-color: #16131a;
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 12px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .order-id-text {
+            font-family: monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: 1px;
+            word-break: break-all;
+        }
+
+        .copy-id-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: opacity 0.2s ease;
+        }
+
+        .copy-id-btn:hover {
+            opacity: 0.85;
+        }
+
+        .footer-wrapper {
+            background-color: var(--bg-dark);
+            margin-top: 0;
+            width: 100%;
+        }
+
+        .trustpilot-box {
+            background-color: var(--bg-dark);
+            text-align: center;
+            padding: 40px 24px 20px 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .trustpilot-box:hover {
+            transform: scale(0.95);
+        }
+
+        .trustpilot-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .trustpilot-stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .star-badge {
+            width: 36px;
+            height: 36px;
+            background-color: var(--star-green);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 1rem;
+        }
+
+        .footer-banner {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            text-align: center;
+            padding: 80px 24px 60px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-banner-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .footer-banner-desc {
+            font-size: 1.05rem;
+            color: var(--translucent-white-85);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .footer-cta-btn {
+            background-color: var(--text-white);
+            color: var(--purple-primary);
+            padding: 16px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+        }
+
+        .footer-cta-btn:hover {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 900px;
+            height: 1px;
+            background-color: var(--translucent-white-20);
+            margin: 60px auto 30px auto;
+        }
+
+        .footer-bottom-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: var(--translucent-white-90);
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .form-dual-containers {
+                grid-template-columns: 1fr;
+            }
+
+            .form-right-container {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 24px; }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 20px 40px 20px;
+            }
+
+            .hero-title {
+                font-size: 2.1rem;
+                letter-spacing: -1px;
+                margin-bottom: 20px;
+            }
+
+            .hero-description {
+                font-size: 0.95rem;
+                margin-bottom: 32px;
+            }
+
+            .form-left-container, .form-right-container {
+                padding: 24px 18px;
+                border-radius: 24px;
+            }
+
+            .form-title {
+                font-size: 1.35rem;
+            }
+
+            .form-subtitle {
+                font-size: 0.88rem;
+            }
+
+            .form-label {
+                font-size: 0.92rem;
+            }
+
+            .dropdown-toggle-bar, .form-input, .form-textarea {
+                font-size: 0.92rem;
+                padding: 14px 16px;
+            }
+
+            .footer-banner-title {
+                font-size: 1.8rem;
+                letter-spacing: -0.8px;
+            }
+
+            .footer-banner-desc {
+                font-size: 0.95rem;
+            }
+
+            .footer-banner {
+                padding-bottom: 140px;
+            }
+
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                height: 60px;
+                background-color: rgba(255, 255, 255, 0.12);
+                border: none;
+                border-radius: 35px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: rgba(255, 255, 255, 0.6);
+                text-decoration: none;
+                font-size: 0.75rem;
+                font-weight: 600;
+                gap: 3px;
+                flex: 1;
+                height: 100%;
+                transition: color 0.2s ease, transform 0.2s ease;
+            }
+
+            .bottom-nav-item:hover {
+                transform: scale(0.90);
+                color: var(--text-white);
+            }
+
+            .bottom-nav-item.active {
+                color: var(--text-white);
+                transform: scale(1);
+            }
+
+            .bottom-nav-item i {
+                font-size: 1.15rem;
+                transition: transform 0.2s ease;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="navigateToHome()">
+            <img src="../../public/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            MINEPLIX
+        </div>
+
+        <ul class="nav-links" id="desktopNavLinks">
+            <li><div class="nav-link-item" id="desktopHome" onclick="navigateToHome()">Home</div></li>
+            <li><div class="nav-link-item" id="desktopStatus" onclick="navigateToStatus()">Status Orderan</div></li>
+            <li><div class="nav-link-item" id="desktopSupport" onclick="navigateToSupport()">About & Support</div></li>
+        </ul>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Custom Login Modal Alert -->
+    <div class="custom-modal-overlay" id="loginModalOverlay">
+        <div class="custom-modal-box">
+            <h3 class="custom-modal-title">Autentikasi Diperlukan</h3>
+            <p class="custom-modal-desc">Silakan login terlebih dahulu menggunakan akun Google Anda untuk melanjutkan pemesanan frontend web design.</p>
+            <div class="custom-modal-actions">
+                <button type="button" class="modal-google-btn" onclick="handleAuthActionFromModal()">
+                    <div class="modal-google-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                        </svg>
+                    </div>
+                    <span>Login dengan Google</span>
+                </button>
+                <button type="button" class="modal-close-btn" onclick="closeLoginModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Success Order Modal -->
+    <div class="custom-modal-overlay" id="successModalOverlay">
+        <div class="custom-modal-box">
+            <h3 class="custom-modal-title">Pesanan Sukses!</h3>
+            <p class="custom-modal-desc">Silakan salin ID pesanan Anda di bawah ini, lalu masukkan ke dalam bar ID di status pemesanan untuk melacak progress frontend web Anda.</p>
+            
+            <div class="order-id-highlight-box">
+                <span class="order-id-text" id="modalDisplayOrderId">ORD-XXXXXXX</span>
+                <button type="button" class="copy-id-btn" onclick="copyOrderIdToClipboard()">Salin ID</button>
+            </div>
+
+            <div class="custom-modal-actions">
+                <button type="button" class="modal-action-primary-btn" onclick="navigateToStatus()">Cek Status Pemesanan</button>
+                <button type="button" class="modal-close-btn" onclick="closeSuccessModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <h1 class="hero-title">
+            Frontend Web Design <br>
+            Responsive & <span class="selected-highlight">Interactive</span>
+        </h1>
+
+        <p class="hero-description">
+            Wujudkan tampilan website server, store, atau landing page yang bersih, interaktif, responsif, dan memukau pengunjung Anda.
+        </p>
+
+        <div class="order-form-wrapper">
+            <form id="orderForm" onsubmit="handleOrderSubmit(event)" novalidate>
+                <div class="form-dual-containers">
+                    <div class="form-left-container">
+                        <div class="form-header-center">
+                            <h2 class="form-title">Konfigurasi Website</h2>
+                            <p class="form-subtitle">Atur detail spesifikasi frontend yang ingin Anda bangun.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrapper">
+                                <label class="form-label" style="margin-bottom: 0;">Jenis Web Project</label>
+                                <button type="button" class="tooltip-trigger-btn" onclick="event.stopPropagation(); toggleTooltip(event, 'webTooltip')">
+                                    <i class="fa-solid fa-question"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="custom-dropdown-container" style="margin-top: 10px;">
+                                <div class="dropdown-toggle-bar" id="dropdownToggle" onclick="toggleDropdownMenu(event)">
+                                    <span id="selectedMapText">Server Landing Page</span>
+                                    <i class="fa-solid fa-chevron-down" id="dropdownChevron"></i>
+                                </div>
+                                <div class="dropdown-menu-list" id="dropdownMenuList">
+                                    <div class="dropdown-item-option" onclick="selectMapOption('landing', 'Server Landing Page')">Server Landing Page</div>
+                                    <div class="dropdown-item-option" onclick="selectMapOption('store', 'Tebex / Webstore Theme')">Tebex / Webstore Theme</div>
+                                    <div class="dropdown-item-option" onclick="selectMapOption('dashboard', 'Player Panel / Dashboard')">Player Panel / Dashboard</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="mapType" value="landing">
+
+                            <div class="floating-tooltip" id="webTooltip">
+                                Pilih jenis website sesuai kebutuhan. Landing page untuk promosi server, Webstore untuk toko rank, atau Dashboard panel pemain.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrapper">
+                                <label class="form-label" style="margin-bottom: 0;">Kompleksitas Halaman</label>
+                                <button type="button" class="tooltip-trigger-btn" onclick="event.stopPropagation(); toggleTooltip(event, 'pageTooltip')">
+                                    <i class="fa-solid fa-question"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="custom-dropdown-container" style="margin-top: 10px;">
+                                <div class="dropdown-toggle-bar" id="pageDropdownToggle" onclick="togglePageDropdownMenu(event)">
+                                    <span id="selectedPageText">Single Page (Landing Saja)</span>
+                                    <i class="fa-solid fa-chevron-down" id="pageDropdownChevron"></i>
+                                </div>
+                                <div class="dropdown-menu-list" id="pageDropdownMenuList">
+                                    <div class="dropdown-item-option" onclick="selectPageOption('single', 'Single Page (Landing Saja)')">Single Page (Landing Saja)</div>
+                                    <div class="dropdown-item-option" onclick="selectPageOption('multi', 'Multi-Page (Home, Store, Rules)')">Multi-Page (Home, Store, Rules)</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="pageComplexity" value="single">
+
+                            <div class="floating-tooltip" id="pageTooltip">
+                                Single page cocok untuk halaman ringkas. Multi-page menyediakan beberapa halaman terpisah.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Gaya Desain / Referensi Warna</label>
+                            <input type="text" class="form-input" id="mapTheme" placeholder="Contoh: Dark Neon Purple, Minimalist Clean, Gaming Esports" oninput="clearError('mapTheme', 'themeError')">
+                            <div class="error-tooltip" id="themeError">Mohon isi gaya atau referensi desain web.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Deskripsi & Fitur Tambahan</label>
+                            <textarea class="form-textarea" id="mapDesc" placeholder="Jelaskan fitur khusus seperti animasi interaktif, integrasi API player count, atau tautan sosmed..." oninput="clearError('mapDesc', 'descError')"></textarea>
+                            <div class="error-tooltip" id="descError">Mohon isi deskripsi kebutuhan web Anda.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-right-container">
+                        <div class="summary-card">
+                            <div class="form-header-center">
+                                <h2 class="form-title">Ringkasan Pesanan</h2>
+                                <p class="form-subtitle">Rincian estimasi biaya berdasarkan frontend web.</p>
+                            </div>
+
+                            <div class="price-summary-box">
+                                <div class="price-row-item">
+                                    <span>Base Development</span>
+                                    <span>Rp 25.000</span>
+                                </div>
+                                <div class="price-row-item">
+                                    <span>Kompleksitas</span>
+                                    <span id="sizePriceAdd">Rp 0</span>
+                                </div>
+                                <div class="price-row-item total">
+                                    <span>Estimasi Total</span>
+                                    <span id="priceDisplay">Rp 25.000</span>
+                                </div>
+                            </div>
+
+                            <p class="price-info-note">*Harga akhir dapat menyesuaikan kembali tergantung kompleksitas animasi kustom dan integrasi backend khusus.</p>
+                        </div>
+
+                        <button type="submit" class="submit-btn" style="margin-top: 24px;">Pesan Frontend Web Sekarang</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper" id="contact">
+        <div class="trustpilot-box" onclick="window.open('https://www.trustpilot.com/review/mineplix.biz.id', '_blank')">
+            <p class="trustpilot-title">See trusted in Trustpilot</p>
+            <div class="trustpilot-stars">
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <h2 class="footer-banner-title">Mulai Wujudkan Server Impianmu Hari Ini</h2>
+            <p class="footer-banner-desc">
+                Diskusikan kebutuhan frontend web design Anda bersama tim Mineplix.
+            </p>
+            <a href="mailto:mineplixhelp@gmail.com" class="footer-cta-btn">
+                Hubungi Kami Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom-info">
+                <p class="footer-copy">&copy; 2026 Mineplix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-bottom-nav">
+        <div class="bottom-nav-item" id="mobHome" onclick="navigateToHome()">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" id="mobStatus" onclick="navigateToStatus()">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>Status</span>
+        </div>
+        <div class="bottom-nav-item" id="mobSupport" onclick="navigateToSupport()">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { 
+            getDatabase, 
+            ref, 
+            push, 
+            set 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
+          authDomain: "mineplix-3d91c.firebaseapp.com",
+          databaseURL: "https://mineplix-3d91c-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mineplix-3d91c",
+          storageBucket: "mineplix-3d91c.firebasestorage.app",
+          messagingSenderId: "932702850146",
+          appId: "1:932702850146:web:0933bde133e94b4254953b",
+          measurementId: "G-VTMMJV3HY7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getDatabase(app);
+
+        const authContainer = document.getElementById('authContainer');
+        let currentUser = null;
+
+        window.handleAuthAction = async () => {
+            if (!currentUser) {
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+                    closeLoginModal();
+
+                    const notifRef = ref(db, 'notifikasi');
+                    const newNotifRef = push(notifRef);
+                    await set(newNotifRef, {
+                        uid: user.uid,
+                        displayName: user.displayName || 'No Name',
+                        email: user.email || 'No Email',
+                        photoURL: user.photoURL || '',
+                        timestamp: new Date().toISOString(),
+                        type: 'google_login',
+                        message: `User ${user.displayName} logged in on Frontend Design page.`
+                    });
+                } catch (error) {
+                    console.error("Login Error:", error);
+                }
+            } else {
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.error("Logout Error:", error);
+                }
+            }
+        };
+
+        window.handleAuthActionFromModal = async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                closeLoginModal();
+
+                const notifRef = ref(db, 'notifikasi');
+                const newNotifRef = push(notifRef);
+                await set(newNotifRef, {
+                    uid: user.uid,
+                    displayName: user.displayName || 'No Name',
+                    email: user.email || 'No Email',
+                    photoURL: user.photoURL || '',
+                    timestamp: new Date().toISOString(),
+                    type: 'google_login',
+                    message: `User ${user.displayName} logged in on Frontend Design page.`
+                });
+            } catch (error) {
+                console.error("Login Error:", error);
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+            }
+        });
+
+        window.handleOrderSubmit = async function(event) {
+            event.preventDefault();
+            clearAllErrors();
+
+            const theme = document.getElementById('mapTheme').value.trim();
+            const desc = document.getElementById('mapDesc').value.trim();
+            let isValid = true;
+            let firstInvalidInputId = null;
+
+            if (!desc) {
+                showError('mapDesc', 'descError');
+                isValid = false;
+                firstInvalidInputId = 'mapDesc';
+            }
+
+            if (!theme) {
+                showError('mapTheme', 'themeError');
+                isValid = false;
+                firstInvalidInputId = 'mapTheme';
+            }
+
+            if (!isValid && firstInvalidInputId) {
+                const el = document.getElementById(firstInvalidInputId);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.focus();
+                }
+                return;
+            }
+
+            if (isValid) {
+                if (!currentUser) {
+                    openLoginModal();
+                    return;
+                }
+
+                try {
+                    const webType = document.getElementById('mapType').value;
+                    const pageComplexity = document.getElementById('pageComplexity').value;
+                    const totalPrice = document.getElementById('priceDisplay').innerText;
+                    
+                    const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+                    const currentDate = new Date().toISOString();
+
+                    const orderData = {
+                        orderId: randomId,
+                        serviceCategory: 'Frontend Web Design',
+                        uid: currentUser.uid,
+                        customerName: currentUser.displayName || 'Anonymous',
+                        customerEmail: currentUser.email || 'No Email',
+                        webType: webType,
+                        pageComplexity: pageComplexity,
+                        designTheme: theme,
+                        projectDescription: desc,
+                        totalPrice: totalPrice,
+                        orderDate: currentDate,
+                        status: 'Pending'
+                    };
+
+                    const checkoutRef = ref(db, `account/data/checkout/${randomId}`);
+                    await set(checkoutRef, orderData);
+
+                    document.getElementById('modalDisplayOrderId').innerText = randomId;
+                    openSuccessModal();
+
+                    document.getElementById('orderForm').reset();
+                    calculatePrice();
+                } catch (error) {
+                    console.error("Gagal menyimpan pesanan:", error);
+                    alert("Terjadi kesalahan saat menyimpan pesanan. Silakan coba lagi.");
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function openLoginModal() {
+            const modal = document.getElementById('loginModalOverlay');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModalOverlay');
+            if (modal) modal.classList.remove('show');
+        }
+
+        function openSuccessModal() {
+            const modal = document.getElementById('successModalOverlay');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModalOverlay');
+            if (modal) modal.classList.remove('show');
+        }
+
+        function copyOrderIdToClipboard() {
+            const orderIdText = document.getElementById('modalDisplayOrderId').innerText;
+            navigator.clipboard.writeText(orderIdText).then(() => {
+                const btn = document.querySelector('.copy-id-btn');
+                btn.innerText = 'Berhasil Disalin!';
+                setTimeout(() => {
+                    btn.innerText = 'Salin ID';
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin text: ', err);
+            });
+        }
+
+        function navigateToHome() {
+            window.location.href = '../';
+        }
+
+        function navigateToStatus() {
+            window.location.href = '../status';
+        }
+
+        function navigateToSupport() {
+            window.location.href = '../support';
+        }
+
+        function toggleDropdownMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('dropdownMenuList');
+            const chevron = document.getElementById('dropdownChevron');
+            const isShown = menu.classList.contains('show');
+            
+            closeAllDropdowns();
+            closeAllTooltips();
+
+            if (!isShown) {
+                menu.classList.add('show');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectMapOption(value, text) {
+            document.getElementById('mapType').value = value;
+            document.getElementById('selectedMapText').innerText = text;
+            closeAllDropdowns();
+        }
+
+        function togglePageDropdownMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('pageDropdownMenuList');
+            const chevron = document.getElementById('pageDropdownChevron');
+            const isShown = menu.classList.contains('show');
+            
+            closeAllDropdowns();
+            closeAllTooltips();
+
+            if (!isShown) {
+                menu.classList.add('show');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectPageOption(value, text) {
+            document.getElementById('pageComplexity').value = value;
+            document.getElementById('selectedPageText').innerText = text;
+            closeAllDropdowns();
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const complexity = document.getElementById('pageComplexity').value;
+            const basePrice = 25000;
+            let addPrice = 0;
+
+            if (complexity === 'multi') {
+                addPrice = 15000;
+                document.getElementById('sizePriceAdd').innerText = 'Rp 15.000';
+            } else {
+                document.getElementById('sizePriceAdd').innerText = 'Rp 0';
+            }
+
+            const totalPrice = basePrice + addPrice;
+            document.getElementById('priceDisplay').innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
+        }
+
+        function toggleTooltip(e, tooltipId) {
+            e.stopPropagation();
+            const tooltip = document.getElementById(tooltipId);
+            const isShown = tooltip.classList.contains('show');
+
+            closeAllTooltips();
+            closeAllDropdowns();
+
+            if (!isShown) {
+                tooltip.classList.add('show');
+            }
+        }
+
+        function closeAllDropdowns() {
+            const menu = document.getElementById('dropdownMenuList');
+            const chevron = document.getElementById('dropdownChevron');
+            const pageMenu = document.getElementById('pageDropdownMenuList');
+            const pageChevron = document.getElementById('pageDropdownChevron');
+            if (menu) menu.classList.remove('show');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+            if (pageMenu) pageMenu.classList.remove('show');
+            if (pageChevron) pageChevron.style.transform = 'rotate(0deg)';
+        }
+
+        function closeAllTooltips() {
+            const tooltips = document.querySelectorAll('.floating-tooltip');
+            tooltips.forEach(t => t.classList.remove('show'));
+        }
+
+        function showError(inputId, errorId) {
+            const error = document.getElementById(errorId);
+            const input = document.getElementById(inputId);
+            if (error) error.classList.add('show');
+            if (input) {
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                input.focus();
+            }
+        }
+
+        function clearError(inputId, errorId) {
+            const error = document.getElementById(errorId);
+            if (error) error.classList.remove('show');
+        }
+
+        function clearAllErrors() {
+            clearError('mapTheme', 'themeError');
+            clearError('mapDesc', 'descError');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            calculatePrice();
+        });
+
+        window.addEventListener('click', function(e) {
+            closeAllDropdowns();
+            closeAllTooltips();
+        });
+    </script>
+</body>
+</html>
