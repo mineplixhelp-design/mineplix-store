@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix - About & Support | Pusat Bantuan</title>
+    <meta name="description" content="Pusat bantuan dan dukungan resmi Mineplix. Dapatkan informasi seputar layanan web design, graphic design, dan custom map Minecraft.">
+    
+    <meta property="og:title" content="Mineplix - About & Support | Pusat Bantuan">
+    <meta property="og:description" content="Pusat bantuan dan dukungan resmi Mineplix untuk project server Minecraft dan web design Anda.">
+    <meta property="og:image" content="../public/img/banner.png">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mineplix - About & Support | Pusat Bantuan">
+    <meta name="twitter:description" content="Pusat bantuan dan dukungan resmi Mineplix.">
+    <meta name="twitter:image" content="../public/img/banner.png">
+
+    <link rel="icon" href="../public/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #16131a;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --card-bg: #7c3aed;
+            --purple-primary: #7c3aed;
+            --border-faq: #3f3f46;
+            --star-green: #00b67a;
+            --discord-bg: #5865f2;
+            --discord-bg-hover: #4752c4;
+            --translucent-white-85: rgba(255, 255, 255, 0.85);
+            --translucent-white-90: rgba(255, 255, 255, 0.9);
+            --translucent-white-20: rgba(255, 255, 255, 0.2);
+            --shadow-black-15: rgba(0, 0, 0, 0.15);
+            --nav-height: 80px;
+            --nav-padding-x: 48px;
+        }
+
+        ::selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+        ::-moz-selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--nav-padding-x);
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-dark);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-link-item {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.25s ease;
+        }
+
+        .nav-link-item.active {
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
+        .nav-link-item:hover {
+            color: var(--text-white);
+        }
+
+        .nav-right-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2b2633;
+            color: var(--text-white);
+            padding: 8px 18px 8px 10px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .auth-bar:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .auth-icon-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        .hero {
+            background-color: var(--bg-dark);
+            padding: 150px 24px 60px 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-bottom: 32px;
+        }
+
+        .selected-highlight {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            padding: 2px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            position: relative;
+        }
+
+        .selected-highlight::before,
+        .selected-highlight::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-white);
+            border: 2px solid var(--purple-primary);
+            border-radius: 50%;
+        }
+
+        .selected-highlight::before {
+            top: -4px;
+            left: -4px;
+        }
+
+        .selected-highlight::after {
+            bottom: -4px;
+            right: -4px;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 48px;
+            line-height: 1.6;
+        }
+
+        .discord-bar {
+            background-color: var(--card-bg);
+            color: var(--text-white);
+            padding: 14px 28px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-bottom: 30px;
+        }
+
+        .discord-bar:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .discord-icon {
+            font-size: 1.2rem;
+        }
+
+        .faq-section {
+            background-color: var(--bg-dark);
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px 40px 24px;
+            text-align: left;
+        }
+
+        .faq-header-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .faq-item {
+            background-color: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border-faq);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-white);
+            user-select: none;
+        }
+
+        .faq-icon {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: transform 0.3s ease, color 0.3s ease;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+            padding: 0;
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 0 24px 0;
+        }
+
+        .footer-wrapper {
+            background-color: var(--bg-dark);
+            margin-top: 0;
+            width: 100%;
+        }
+
+        .trustpilot-box {
+            background-color: var(--bg-dark);
+            text-align: center;
+            padding: 40px 24px 20px 24px;
+            transition: transform 0.2s ease;
+        }
+
+        .trustpilot-box:hover {
+            transform: scale(0.95);
+        }
+
+        .trustpilot-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .trustpilot-stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .star-badge {
+            width: 36px;
+            height: 36px;
+            background-color: var(--star-green);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 1rem;
+        }
+
+        .footer-banner {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            text-align: center;
+            padding: 80px 24px 60px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-banner-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.2;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+
+        .footer-banner-desc {
+            font-size: 1.05rem;
+            color: var(--translucent-white-85);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .footer-cta-btn {
+            background-color: var(--text-white);
+            color: var(--purple-primary);
+            padding: 16px 36px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+        }
+
+        .footer-cta-btn:hover {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-divider {
+            width: 100%;
+            max-width: 900px;
+            height: 1px;
+            background-color: var(--translucent-white-20);
+            margin: 60px auto 30px auto;
+        }
+
+        .footer-bottom-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: var(--translucent-white-90);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 24px; }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                letter-spacing: -1.2px;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .faq-header-title { font-size: 1.8rem; }
+            .faq-question { font-size: 1rem; }
+
+            .footer-banner-title {
+                font-size: 2.1rem;
+                letter-spacing: -1px;
+            }
+
+            .footer-banner {
+                padding-bottom: 140px;
+            }
+
+            .mobile-bottom-nav {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                height: 60px;
+                background-color: rgba(255, 255, 255, 0.12);
+                border: none;
+                border-radius: 35px;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                z-index: 1000;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .bottom-nav-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                color: rgba(255, 255, 255, 0.6);
+                text-decoration: none;
+                font-size: 0.75rem;
+                font-weight: 600;
+                gap: 3px;
+                flex: 1;
+                height: 100%;
+                transition: color 0.2s ease, transform 0.2s ease;
+            }
+
+            .bottom-nav-item:hover {
+                transform: scale(0.90);
+                color: var(--text-white);
+            }
+
+            .bottom-nav-item.active {
+                color: var(--text-white);
+                transform: scale(1);
+            }
+
+            .bottom-nav-item i {
+                font-size: 1.15rem;
+                transition: transform 0.2s ease;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="navigateToHome()">
+            <img src="../public/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            MINEPLIX
+        </div>
+
+        <ul class="nav-links" id="desktopNavLinks">
+            <li><div class="nav-link-item" id="desktopHome" onclick="navigateToHome()">Home</div></li>
+            <li><div class="nav-link-item" id="desktopStatus" onclick="navigateToStatus()">Status Orderan</div></li>
+            <li><div class="nav-link-item active" id="desktopSupport" onclick="navigateToSupport()">About & Support</div></li>
+        </ul>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="support-hero">
+        <h1 class="hero-title">
+            Pusat Bantuan & <br>
+            <span class="selected-highlight">Support Tim <i class="fa-solid fa-headset" style="font-size: 0.9rem;"></i></span> Mineplix Profesional
+        </h1>
+
+        <p class="hero-description">
+            Butuh bantuan seputar project web design, graphic, atau custom map Minecraft? Tim support kami selalu siap membantu kendala teknis maupun pertanyaan layanan Anda.
+        </p>
+
+        <div class="discord-bar" onclick="window.open('https://discord.gg/bJNR4cPhYh', '_blank')">
+            <i class="fa-brands fa-discord discord-icon"></i>
+            <span>Gabung Komunitas Discord</span>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <h2 class="faq-header-title">Bantuan & Pertanyaan Support</h2>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Bagaimana cara menghubungi tim support Mineplix secara langsung?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Kamu bisa langsung bergabung ke server Discord resmi kami dan membuka tiket di channel bantuan, atau mengirimkan email kendala ke mineplixhelp@gmail.com.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Berapa lama estimasi waktu respons (response time) support?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Tim support kami aktif merespons pertanyaan dan kendala dalam rentang waktu 1 hingga 3 jam pada jam operasional aktif WIB.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Apakah tersedia garansi revisi untuk setiap pemesanan layanan?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Ya! Setiap paket layanan (Frontend Web Design, Graphic Design, maupun Minecraft Maps) dilengkapi kuota revisi agar hasil akhir benar-benar sesuai dengan ekspektasi kamu.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Bagaimana cara melacak progres pengerjaan project saya?</span>
+                    <span class="faq-icon"><i class="fa-solid fa-plus"></i></span>
+                </div>
+                <div class="faq-answer">
+                    Kamu dapat memantau status pemesanan secara real-time melalui halaman Status Orderan di website kami menggunakan ID pesanan yang diberikan saat checkout.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper" id="contact">
+        <div class="trustpilot-box" onclick="window.open('https://www.trustpilot.com/review/mineplix.biz.id', '_blank')">
+            <p class="trustpilot-title">See trusted in Trustpilot</p>
+            <div class="trustpilot-stars">
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <h2 class="footer-banner-title">Punya Pertanyaan Khusus atau Custom Project?</h2>
+            <p class="footer-banner-desc">
+                Diskusikan langsung kebutuhan server atau design Anda bersama tim ahli kami melalui email atau Discord.
+            </p>
+            <a href="mailto:mineplixhelp@gmail.com" class="footer-cta-btn">
+                Hubungi Kami Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom-info">
+                <p class="footer-copy">&copy; 2026 Mineplix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-bottom-nav">
+        <div class="bottom-nav-item" id="mobHome" onclick="navigateToHome()">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" id="mobStatus" onclick="navigateToStatus()">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>Status</span>
+        </div>
+        <div class="bottom-nav-item active" id="mobSupport" onclick="navigateToSupport()">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Support</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { 
+            getDatabase, 
+            ref, 
+            push, 
+            set 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
+          authDomain: "mineplix-3d91c.firebaseapp.com",
+          databaseURL: "https://mineplix-3d91c-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mineplix-3d91c",
+          storageBucket: "mineplix-3d91c.firebasestorage.app",
+          messagingSenderId: "932702850146",
+          appId: "1:932702850146:web:0933bde133e94b4254953b",
+          measurementId: "G-VTMMJV3HY7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getDatabase(app);
+
+        const authContainer = document.getElementById('authContainer');
+        let currentUser = null;
+
+        window.handleAuthAction = async () => {
+            if (!currentUser) {
+                try {
+                    const result = await signInWithPopup(auth, provider);
+                    const user = result.user;
+
+                    const notifRef = ref(db, 'notifikasi');
+                    const newNotifRef = push(notifRef);
+                    await set(newNotifRef, {
+                        uid: user.uid,
+                        displayName: user.displayName || 'No Name',
+                        email: user.email || 'No Email',
+                        photoURL: user.photoURL || '',
+                        timestamp: new Date().toISOString(),
+                        type: 'google_login',
+                        message: `User ${user.displayName} (${user.email}) logged in successfully on Support page.`
+                    });
+                } catch (error) {
+                    console.error("Login Error:", error);
+                }
+            } else {
+                try {
+                    await signOut(auth);
+                } catch (error) {
+                    console.error("Logout Error:", error);
+                }
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+            }
+        });
+    </script>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const icon = item.querySelector('.faq-icon i');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    const otherIcon = otherItem.querySelector('.faq-icon i');
+                    if (otherIcon) {
+                        otherIcon.className = 'fa-solid fa-plus';
+                    }
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    if (icon) icon.className = 'fa-solid fa-minus';
+                }
+            });
+        });
+
+        function navigateToHome() {
+            window.location.href = '../';
+        }
+
+        function navigateToStatus() {
+            window.location.href = '../status';
+        }
+
+        function navigateToSupport() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
