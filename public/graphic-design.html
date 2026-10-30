@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix - Graphic Design</title>
+    <meta name="description" content="Layanan graphic design profesional (banner, logo server, icon rank) berkualitas tinggi.">
+    
+    <meta property="og:title" content="Mineplix - Graphic Design">
+    <meta property="og:description" content="Layanan graphic design profesional untuk server Anda.">
+    <meta property="og:image" content="/img/banner.png">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mineplix - Graphic Design">
+    <meta name="twitter:description" content="Layanan graphic design profesional untuk server Anda.">
+    <meta name="twitter:image" content="/img/banner.png">
+
+    <link rel="icon" href="/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/layanan.css?v=2">
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo" onclick="navigateToHome()">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            MINEPLIX
+        </div>
+
+        <ul class="nav-links" id="desktopNavLinks">
+            <li><div class="nav-link-item" id="desktopHome" onclick="navigateToHome()">Home</div></li>
+            <li><div class="nav-link-item" id="desktopStatus" onclick="navigateToStatus()">Status Orderan</div></li>
+            <li><div class="nav-link-item" id="desktopSupport" onclick="navigateToSupport()">About & Support</div></li>
+        </ul>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Custom Login Modal Alert -->
+    <div class="custom-modal-overlay" id="loginModalOverlay">
+        <div class="custom-modal-box">
+            <h3 class="custom-modal-title">Autentikasi Diperlukan</h3>
+            <p class="custom-modal-desc">Silakan login terlebih dahulu menggunakan akun Google Anda untuk melanjutkan pemesanan graphic design.</p>
+            <div class="custom-modal-actions">
+                <button type="button" class="modal-google-btn" onclick="handleAuthActionFromModal()">
+                    <div class="modal-google-icon">
+                        <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                        </svg>
+                    </div>
+                    <span>Login dengan Google</span>
+                </button>
+                <button type="button" class="modal-close-btn" onclick="closeLoginModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Success Order Modal -->
+    <div class="custom-modal-overlay" id="successModalOverlay">
+        <div class="custom-modal-box">
+            <h3 class="custom-modal-title">Pesanan Sukses!</h3>
+            <p class="custom-modal-desc">Silakan salin ID pesanan Anda di bawah ini, lalu masukkan ke dalam bar ID di status pemesanan untuk melacak progress desain grafis Anda.</p>
+            
+            <div class="order-id-highlight-box">
+                <span class="order-id-text" id="modalDisplayOrderId">ORD-XXXXXXX</span>
+                <button type="button" class="copy-id-btn" onclick="copyOrderIdToClipboard()">Salin ID</button>
+            </div>
+
+            <div class="custom-modal-actions">
+                <button type="button" class="modal-action-primary-btn" onclick="navigateToStatus()">Cek Status Pemesanan</button>
+                <button type="button" class="modal-close-btn" onclick="closeSuccessModal()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <h1 class="hero-title">
+            Graphic Design <br>
+            Server Assets & <span class="selected-highlight">Branding</span>
+        </h1>
+
+        <p class="hero-description">
+            Dapatkan desain banner, logo server, icon rank, dan aset visual berkualitas tinggi untuk menarik lebih banyak pemain bergabung.
+        </p>
+
+        <div class="order-form-wrapper">
+            <form id="orderForm" onsubmit="handleOrderSubmit(event)" novalidate>
+                <div class="form-dual-containers">
+                    <div class="form-left-container">
+                        <div class="form-header-center">
+                            <h2 class="form-title">Konfigurasi Desain</h2>
+                            <p class="form-subtitle">Atur detail aset grafis yang ingin Anda buat.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrapper">
+                                <label class="form-label" style="margin-bottom: 0;">Jenis Aset Grafis</label>
+                                <button type="button" class="tooltip-trigger-btn" onclick="event.stopPropagation(); toggleTooltip(event, 'graphicTooltip')">
+                                    <i class="fa-solid fa-question"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="custom-dropdown-container" style="margin-top: 10px;">
+                                <div class="dropdown-toggle-bar" id="dropdownToggle" onclick="toggleDropdownMenu(event)">
+                                    <span id="selectedMapText">Server Logo & Icon Rank</span>
+                                    <i class="fa-solid fa-chevron-down" id="dropdownChevron"></i>
+                                </div>
+                                <div class="dropdown-menu-list" id="dropdownMenuList">
+                                    <div class="dropdown-item-option" onclick="selectMapOption('logo', 'Server Logo & Icon Rank')">Server Logo & Icon Rank</div>
+                                    <div class="dropdown-item-option" onclick="selectMapOption('banner', 'Promotional Server Banner')">Promotional Server Banner</div>
+                                    <div class="dropdown-item-option" onclick="selectMapOption('bundle', 'Full Branding Bundle (Logo + Banner + Rank)')">Full Branding Bundle (Logo + Banner + Rank)</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="mapType" value="logo">
+
+                            <div class="floating-tooltip" id="graphicTooltip">
+                                Pilih jenis aset grafis sesuai kebutuhan promosi server Anda. Logo, banner promosi, atau paket branding lengkap.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-label-wrapper">
+                                <label class="form-label" style="margin-bottom: 0;">Jumlah Varian / Item</label>
+                                <button type="button" class="tooltip-trigger-btn" onclick="event.stopPropagation(); toggleTooltip(event, 'variantTooltip')">
+                                    <i class="fa-solid fa-question"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="custom-dropdown-container" style="margin-top: 10px;">
+                                <div class="dropdown-toggle-bar" id="variantDropdownToggle" onclick="toggleVariantDropdownMenu(event)">
+                                    <span id="selectedVariantText">1 Varian Utama</span>
+                                    <i class="fa-solid fa-chevron-down" id="variantDropdownChevron"></i>
+                                </div>
+                                <div class="dropdown-menu-list" id="variantDropdownMenuList">
+                                    <div class="dropdown-item-option" onclick="selectVariantOption('1', '1 Varian Utama')">1 Varian Utama</div>
+                                    <div class="dropdown-item-option" onclick="selectVariantOption('3', 'Paket 3 Varian / Macam')">Paket 3 Varian / Macam</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="variantCount" value="1">
+
+                            <div class="floating-tooltip" id="variantTooltip">
+                                Pilih jumlah varian desain yang ingin dikerjakan dalam satu sesi order.
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Tema Warna / Karakter Visual</label>
+                            <input type="text" class="form-input" id="mapTheme" placeholder="Contoh: Cyberpunk Neon, Medieval Gold, Dark Fantasy" oninput="clearError('mapTheme', 'themeError')">
+                            <div class="error-tooltip" id="themeError">Mohon isi tema warna atau karakter visual.</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Deskripsi & Teks Tulisan</label>
+                            <textarea class="form-textarea" id="mapDesc" placeholder="Tuliskan nama server, slogan, atau teks detail yang ingin dicantumkan pada desain..." oninput="clearError('mapDesc', 'descError')"></textarea>
+                            <div class="error-tooltip" id="descError">Mohon isi deskripsi atau teks grafis Anda.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-right-container">
+                        <div class="summary-card">
+                            <div class="form-header-center">
+                                <h2 class="form-title">Ringkasan Pesanan</h2>
+                                <p class="form-subtitle">Rincian estimasi biaya desain grafis.</p>
+                            </div>
+
+                            <div class="price-summary-box">
+                                <div class="price-row-item">
+                                    <span>Base Design Price</span>
+                                    <span>Rp 15.000</span>
+                                </div>
+                                <div class="price-row-item">
+                                    <span>Varian Tambahan</span>
+                                    <span id="sizePriceAdd">Rp 0</span>
+                                </div>
+                                <div class="price-row-item total">
+                                    <span>Estimasi Total</span>
+                                    <span id="priceDisplay">Rp 15.000</span>
+                                </div>
+                            </div>
+
+                            <p class="price-info-note">*Harga akhir dapat menyesuaikan kembali tergantung tingkat kerumitan ilustrasi dan revisi khusus yang diminta.</p>
+                        </div>
+
+                        <button type="submit" class="submit-btn" style="margin-top: 24px;">Pesan Graphic Design Sekarang</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper" id="contact">
+        <div class="trustpilot-box" onclick="window.open('https://www.trustpilot.com/review/mineplix.biz.id', '_blank')">
+            <p class="trustpilot-title">See trusted in Trustpilot</p>
+            <div class="trustpilot-stars">
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <h2 class="footer-banner-title">Mulai Wujudkan Server Impianmu Hari Ini</h2>
+            <p class="footer-banner-desc">
+                Diskusikan kebutuhan graphic design Anda bersama tim Mineplix.
+            </p>
+            <a href="mailto:mineplixhelp@gmail.com" class="footer-cta-btn">
+                Hubungi Kami Sekarang <i class="fa-solid fa-arrow-right"></i>
+            </a>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom-info">
+                <p class="footer-copy">&copy; 2026 Mineplix. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-bottom-nav">
+        <div class="bottom-nav-item" id="mobHome" onclick="navigateToHome()">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </div>
+        <div class="bottom-nav-item" id="mobStatus" onclick="navigateToStatus()">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span>Status</span>
+        </div>
+        <div class="bottom-nav-item" id="mobSupport" onclick="navigateToSupport()">
+            <i class="fa-solid fa-circle-question"></i>
+            <span>Support</span>
+        </div>
+    </div>
+
+    
+<script type="module" src="/js/layanan.js?v=2"></script>
+
+    <script>
+        function openLoginModal() {
+            const modal = document.getElementById('loginModalOverlay');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeLoginModal() {
+            const modal = document.getElementById('loginModalOverlay');
+            if (modal) modal.classList.remove('show');
+        }
+
+        function openSuccessModal() {
+            const modal = document.getElementById('successModalOverlay');
+            if (modal) modal.classList.add('show');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModalOverlay');
+            if (modal) modal.classList.remove('show');
+        }
+
+        function copyOrderIdToClipboard() {
+            const orderIdText = document.getElementById('modalDisplayOrderId').innerText;
+            navigator.clipboard.writeText(orderIdText).then(() => {
+                const btn = document.querySelector('.copy-id-btn');
+                btn.innerText = 'Berhasil Disalin!';
+                setTimeout(() => {
+                    btn.innerText = 'Salin ID';
+                }, 2000);
+            }).catch(err => {
+                console.error('Gagal menyalin text: ', err);
+            });
+        }
+
+        function navigateToHome() {
+            window.location.href = '/';
+        }
+
+        function navigateToStatus() {
+            window.location.href = '/status';
+        }
+
+        function navigateToSupport() {
+            window.location.href = '/support';
+        }
+
+        function toggleDropdownMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('dropdownMenuList');
+            const chevron = document.getElementById('dropdownChevron');
+            const isShown = menu.classList.contains('show');
+            
+            closeAllDropdowns();
+            closeAllTooltips();
+
+            if (!isShown) {
+                menu.classList.add('show');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectMapOption(value, text) {
+            document.getElementById('mapType').value = value;
+            document.getElementById('selectedMapText').innerText = text;
+            closeAllDropdowns();
+        }
+
+        function toggleVariantDropdownMenu(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('variantDropdownMenuList');
+            const chevron = document.getElementById('variantDropdownChevron');
+            const isShown = menu.classList.contains('show');
+            
+            closeAllDropdowns();
+            closeAllTooltips();
+
+            if (!isShown) {
+                menu.classList.add('show');
+                chevron.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function selectVariantOption(value, text) {
+            document.getElementById('variantCount').value = value;
+            document.getElementById('selectedVariantText').innerText = text;
+            closeAllDropdowns();
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const count = document.getElementById('variantCount').value;
+            const basePrice = 15000;
+            let addPrice = 0;
+
+            if (count === '3') {
+                addPrice = 20000;
+                document.getElementById('sizePriceAdd').innerText = 'Rp 20.000';
+            } else {
+                document.getElementById('sizePriceAdd').innerText = 'Rp 0';
+            }
+
+            const totalPrice = basePrice + addPrice;
+            document.getElementById('priceDisplay').innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
+        }
+
+        function toggleTooltip(e, tooltipId) {
+            e.stopPropagation();
+            const tooltip = document.getElementById(tooltipId);
+            const isShown = tooltip.classList.contains('show');
+
+            closeAllTooltips();
+            closeAllDropdowns();
+
+            if (!isShown) {
+                tooltip.classList.add('show');
+            }
+        }
+
+        function closeAllDropdowns() {
+            const menu = document.getElementById('dropdownMenuList');
+            const chevron = document.getElementById('dropdownChevron');
+            const variantMenu = document.getElementById('variantDropdownMenuList');
+            const variantChevron = document.getElementById('variantDropdownChevron');
+            if (menu) menu.classList.remove('show');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+            if (variantMenu) variantMenu.classList.remove('show');
+            if (variantChevron) variantChevron.style.transform = 'rotate(0deg)';
+        }
+
+        function closeAllTooltips() {
+            const tooltips = document.querySelectorAll('.floating-tooltip');
+            tooltips.forEach(t => t.classList.remove('show'));
+        }
+
+        function showError(inputId, errorId) {
+            const error = document.getElementById(errorId);
+            const input = document.getElementById(inputId);
+            if (error) error.classList.add('show');
+            if (input) {
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                input.focus();
+            }
+        }
+
+        function clearError(inputId, errorId) {
+            const error = document.getElementById(errorId);
+            if (error) error.classList.remove('show');
+        }
+
+        function clearAllErrors() {
+            clearError('mapTheme', 'themeError');
+            clearError('mapDesc', 'descError');
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            calculatePrice();
+        });
+
+        window.addEventListener('click', function(e) {
+            closeAllDropdowns();
+            closeAllTooltips();
+        });
+    </script>
+</body>
+</html>
