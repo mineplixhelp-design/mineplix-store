@@ -61,7 +61,6 @@ body {
     font-size: 1.45rem;
     letter-spacing: -0.5px;
     line-height: 1;
-    cursor: pointer;
 }
 
 .logo-img {
@@ -83,7 +82,6 @@ body {
     font-weight: 500;
     color: var(--text-muted);
     transition: color 0.25s ease;
-    cursor: pointer;
 }
 
 .nav-link-item.active {
@@ -111,7 +109,6 @@ body {
     font-size: 0.9rem;
     font-weight: 600;
     transition: transform 0.2s ease, opacity 0.2s ease;
-    cursor: pointer;
 }
 
 .auth-bar:hover {
@@ -276,7 +273,6 @@ body {
     border-radius: 50%;
     background-color: #2b2633;
     transition: opacity 0.2s ease, transform 0.2s ease;
-    cursor: pointer;
 }
 
 .tooltip-trigger-btn:hover {
@@ -301,7 +297,6 @@ body {
     align-items: center;
     justify-content: space-between;
     transition: background-color 0.2s ease;
-    cursor: pointer;
 }
 
 .dropdown-toggle-bar:hover {
@@ -344,7 +339,6 @@ body {
     color: var(--text-white);
     background-color: #2b2633;
     transition: background-color 0.2s ease;
-    cursor: pointer;
 }
 
 .dropdown-item-option:hover {
@@ -484,7 +478,6 @@ body {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     margin-top: -7px;
     transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
 }
 
 .range-slider::-webkit-slider-thumb:hover {
@@ -546,7 +539,6 @@ body {
     font-weight: 800;
     font-size: 1.05rem;
     transition: transform 0.2s ease, opacity 0.2s ease;
-    cursor: pointer;
 }
 
 .submit-btn:hover {
@@ -629,7 +621,6 @@ body {
     font-weight: 700;
     font-size: 0.95rem;
     transition: transform 0.2s ease, opacity 0.2s ease;
-    cursor: pointer;
 }
 
 .modal-google-btn:hover {
@@ -655,7 +646,6 @@ body {
     font-weight: 600;
     font-size: 0.95rem;
     transition: transform 0.2s ease, background-color 0.2s ease;
-    cursor: pointer;
 }
 
 .modal-close-btn:hover {
@@ -675,7 +665,6 @@ body {
     transition: transform 0.2s ease, opacity 0.2s ease;
     text-decoration: none;
     display: inline-block;
-    cursor: pointer;
 }
 
 .modal-action-primary-btn:hover {
@@ -714,7 +703,6 @@ body {
     font-weight: 700;
     white-space: nowrap;
     transition: opacity 0.2s ease;
-    cursor: pointer;
 }
 
 .copy-id-btn:hover {
@@ -732,7 +720,6 @@ body {
     text-align: center;
     padding: 40px 24px 20px 24px;
     transition: transform 0.2s ease;
-    cursor: pointer;
 }
 
 .trustpilot-box:hover {
@@ -929,7 +916,6 @@ body {
         flex: 1;
         height: 100%;
         transition: color 0.2s ease, transform 0.2s ease;
-        cursor: pointer;
     }
 
     .bottom-nav-item:hover {
