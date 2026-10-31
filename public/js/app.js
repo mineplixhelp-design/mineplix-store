@@ -30,24 +30,21 @@ const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 const db = getDatabase(app);
 
-const authContainer = document.getElementById('authContainer');
 let currentUser = null;
 
-// 1. Fungsi Utama Login / Logout dari Navbar
+// Fungsi Utama Login / Logout
 window.handleAuthAction = async () => {
     if (!currentUser) {
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
             
-            // Cek apakah fungsi closeLoginModal ada di HTML
             if (typeof closeLoginModal === 'function') {
                 closeLoginModal();
             }
 
             const notifRef = ref(db, 'notifikasi');
-            const newNotifRef = push(notifRef);
-            await set(newNotifRef, {
+            await set(push(notifRef), {
                 uid: user.uid,
                 displayName: user.displayName || 'No Name',
                 email: user.email || 'No Email',
@@ -68,7 +65,6 @@ window.handleAuthAction = async () => {
     }
 };
 
-// 2. Fungsi Login dari Modal
 window.handleAuthActionFromModal = async () => {
     try {
         const result = await signInWithPopup(auth, provider);
@@ -79,8 +75,7 @@ window.handleAuthActionFromModal = async () => {
         }
 
         const notifRef = ref(db, 'notifikasi');
-        const newNotifRef = push(notifRef);
-        await set(newNotifRef, {
+        await set(push(notifRef), {
             uid: user.uid,
             displayName: user.displayName || 'No Name',
             email: user.email || 'No Email',
@@ -94,107 +89,29 @@ window.handleAuthActionFromModal = async () => {
     }
 };
 
-// 3. Pantau Status Sesi Login Pengguna
-onAuthStateChanged(auth, (user) => {
-    currentUser = user;
-    if (authContainer) {
-        if (user) {
-            const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
-            authContainer.innerHTML = `
-                <div class="auth-bar" onclick="handleAuthAction()">
-                    <div class="auth-icon-circle">${initial}</div>
-                    <span>Logout</span>
-                </div>
-            `;
-        } else {
-            authContainer.innerHTML = `
-                <div class="auth-bar" onclick="handleAuthAction()">
-                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
-                    <span>Login</span>
-                </div>
-            `;
+// Pantau Status Login setelah halaman siap
+document.addEventListener("DOMContentLoaded", () => {
+    const authContainer = document.getElementById('authContainer');
+
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        if (authContainer) {
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+            }
         }
-    }
+    });
 });
-
-// 4. Fungsi Submit Order / Pesanan
-window.handleOrderSubmit = async function(event) {
-    event.preventDefault();
-    
-    if (typeof clearAllErrors === 'function') {
-        clearAllErrors();
-    }
-
-    const theme = document.getElementById('mapTheme').value.trim();
-    const desc = document.getElementById('mapDesc').value.trim();
-    let isValid = true;
-    let firstInvalidInputId = null;
-
-    if (!desc) {
-        if (typeof showError === 'function') showError('mapDesc', 'descError');
-        isValid = false;
-        firstInvalidInputId = 'mapDesc';
-    }
-
-    if (!theme) {
-        if (typeof showError === 'function') showError('mapTheme', 'themeError');
-        isValid = false;
-        firstInvalidInputId = 'mapTheme';
-    }
-
-    if (!isValid && firstInvalidInputId) {
-        const el = document.getElementById(firstInvalidInputId);
-        if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            el.focus();
-        }
-        return;
-    }
-
-    if (isValid) {
-        if (!currentUser) {
-            if (typeof openLoginModal === 'function') openLoginModal();
-            return;
-        }
-
-        try {
-            const webType = document.getElementById('mapType').value;
-            const pageComplexity = document.getElementById('pageComplexity').value;
-            const totalPrice = document.getElementById('priceDisplay').innerText;
-            
-            const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
-            const currentDate = new Date().toISOString();
-
-            const orderData = {
-                orderId: randomId,
-                serviceCategory: 'Frontend Web Design',
-                uid: currentUser.uid,
-                customerName: currentUser.displayName || 'Anonymous',
-                customerEmail: currentUser.email || 'No Email',
-                webType: webType,
-                pageComplexity: pageComplexity,
-                designTheme: theme,
-                projectDescription: desc,
-                totalPrice: totalPrice,
-                orderDate: currentDate,
-                status: 'Pending'
-            };
-
-            const checkoutRef = ref(db, `account/data/checkout/${randomId}`);
-            await set(checkoutRef, orderData);
-
-            const displayOrderIdEl = document.getElementById('modalDisplayOrderId');
-            if (displayOrderIdEl) displayOrderIdEl.innerText = randomId;
-            
-            if (typeof openSuccessModal === 'function') openSuccessModal();
-
-            const orderForm = document.getElementById('orderForm');
-            if (orderForm) orderForm.reset();
-            
-            if (typeof calculatePrice === 'function') calculatePrice();
-        } catch (error) {
-            console.error("Gagal menyimpan pesanan:", error);
-            alert("Terjadi kesalahan saat menyimpan pesanan. Silakan coba lagi.");
-        }
-    }
-};
