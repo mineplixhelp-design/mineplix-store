@@ -16,6 +16,14 @@ app.get('/support', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'support.html'));
 });
 
+app.get('/server', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'sever.html'));
+});
+
+app.get('/envadminanv', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 app.get('/layanan/frontend-design', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'frontend-design.html'));
 });
