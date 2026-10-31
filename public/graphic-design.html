@@ -298,7 +298,7 @@
                         photoURL: user.photoURL || '',
                         timestamp: new Date().toISOString(),
                         type: 'google_login',
-                        message: `User ${user.displayName} logged in on Frontend Design page.`
+                        message: `User ${user.displayName} logged in on Graphic Design page.`
                     });
                 } catch (error) {
                     console.error("Login Error:", error);
@@ -327,7 +327,7 @@
                     photoURL: user.photoURL || '',
                     timestamp: new Date().toISOString(),
                     type: 'google_login',
-                    message: `User ${user.displayName} logged in on Frontend Design page.`
+                    message: `User ${user.displayName} logged in on Graphic Design page.`
                 });
             } catch (error) {
                 console.error("Login Error:", error);
@@ -391,8 +391,8 @@
                 }
 
                 try {
-                    const webType = document.getElementById('mapType').value;
-                    const pageComplexity = document.getElementById('pageComplexity').value;
+                    const mapType = document.getElementById('mapType').value;
+                    const variantCount = document.getElementById('variantCount').value;
                     const totalPrice = document.getElementById('priceDisplay').innerText;
                     
                     const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
@@ -400,12 +400,12 @@
 
                     const orderData = {
                         orderId: randomId,
-                        serviceCategory: 'Frontend Web Design',
+                        serviceCategory: 'Graphic Design',
                         uid: currentUser.uid,
                         customerName: currentUser.displayName || 'Anonymous',
                         customerEmail: currentUser.email || 'No Email',
-                        webType: webType,
-                        pageComplexity: pageComplexity,
+                        mapType: mapType,
+                        variantCount: variantCount,
                         designTheme: theme,
                         projectDescription: desc,
                         totalPrice: totalPrice,
@@ -496,10 +496,10 @@
             closeAllDropdowns();
         }
 
-        function togglePageDropdownMenu(e) {
+        function toggleVariantDropdownMenu(e) {
             e.stopPropagation();
-            const menu = document.getElementById('pageDropdownMenuList');
-            const chevron = document.getElementById('pageDropdownChevron');
+            const menu = document.getElementById('variantDropdownMenuList');
+            const chevron = document.getElementById('variantDropdownChevron');
             const isShown = menu.classList.contains('show');
             
             closeAllDropdowns();
@@ -511,19 +511,19 @@
             }
         }
 
-        function selectPageOption(value, text) {
-            document.getElementById('pageComplexity').value = value;
-            document.getElementById('selectedPageText').innerText = text;
+        function selectVariantOption(value, text) {
+            document.getElementById('variantCount').value = value;
+            document.getElementById('selectedVariantText').innerText = text;
             closeAllDropdowns();
             calculatePrice();
         }
 
         function calculatePrice() {
-            const complexity = document.getElementById('pageComplexity').value;
-            const basePrice = 25000;
+            const variant = document.getElementById('variantCount').value;
+            const basePrice = 15000;
             let addPrice = 0;
 
-            if (complexity === 'multi') {
+            if (variant === '3') {
                 addPrice = 15000;
                 document.getElementById('sizePriceAdd').innerText = 'Rp 15.000';
             } else {
@@ -550,12 +550,13 @@
         function closeAllDropdowns() {
             const menu = document.getElementById('dropdownMenuList');
             const chevron = document.getElementById('dropdownChevron');
-            const pageMenu = document.getElementById('pageDropdownMenuList');
-            const pageChevron = document.getElementById('pageDropdownChevron');
+            const variantMenu = document.getElementById('variantDropdownMenuList');
+            const variantChevron = document.getElementById('variantDropdownChevron');
+            
             if (menu) menu.classList.remove('show');
             if (chevron) chevron.style.transform = 'rotate(0deg)';
-            if (pageMenu) pageMenu.classList.remove('show');
-            if (pageChevron) pageChevron.style.transform = 'rotate(0deg)';
+            if (variantMenu) variantMenu.classList.remove('show');
+            if (variantChevron) variantChevron.style.transform = 'rotate(0deg)';
         }
 
         function closeAllTooltips() {
