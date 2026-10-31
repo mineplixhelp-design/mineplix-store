@@ -775,10 +775,25 @@
                         }
 
                         let specText = '';
-                        if (data.mapType) specText += `Map: ${data.mapType}, ${data.mapSize}`;
-                        else if (data.webType) specText += `Web: ${data.webType}, ${data.pageComplexity}`;
-                        else if (data.graphicType) specText += `Graphic: ${data.graphicType}`;
-                        else specText = data.serviceCategory || 'Custom Project';
+                        let typeBadge = 'Project Service';
+                        let typeBadgeColor = 'var(--purple-primary)';
+
+                        if (data.minecraftUsername) {
+                            typeBadge = 'Minecraft Store';
+                            typeBadgeColor = '#f59e0b';
+                            specText = `Username: ${data.minecraftUsername} (${data.platform || 'java'})`;
+                        } else if (data.mapType) {
+                            typeBadge = 'Custom Map';
+                            specText = `Map: ${data.mapType}, ${data.mapSize}`;
+                        } else if (data.webType) {
+                            typeBadge = 'Web Design';
+                            specText = `Web: ${data.webType}, ${data.pageComplexity}`;
+                        } else if (data.graphicType) {
+                            typeBadge = 'Graphic Design';
+                            specText = `Graphic: ${data.graphicType}`;
+                        } else {
+                            specText = data.serviceCategory || 'Custom Project';
+                        }
 
                         const currentStatus = data.status || 'Pending';
                         const currentPrice = data.totalPrice || '';
@@ -788,7 +803,7 @@
                                 <div>
                                     <div class="card-top-row">
                                         <span class="order-id">${orderId}</span>
-                                        <span class="order-date"><i class="fa-regular fa-calendar" style="margin-right: 4px;"></i> ${formattedDate}</span>
+                                        <span style="font-size:0.75rem; font-weight:700; background-color:${typeBadgeColor}; color:#fff; padding:2px 10px; border-radius:10px;">${typeBadge}</span>
                                     </div>
 
                                     <div class="info-grid" style="margin-top: 16px;">
@@ -797,7 +812,7 @@
                                             <div class="info-value">${data.customerName || 'Anonymous'}<br><span style="font-size:0.75rem; color:var(--text-muted);">${data.customerEmail || '-'}</span></div>
                                         </div>
                                         <div class="info-box">
-                                            <div class="info-label">Detail Project</div>
+                                            <div class="info-label">Detail / Target</div>
                                             <div class="info-value">${specText}</div>
                                         </div>
                                     </div>
@@ -816,7 +831,7 @@
 
                                     <div>
                                         <label class="control-label">Ubah Harga Total Tagihan</label>
-                                        <input type="text" class="admin-input" id="price-${orderId}" value="${currentPrice}" placeholder="Contoh: Rp 150.000">
+                                        <input type="text" class="admin-input" id="price-${orderId}" value="${currentPrice}" placeholder="Contoh: Rp 18.000">
                                     </div>
 
                                     <button type="button" class="save-btn" onclick="updateOrder('${orderId}')">
