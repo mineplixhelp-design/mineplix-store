@@ -17,7 +17,7 @@ app.get('/support', (req, res) => {
 });
 
 app.get('/server', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'sever.html'));
+    res.sendFile(path.join(__dirname, 'public', 'server.html'));
 });
 
 app.get('/envadminanv', (req, res) => {
