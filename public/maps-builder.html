@@ -141,7 +141,7 @@
                             
                             <div class="range-slider-wrapper" style="margin-top: 10px;">
                                 <div class="range-slider-header">
-                                    <input type="range" class="range-slider" id="mapSize" min="5" max="50" step="5" value="5" oninput="calculateMapPrice()">
+                                    <input type="range" class="range-slider" id="mapSize" min="5" max="250" step="5" value="5" oninput="calculateMapPrice()">
                                     <span style="color:var(--text-white); white-space:nowrap; margin-left: 12px;"><span id="sizeVal">5</span>x<span id="sizeVal2">5</span> Blocks</span>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                         photoURL: user.photoURL || '',
                         timestamp: new Date().toISOString(),
                         type: 'google_login',
-                        message: `User ${user.displayName} logged in on Frontend Design page.`
+                        message: `User ${user.displayName} logged in on Minecraft Maps Builder page.`
                     });
                 } catch (error) {
                     console.error("Login Error:", error);
@@ -320,7 +320,7 @@
                     photoURL: user.photoURL || '',
                     timestamp: new Date().toISOString(),
                     type: 'google_login',
-                    message: `User ${user.displayName} logged in on Frontend Design page.`
+                    message: `User ${user.displayName} logged in on Minecraft Maps Builder page.`
                 });
             } catch (error) {
                 console.error("Login Error:", error);
@@ -384,8 +384,8 @@
                 }
 
                 try {
-                    const webType = document.getElementById('mapType').value;
-                    const pageComplexity = document.getElementById('pageComplexity').value;
+                    const mapType = document.getElementById('mapType').value;
+                    const mapSize = document.getElementById('mapSize').value;
                     const totalPrice = document.getElementById('priceDisplay').innerText;
                     
                     const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
@@ -393,12 +393,12 @@
 
                     const orderData = {
                         orderId: randomId,
-                        serviceCategory: 'Frontend Web Design',
+                        serviceCategory: 'Minecraft Maps Builder',
                         uid: currentUser.uid,
                         customerName: currentUser.displayName || 'Anonymous',
                         customerEmail: currentUser.email || 'No Email',
-                        webType: webType,
-                        pageComplexity: pageComplexity,
+                        mapType: mapType,
+                        mapSize: `${mapSize}x${mapSize} Blocks`,
                         designTheme: theme,
                         projectDescription: desc,
                         totalPrice: totalPrice,
@@ -413,7 +413,7 @@
                     openSuccessModal();
 
                     document.getElementById('orderForm').reset();
-                    calculatePrice();
+                    calculateMapPrice();
                 } catch (error) {
                     console.error("Gagal menyimpan pesanan:", error);
                     alert("Terjadi kesalahan saat menyimpan pesanan. Silakan coba lagi.");
@@ -489,39 +489,16 @@
             closeAllDropdowns();
         }
 
-        function togglePageDropdownMenu(e) {
-            e.stopPropagation();
-            const menu = document.getElementById('pageDropdownMenuList');
-            const chevron = document.getElementById('pageDropdownChevron');
-            const isShown = menu.classList.contains('show');
-            
-            closeAllDropdowns();
-            closeAllTooltips();
+        function calculateMapPrice() {
+            const sizeVal = document.getElementById('mapSize').value;
+            const basePrice = 10000;
+            const multiplier = sizeVal / 5;
+            const addPrice = multiplier * 5000;
 
-            if (!isShown) {
-                menu.classList.add('show');
-                chevron.style.transform = 'rotate(180deg)';
-            }
-        }
-
-        function selectPageOption(value, text) {
-            document.getElementById('pageComplexity').value = value;
-            document.getElementById('selectedPageText').innerText = text;
-            closeAllDropdowns();
-            calculatePrice();
-        }
-
-        function calculatePrice() {
-            const complexity = document.getElementById('pageComplexity').value;
-            const basePrice = 25000;
-            let addPrice = 0;
-
-            if (complexity === 'multi') {
-                addPrice = 15000;
-                document.getElementById('sizePriceAdd').innerText = 'Rp 15.000';
-            } else {
-                document.getElementById('sizePriceAdd').innerText = 'Rp 0';
-            }
+            document.getElementById('sizeVal').innerText = sizeVal;
+            document.getElementById('sizeVal2').innerText = sizeVal;
+            document.getElementById('summarySizeText').innerText = `${sizeVal}x${sizeVal}`;
+            document.getElementById('sizePriceAdd').innerText = 'Rp ' + addPrice.toLocaleString('id-ID');
 
             const totalPrice = basePrice + addPrice;
             document.getElementById('priceDisplay').innerText = 'Rp ' + totalPrice.toLocaleString('id-ID');
@@ -543,12 +520,8 @@
         function closeAllDropdowns() {
             const menu = document.getElementById('dropdownMenuList');
             const chevron = document.getElementById('dropdownChevron');
-            const pageMenu = document.getElementById('pageDropdownMenuList');
-            const pageChevron = document.getElementById('pageDropdownChevron');
             if (menu) menu.classList.remove('show');
             if (chevron) chevron.style.transform = 'rotate(0deg)';
-            if (pageMenu) pageMenu.classList.remove('show');
-            if (pageChevron) pageChevron.style.transform = 'rotate(0deg)';
         }
 
         function closeAllTooltips() {
@@ -577,7 +550,7 @@
         }
 
         window.addEventListener('DOMContentLoaded', () => {
-            calculatePrice();
+            calculateMapPrice();
         });
 
         window.addEventListener('click', function(e) {
