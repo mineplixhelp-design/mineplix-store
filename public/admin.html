@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix - Admin Dashboard</title>
+    <meta name="description" content="Admin Dashboard Mineplix untuk mengelola pesanan dan status project pelanggan.">
+
+    <link rel="icon" href="/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #16131a;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --card-bg: #211c29;
+            --purple-primary: #7c3aed;
+            --star-green: #00b67a;
+            --supreme-red: #ef4444;
+            --translucent-white-85: rgba(255, 255, 255, 0.85);
+            --translucent-white-90: rgba(255, 255, 255, 0.9);
+            --translucent-white-20: rgba(255, 255, 255, 0.2);
+            --nav-height: 80px;
+            --nav-padding-x: 48px;
+        }
+
+        ::selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .fullscreen-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .fullscreen-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-center-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid var(--text-white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loader-icon-img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--nav-padding-x);
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-dark);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            font-size: 1.45rem;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .auth-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2b2633;
+            color: var(--text-white);
+            padding: 8px 18px 8px 10px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .auth-bar:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .auth-icon-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 140px auto 60px auto;
+            padding: 0 24px;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .admin-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .admin-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .login-prompt-card {
+            background-color: var(--card-bg);
+            max-width: 500px;
+            margin: 40px auto;
+            padding: 40px;
+            border-radius: 32px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-prompt-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: rgba(124, 58, 237, 0.15);
+            color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 4px;
+        }
+
+        .login-prompt-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .login-prompt-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .login-google-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            height: 52px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .login-google-btn:hover {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+
+        .setup-admin-box {
+            background-color: #16131a;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 10px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .setup-input {
+            width: 100%;
+            height: 44px;
+            padding: 0 14px;
+            background-color: #211c29;
+            border: 1px solid transparent;
+            border-radius: 12px;
+            color: var(--text-white);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            margin-bottom: 12px;
+            outline: none;
+        }
+
+        .setup-btn {
+            background-color: #2b2633;
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            height: 40px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: transform 0.2s ease;
+        }
+
+        .setup-btn:hover {
+            transform: scale(0.97);
+        }
+
+        .orders-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .order-admin-card {
+            background-color: var(--card-bg);
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .card-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2b2633;
+            padding-bottom: 14px;
+        }
+
+        .order-id {
+            font-family: monospace;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--text-white);
+        }
+
+        .order-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        .info-box {
+            background-color: #16131a;
+            padding: 14px;
+            border-radius: 16px;
+        }
+
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-white);
+            word-break: break-word;
+        }
+
+        .admin-control-group {
+            background-color: #16131a;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .control-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .admin-select, .admin-input {
+            width: 100%;
+            height: 48px;
+            padding: 0 16px;
+            background-color: #2b2633;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            color: var(--text-white);
+            font-size: 0.95rem;
+            font-weight: 600;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .admin-select:focus, .admin-input:focus {
+            border-color: var(--purple-primary);
+        }
+
+        .save-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            height: 48px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .save-btn:hover {
+            transform: scale(0.97);
+            opacity: 0.9;
+        }
+
+        .custom-notice-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            padding: 20px;
+        }
+
+        .custom-notice-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-notice-box {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: scale(0.9);
+            transition: transform 0.25s ease;
+        }
+
+        .custom-notice-overlay.show .custom-notice-box {
+            transform: scale(1);
+        }
+
+        .notice-icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background-color: rgba(124, 58, 237, 0.15);
+            color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 16px auto;
+        }
+
+        .notice-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 16px;
+            transition: transform 0.2s ease;
+        }
+
+        .notice-btn:hover {
+            transform: scale(0.96);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; }
+            .admin-title { font-size: 2.1rem; }
+            .orders-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .order-admin-card { padding: 22px; border-radius: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fullscreen-loader" id="fullscreenLoader">
+        <div class="loader-center-wrapper">
+            <div class="loader-spinner"></div>
+            <img src="/img/icon.png" alt="Mineplix Icon" class="loader-icon-img">
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo" onclick="window.location.href='/'">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
+            MINEPLIX
+        </div>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="admin-header">
+            <h1 class="admin-title">Admin Dashboard</h1>
+            <p class="admin-subtitle">Kelola status pesanan dan perbarui harga total tagihan pelanggan secara real-time.</p>
+        </div>
+
+        <div id="loginPromptSection" class="login-prompt-card" style="display: none;">
+            <div class="login-prompt-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            <h3 class="login-prompt-title">Autentikasi Diperlukan</h3>
+            <p class="login-prompt-desc">Silakan login dengan akun Google terlebih dahulu untuk memverifikasi hak akses admin Anda.</p>
+            <button type="button" class="login-google-btn" onclick="handleAuthAction()">
+                <i class="fa-brands fa-google"></i> Login dengan Google
+            </button>
+        </div>
+
+        <div id="unauthorizedSection" class="login-prompt-card" style="display: none;">
+            <div class="login-prompt-icon" style="background-color: rgba(239, 68, 68, 0.15); color: var(--supreme-red);">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h3 class="login-prompt-title">Akses Ditolak</h3>
+            <p class="login-prompt-desc">Akun Anda tidak memiliki role admin. Silakan masukkan secret key untuk menjadikan akun ini sebagai admin atau akun akan dialihkan.</p>
+            
+            <div class="setup-admin-box">
+                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Setup Cepat: Jadikan akun yang sedang login ini sebagai admin.</span>
+                <input type="text" id="setupSecretInput" class="setup-input" placeholder="Masukkan secret key admin...">
+                <button type="button" class="setup-btn" onclick="makeCurrentAccountAdmin()">Set Akun Ini Jadi Admin</button>
+            </div>
+        </div>
+
+        <div id="adminContent" style="display: none;">
+            <div class="orders-grid" id="adminOrdersContainer"></div>
+        </div>
+    </div>
+
+    <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
+        <div class="custom-notice-box" onclick="event.stopPropagation()">
+            <div class="notice-icon-circle">
+                <i class="fa-solid fa-circle-check" id="noticeIcon"></i>
+            </div>
+            <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Berhasil</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.4;" id="noticeMessage">Perubahan berhasil disimpan.</p>
+            <button type="button" class="notice-btn" onclick="closeCustomNotice()">Mengerti</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithPopup, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { 
+            getDatabase, 
+            ref, 
+            onValue, 
+            get, 
+            child, 
+            update,
+            set 
+        } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
+          authDomain: "mineplix-3d91c.firebaseapp.com",
+          databaseURL: "https://mineplix-3d91c-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mineplix-3d91c",
+          storageBucket: "mineplix-3d91c.firebasestorage.app",
+          messagingSenderId: "932702850146",
+          appId: "1:932702850146:web:0933bde133e94b4254953b",
+          measurementId: "G-VTMMJV3HY7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getDatabase(app);
+
+        const authContainer = document.getElementById('authContainer');
+        const loginPromptSection = document.getElementById('loginPromptSection');
+        const unauthorizedSection = document.getElementById('unauthorizedSection');
+        const adminContent = document.getElementById('adminContent');
+        const adminOrdersContainer = document.getElementById('adminOrdersContainer');
+        const fullscreenLoader = document.getElementById('fullscreenLoader');
+
+        function showLoader() {
+            if (fullscreenLoader) {
+                fullscreenLoader.classList.remove('hidden');
+            }
+        }
+
+        function hideLoader() {
+            if (fullscreenLoader) {
+                fullscreenLoader.classList.add('hidden');
+            }
+        }
+
+        window.showNotice = function(title, message, isError = false) {
+            document.getElementById('noticeTitle').innerText = title;
+            document.getElementById('noticeMessage').innerText = message;
+            const icon = document.getElementById('noticeIcon');
+            if (isError) {
+                icon.className = "fa-solid fa-triangle-exclamation";
+            } else {
+                icon.className = "fa-solid fa-circle-check";
+            }
+            document.getElementById('customNoticeOverlay').classList.add('show');
+        }
+
+        window.closeCustomNotice = function() {
+            document.getElementById('customNoticeOverlay').classList.remove('show');
+        }
+
+        window.handleAuthAction = async () => {
+            showLoader();
+            if (!currentUser) {
+                try {
+                    await signInWithPopup(auth, provider);
+                } catch (error) {
+                    console.error("Login Error:", error);
+                    hideLoader();
+                }
+            } else {
+                try {
+                    if (ordersListenerRef) {
+                        onValue(ordersListenerRef, null);
+                        ordersListenerRef = null;
+                    }
+                    await signOut(auth);
+                } catch (error) {
+                    console.error("Logout Error:", error);
+                    hideLoader();
+                }
+            }
+        };
+
+        let currentUser = null;
+        let ordersListenerRef = null;
+
+        onAuthStateChanged(auth, async (user) => {
+            showLoader();
+            currentUser = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+
+                loginPromptSection.style.display = 'none';
+                unauthorizedSection.style.display = 'none';
+                adminContent.style.display = 'none';
+
+                try {
+                    const dbRef = ref(db);
+                    const userSnapshot = await get(child(dbRef, `account/data/users/${user.uid}`));
+                    
+                    let isAdmin = false;
+                    if (userSnapshot.exists()) {
+                        const userData = userSnapshot.val();
+                        if (userData.role && userData.role.toLowerCase() === 'admin') {
+                            isAdmin = true;
+                        }
+                    }
+
+                    if (!isAdmin) {
+                        const emailQuerySnapshot = await get(child(dbRef, `account/data/users`));
+                        if (emailQuerySnapshot.exists()) {
+                            const allUsers = emailQuerySnapshot.val();
+                            Object.values(allUsers).forEach(u => {
+                                if (u.email && user.email && u.email.toLowerCase() === user.email.toLowerCase()) {
+                                    if (u.role && u.role.toLowerCase() === 'admin') {
+                                        isAdmin = true;
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    if (isAdmin) {
+                        hideLoader();
+                        adminContent.style.display = 'block';
+                        initAdminDashboard();
+                    } else {
+                        hideLoader();
+                        unauthorizedSection.style.display = 'flex';
+                        setTimeout(() => {
+                            if (!isAdmin && currentUser === user) {
+                                window.location.href = '/';
+                            }
+                        }, 4000);
+                    }
+
+                } catch (err) {
+                    console.error("Auth check error:", err);
+                    hideLoader();
+                    window.location.href = '/';
+                }
+
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+                hideLoader();
+                unauthorizedSection.style.display = 'none';
+                loginPromptSection.style.display = 'flex';
+                adminContent.style.display = 'none';
+            }
+        });
+
+        window.makeCurrentAccountAdmin = async function() {
+            if (!currentUser) return;
+            const secret = document.getElementById('setupSecretInput').value.trim();
+            if (secret !== 'mineplixadmin2026') {
+                showNotice("Gagal", "Secret key admin salah!", true);
+                return;
+            }
+
+            showLoader();
+            try {
+                const userRef = ref(db, `account/data/users/${currentUser.uid}`);
+                await set(userRef, {
+                    email: currentUser.email || '',
+                    name: currentUser.displayName || 'Admin',
+                    role: 'admin'
+                });
+                showNotice("Berhasil", "Akun Anda kini menjadi admin! Memuat ulang...", false);
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } catch (err) {
+                console.error("Setup admin error:", err);
+                hideLoader();
+                showNotice("Gagal", "Gagal memperbarui role admin.", true);
+            }
+        }
+
+        function initAdminDashboard() {
+            ordersListenerRef = ref(db, `account/data/checkout`);
+            onValue(ordersListenerRef, (snapshot) => {
+                adminOrdersContainer.innerHTML = '';
+                if (snapshot.exists()) {
+                    const ordersObj = snapshot.val();
+                    const ordersArray = Object.entries(ordersObj);
+
+                    if (ordersArray.length === 0) {
+                        adminContent.style.display = 'none';
+                        return;
+                    }
+
+                    adminContent.style.display = 'block';
+
+                    ordersArray.forEach(([orderId, data]) => {
+                        let formattedDate = '-';
+                        if (data.orderDate) {
+                            try {
+                                const d = new Date(data.orderDate);
+                                formattedDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                            } catch (e) {
+                                formattedDate = data.orderDate;
+                            }
+                        }
+
+                        let specText = '';
+                        if (data.mapType) specText += `Map: ${data.mapType}, ${data.mapSize}`;
+                        else if (data.webType) specText += `Web: ${data.webType}, ${data.pageComplexity}`;
+                        else if (data.graphicType) specText += `Graphic: ${data.graphicType}`;
+                        else specText = data.serviceCategory || 'Custom Project';
+
+                        const currentStatus = data.status || 'Pending';
+                        const currentPrice = data.totalPrice || '';
+
+                        const cardHtml = `
+                            <div class="order-admin-card" id="card-${orderId}">
+                                <div>
+                                    <div class="card-top-row">
+                                        <span class="order-id">${orderId}</span>
+                                        <span class="order-date"><i class="fa-regular fa-calendar" style="margin-right: 4px;"></i> ${formattedDate}</span>
+                                    </div>
+
+                                    <div class="info-grid" style="margin-top: 16px;">
+                                        <div class="info-box">
+                                            <div class="info-label">Pemesan & Email</div>
+                                            <div class="info-value">${data.customerName || 'Anonymous'}<br><span style="font-size:0.75rem; color:var(--text-muted);">${data.customerEmail || '-'}</span></div>
+                                        </div>
+                                        <div class="info-box">
+                                            <div class="info-label">Detail Project</div>
+                                            <div class="info-value">${specText}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="admin-control-group">
+                                    <div>
+                                        <label class="control-label">Ubah Status Pesanan</label>
+                                        <select class="admin-select" id="status-${orderId}">
+                                            <option value="Pending" ${currentStatus === 'Pending' ? 'selected' : ''}>Pending</option>
+                                            <option value="Menunggu Pembayaran" ${currentStatus === 'Menunggu Pembayaran' ? 'selected' : ''}>Menunggu Pembayaran</option>
+                                            <option value="Pengerjaan" ${currentStatus === 'Pengerjaan' ? 'selected' : ''}>Pengerjaan</option>
+                                            <option value="Selesai" ${currentStatus === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label class="control-label">Ubah Harga Total Tagihan</label>
+                                        <input type="text" class="admin-input" id="price-${orderId}" value="${currentPrice}" placeholder="Contoh: Rp 150.000">
+                                    </div>
+
+                                    <button type="button" class="save-btn" onclick="updateOrder('${orderId}')">
+                                        <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        adminOrdersContainer.innerHTML += cardHtml;
+                    });
+
+                } else {
+                    adminContent.style.display = 'none';
+                }
+            }, (error) => {
+                console.error("Database error:", error);
+            });
+        }
+
+        window.updateOrder = async function(orderId) {
+            const statusSelect = document.getElementById(`status-${orderId}`).value;
+            const priceInput = document.getElementById(`price-${orderId}`).value.trim();
+
+            try {
+                const orderRef = ref(db, `account/data/checkout/${orderId}`);
+                await update(orderRef, {
+                    status: statusSelect,
+                    totalPrice: priceInput !== '' ? priceInput : 'Harga Belum Pasti'
+                });
+                showNotice("Berhasil", `Pesanan ${orderId} berhasil diperbarui!`, false);
+            } catch (err) {
+                console.error("Update error:", err);
+                showNotice("Gagal", "Gagal menyimpan perubahan ke database.", true);
+            }
+        }
+    </script>
+</body>
+</html>
