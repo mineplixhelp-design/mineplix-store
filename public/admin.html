@@ -15,14 +15,15 @@
             --bg-dark: #0c0a0e;
             --card-bg: #1a1622;
             --card-inner: #131019;
-            --search-bg: #2d2638;
             --control-bg: #221d2d;
+            --dropdown-bg: #221d2d;
             --purple-primary: #7c3aed;
             --purple-hover: #6d28d9;
             --text-main: #ffffff;
             --text-muted: #a1a1aa;
             --supreme-red: #ef4444;
             --topbar-height: 82px;
+            --bottomnav-height: 65px;
         }
 
         ::selection {
@@ -103,7 +104,7 @@
 
         .top-navbar {
             height: var(--topbar-height);
-            background-color: rgba(30, 24, 41, 0.75);
+            background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -119,6 +120,15 @@
         .navbar-brand {
             display: flex;
             align-items: center;
+            transition: transform 0.2s ease;
+        }
+
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .navbar-brand:active {
+            transform: scale(0.95);
         }
 
         .brand-logo-img {
@@ -127,55 +137,27 @@
             object-fit: contain;
         }
 
-        .navbar-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .search-box {
-            background-color: var(--search-bg);
-            border-radius: 30px;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            width: 360px;
-        }
-
-        .search-box input {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 0.85rem;
-            outline: none;
-            width: 100%;
-        }
-
-        .search-box input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-box i {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
         .auth-bar {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: var(--card-inner);
+            background-color: rgba(255, 255, 255, 0.12);
             color: var(--text-main);
             padding: 6px 16px 6px 8px;
             border-radius: 40px;
             font-size: 0.8rem;
             font-weight: 600;
-            transition: opacity 0.2s;
+            border: none;
+            transition: opacity 0.2s, transform 0.2s ease, background-color 0.2s ease;
         }
 
         .auth-bar:hover {
-            opacity: 0.85;
+            opacity: 0.9;
+            background-color: rgba(255, 255, 255, 0.18);
+        }
+
+        .auth-bar:active {
+            transform: scale(0.95);
         }
 
         .auth-icon-circle {
@@ -194,7 +176,7 @@
         .main-container {
             max-width: 1300px;
             width: 100%;
-            margin: calc(var(--topbar-height) + 30px) auto 40px auto;
+            margin: calc(var(--topbar-height) + 30px) auto calc(var(--bottomnav-height) + 60px) auto;
             padding: 0 30px;
             flex: 1;
         }
@@ -259,11 +241,15 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.2s ease;
         }
 
         .login-google-btn:hover {
             background-color: var(--purple-hover);
+        }
+
+        .login-google-btn:active {
+            transform: scale(0.97);
         }
 
         .setup-admin-box {
@@ -298,17 +284,22 @@
             border-radius: 18px;
             font-weight: 700;
             font-size: 0.82rem;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.2s ease;
         }
 
         .setup-btn:hover {
             background-color: var(--purple-hover);
         }
 
+        .setup-btn:active {
+            transform: scale(0.97);
+        }
+
         .orders-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 24px;
+            width: 100%;
         }
 
         .order-admin-card {
@@ -320,6 +311,8 @@
             flex-direction: column;
             justify-content: space-between;
             gap: 18px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .card-top-row {
@@ -372,6 +365,7 @@
             width: 100%;
             padding: 4px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            gap: 12px;
         }
 
         .detail-row:last-child {
@@ -384,6 +378,7 @@
             font-weight: 600;
             font-size: 0.78rem;
             text-transform: capitalize;
+            flex-shrink: 0;
         }
 
         .detail-val {
@@ -391,6 +386,9 @@
             color: var(--text-main);
             font-weight: 700;
             font-size: 0.78rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+            max-width: 70%;
         }
 
         .admin-control-group {
@@ -398,7 +396,7 @@
             padding: 0px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .control-label {
@@ -411,15 +409,20 @@
 
         .admin-input {
             width: 100%;
-            height: 42px;
+            height: 44px;
             padding: 0 16px;
             background-color: var(--control-bg);
             border: none;
-            border-radius: 16px;
+            border-radius: 18px;
             color: var(--text-main);
             font-size: 0.82rem;
             font-weight: 600;
             outline: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .admin-input:focus {
+            background-color: #262033;
         }
 
         .custom-dropdown {
@@ -429,48 +432,71 @@
         }
 
         .custom-dropdown-selected {
-            height: 42px;
+            height: 44px;
             padding: 0 16px;
             background-color: var(--control-bg);
-            border-radius: 16px;
+            border: none;
+            border-radius: 18px;
             color: var(--text-main);
             font-size: 0.82rem;
             font-weight: 600;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .custom-dropdown-selected:hover {
+            background-color: #292337;
+        }
+
+        .custom-dropdown-selected:active {
+            transform: scale(0.98);
         }
 
         .custom-dropdown-options {
             position: absolute;
-            top: calc(100% + 6px);
+            top: calc(100% + 8px);
             left: 0;
             width: 100%;
-            background-color: #2a2336;
-            border-radius: 16px;
+            background-color: var(--dropdown-bg);
+            border: none;
+            border-radius: 20px;
             overflow: hidden;
             max-height: 0;
             opacity: 0;
-            transition: max-height 0.3s ease, opacity 0.3s ease;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease, transform 0.25s ease;
+            transform: translateY(-6px);
             z-index: 50;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
         }
 
         .custom-dropdown.open .custom-dropdown-options {
-            max-height: 200px;
+            max-height: 220px;
             opacity: 1;
+            transform: translateY(0);
         }
 
         .custom-dropdown-option {
-            padding: 10px 16px;
+            padding: 12px 16px;
             font-size: 0.82rem;
             font-weight: 600;
             color: var(--text-main);
-            transition: background-color 0.15s;
+            transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+        }
+
+        .custom-dropdown-option:hover {
+            background-color: rgba(124, 58, 237, 0.25);
+            padding-left: 20px;
+        }
+
+        .custom-dropdown-option:active {
+            background-color: rgba(124, 58, 237, 0.4);
         }
 
         .custom-dropdown-option.selected {
             color: var(--purple-primary);
+            font-weight: 700;
         }
 
         .save-btn {
@@ -478,19 +504,99 @@
             color: var(--text-main);
             border: none;
             width: 100%;
-            height: 44px;
-            border-radius: 16px;
+            height: 50px;
+            border-radius: 25px;
             font-weight: 700;
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            transition: opacity 0.2s;
+            transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
         }
 
         .save-btn:hover {
-            opacity: 0.9;
+            background-color: var(--purple-hover);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+        }
+
+        .save-btn:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 8px rgba(124, 58, 237, 0.2);
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 480px;
+            height: var(--bottomnav-height);
+            background-color: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 1000;
+            border: none;
+            border-radius: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 600;
+            width: 50%;
+            height: 100%;
+            transition: color 0.2s ease, transform 0.15s ease;
+        }
+
+        .nav-item i {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            transition: color 0.2s ease;
+        }
+
+        .nav-item:hover {
+            color: var(--text-muted);
+        }
+
+        .nav-item:active {
+            transform: scale(0.92);
+        }
+
+        .nav-item.active {
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .nav-item.active i {
+            color: var(--text-main);
+        }
+
+        .settings-card {
+            background-color: var(--card-bg);
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 32px;
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .settings-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
         .custom-notice-overlay {
@@ -499,8 +605,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -525,6 +632,7 @@
             text-align: center;
             transform: scale(0.9);
             transition: transform 0.25s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .custom-notice-overlay.show .custom-notice-box {
@@ -549,22 +657,35 @@
             color: #ffffff;
             border: none;
             width: 100%;
-            padding: 10px;
-            border-radius: 16px;
+            height: 44px;
+            border-radius: 22px;
             font-weight: 700;
             font-size: 0.82rem;
             margin-top: 14px;
+            transition: background-color 0.2s ease, transform 0.15s ease;
+        }
+
+        .notice-btn:hover {
+            background-color: var(--purple-hover);
+        }
+
+        .notice-btn:active {
+            transform: scale(0.96);
         }
 
         @media (max-width: 768px) {
             .top-navbar {
-                padding: 0 20px;
+                padding: 0 16px;
             }
             .main-container {
                 padding: 0 16px;
             }
-            .search-box {
-                width: 200px;
+            .orders-grid {
+                grid-template-columns: 1fr;
+            }
+            .bottom-nav {
+                width: calc(100% - 32px);
+                bottom: 16px;
             }
         }
     </style>
@@ -591,13 +712,6 @@
     <header class="top-navbar">
         <div class="navbar-brand" onclick="window.location.href='/'">
             <img src="/img/icon.png" alt="Mineplix Logo" class="brand-logo-img">
-        </div>
-
-        <div class="navbar-center">
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="Cari pesanan..." oninput="filterOrders()">
-            </div>
         </div>
 
         <div class="navbar-right">
@@ -627,7 +741,51 @@
                 <div class="orders-grid" id="adminOrdersContainer"></div>
             </div>
         </div>
+
+        <div id="settingsSection" class="dashboard-section">
+            <div class="settings-card">
+                <div>
+                    <h3 class="login-prompt-title" style="text-align: left;">Pengaturan Role Pengguna</h3>
+                    <p class="login-prompt-desc" style="text-align: left; margin-top: 4px;">Atur role admin/user berdasarkan email pengguna di Firebase.</p>
+                </div>
+
+                <div class="settings-form-group">
+                    <label class="control-label">Email Pengguna Target</label>
+                    <input type="email" id="settingEmailInput" class="admin-input" placeholder="Contoh: ykachan2704@gmail.com">
+                </div>
+
+                <div class="settings-form-group">
+                    <label class="control-label">Role Akses</label>
+                    <div class="custom-dropdown" id="dropdown-setting-role">
+                        <input type="hidden" id="setting-role-val" value="admin">
+                        <div class="custom-dropdown-selected" onclick="toggleCustomDropdown('setting-role')">
+                            <span id="setting-role-text">admin</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size:0.75rem; color:var(--text-muted);"></i>
+                        </div>
+                        <div class="custom-dropdown-options">
+                            <div class="custom-dropdown-option selected" data-value="admin" onclick="selectCustomOption('setting-role', 'admin', 'admin')">admin</div>
+                            <div class="custom-dropdown-option" data-value="user" onclick="selectCustomOption('setting-role', 'user', 'user')">user</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="save-btn" onclick="saveUserSettings()" style="margin-top: 8px;">
+                    <i class="fa-solid fa-user-gear"></i> Simpan Role Pengguna
+                </button>
+            </div>
+        </div>
     </div>
+
+    <nav class="bottom-nav">
+        <div class="nav-item active" id="navOrders" onclick="switchSection('ordersSection', 'navOrders')">
+            <i class="fa-solid fa-box-archive"></i>
+            <span>Orderan</span>
+        </div>
+        <div class="nav-item" id="navSettings" onclick="switchSection('settingsSection', 'navSettings')">
+            <i class="fa-solid fa-gear"></i>
+            <span>Settings</span>
+        </div>
+    </nav>
 
     <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
         <div class="custom-notice-box" onclick="event.stopPropagation()">
@@ -702,6 +860,26 @@
             document.getElementById('customNoticeOverlay').classList.remove('show');
         }
 
+        window.switchSection = function(sectionId, navId, isBackEvent = false) {
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            document.getElementById(navId).classList.add('active');
+
+            if (!isBackEvent) {
+                history.pushState({ section: sectionId, nav: navId }, "", "#" + sectionId.replace('Section', ''));
+            }
+        }
+
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.section) {
+                switchSection(event.state.section, event.state.nav, true);
+            } else {
+                switchSection('ordersSection', 'navOrders', true);
+            }
+        });
+
         window.handleAuthAction = async () => {
             showLoader();
             if (!currentUser) {
@@ -744,6 +922,8 @@
                 preLoginWrapper.style.display = 'none';
                 unauthorizedSection.style.display = 'none';
                 adminContent.style.display = 'none';
+
+                document.getElementById('settingEmailInput').value = user.email || '';
 
                 try {
                     const dbRef = ref(db);
@@ -824,6 +1004,54 @@
             }
         }
 
+        window.saveUserSettings = async function() {
+            const emailInput = document.getElementById('settingEmailInput').value.trim().toLowerCase();
+            const role = document.getElementById('setting-role-val').value;
+
+            if (!emailInput) {
+                showNotice("Gagal", "Email pengguna tidak boleh kosong!", true);
+                return;
+            }
+
+            showLoader();
+            try {
+                const dbRef = ref(db);
+                const usersSnapshot = await get(child(dbRef, `account/data/users`));
+                
+                let foundUid = null;
+                if (usersSnapshot.exists()) {
+                    const allUsers = usersSnapshot.val();
+                    for (const [uid, uData] of Object.entries(allUsers)) {
+                        if (uData.email && uData.email.toLowerCase() === emailInput) {
+                            foundUid = uid;
+                            break;
+                        }
+                    }
+                }
+
+                if (!foundUid) {
+                    if (currentUser && currentUser.email && currentUser.email.toLowerCase() === emailInput) {
+                        foundUid = currentUser.uid;
+                    } else {
+                        showNotice("Gagal", "User dengan email tersebut tidak ditemukan di database!", true);
+                        hideLoader();
+                        return;
+                    }
+                }
+
+                const targetUserRef = ref(db, `account/data/users/${foundUid}`);
+                await update(targetUserRef, {
+                    role: role
+                });
+                hideLoader();
+                showNotice("Berhasil", `Role untuk ${emailInput} berhasil diubah menjadi ${role}!`, false);
+            } catch (err) {
+                console.error("Save User Settings Error:", err);
+                hideLoader();
+                showNotice("Gagal", "Gagal memperbarui role pengguna di database.", true);
+            }
+        }
+
         function initAdminDashboard() {
             ordersListenerRef = ref(db, `account/data/checkout`);
             onValue(ordersListenerRef, (snapshot) => {
@@ -837,21 +1065,8 @@
                     adminContent.style.display = 'none';
                 }
             });
-        }
 
-        window.filterOrders = function() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = {};
-            Object.entries(allFetchedOrders).forEach(([id, data]) => {
-                const matchId = id.toLowerCase().includes(query);
-                const matchName = (data.customerName || '').toLowerCase().includes(query);
-                const matchEmail = (data.customerEmail || '').toLowerCase().includes(query);
-                const matchCategory = (data.serviceCategory || '').toLowerCase().includes(query);
-                if (matchId || matchName || matchEmail || matchCategory) {
-                    filtered[id] = data;
-                }
-            });
-            renderOrders(filtered);
+            history.replaceState({ section: 'ordersSection', nav: 'navOrders' }, "", "#orders");
         }
 
         window.toggleCustomDropdown = function(orderId) {
