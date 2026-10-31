@@ -347,33 +347,114 @@
             text-align: center;
         }
 
-        .qris-img-full {
+        .open-qris-modal-btn {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-top: 8px;
+            user-select: none;
+        }
+
+        .open-qris-modal-btn:hover {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            max-height: 420px;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            padding: 20px;
+        }
+
+        .custom-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .custom-modal-box {
+            background-color: #211c29;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 28px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transform: translateY(20px);
+            transition: transform 0.25s ease;
+        }
+
+        .custom-modal-overlay.show .custom-modal-box {
+            transform: translateY(0);
+        }
+
+        .qris-modal-img {
+            width: 100%;
+            max-height: 320px;
             object-fit: contain;
             background-color: #ffffff;
-            margin: 14px 0;
+            border-radius: 12px;
+            margin: 14px 0 12px 0;
             display: block;
         }
 
-        .download-qris-btn {
+        .download-qris-bar-btn {
             background-color: var(--purple-primary);
             color: var(--text-white);
-            text-decoration: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 10px 22px;
-            border-radius: 20px;
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 22px;
             font-weight: 700;
-            font-size: 0.85rem;
-            margin-top: 6px;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            text-decoration: none;
             transition: transform 0.2s ease, opacity 0.2s ease;
+            user-select: none;
         }
 
-        .download-qris-btn:hover {
+        .download-qris-bar-btn:hover {
+            transform: scale(0.96);
+            opacity: 0.9;
+        }
+
+        .modal-close-custom-btn {
+            background-color: #2b2633;
+            color: var(--text-white);
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 22px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            user-select: none;
+        }
+
+        .modal-close-custom-btn:hover {
             transform: scale(0.96);
             opacity: 0.9;
         }
@@ -680,6 +761,22 @@
         </div>
     </section>
 
+    <!-- Global QRIS Modal Overlay -->
+    <div class="custom-modal-overlay" id="qrisModalOverlay" onclick="closeQrisModal()">
+        <div class="custom-modal-box" onclick="event.stopPropagation()">
+            <h3 style="font-size: 1.2rem; font-weight: 800; margin-bottom: 4px;">QRIS Pembayaran</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 4px;">Scan kode QRIS di bawah ini untuk menyelesaikan pembayaran pesanan Anda.</p>
+            
+            <img src="/img/qris.png" alt="QRIS Mineplix" class="qris-modal-img">
+            
+            <a href="/img/qris.jpeg" download="QRIS-Mineplix.jpeg" class="download-qris-bar-btn">
+                <i class="fa-solid fa-download"></i> Download QRIS
+            </a>
+            
+            <div class="modal-close-custom-btn" onclick="closeQrisModal()">Tutup</div>
+        </div>
+    </div>
+
     <footer class="footer-wrapper">
         <div class="trustpilot-box" onclick="window.open('https://www.trustpilot.com/review/mineplix.biz.id', '_blank')">
             <p class="trustpilot-title">See trusted in Trustpilot</p>
@@ -919,13 +1016,11 @@
                 } else if (status === 'Menunggu Pembayaran' || status === 'Payment') {
                     actionHtml = `
                         <div class="payment-action-box">
-                            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 4px;">Silakan Lakukan Pembayaran QRIS</h4>
-                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Scan kode QRIS di bawah ini sesuai dengan nominal harga total pesanan Anda.</p>
-                            <img src="/img/qris.png" alt="QRIS Mineplix" class="qris-img-full">
-                            <a href="/img/qris.jpeg" download="QRIS-Mineplix.jpeg" class="download-qris-btn">
-                                <i class="fa-solid fa-download"></i> Download QRIS
-                            </a>
-                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">Setelah transfer, konfirmasikan bukti pembayaran ke Discord Ticket.</p>
+                            <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 4px;">Status: Menunggu Pembayaran</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 12px;">Total tagihan Anda adalah <b>${displayedPrice}</b>. Silakan klik tombol di bawah untuk melihat QRIS pembayaran.</p>
+                            <div class="open-qris-modal-btn" onclick="openQrisModal()">
+                                <i class="fa-solid fa-qrcode"></i> Lihat QRIS Pembayaran
+                            </div>
                         </div>
                     `;
                 } else if (status === 'Pengerjaan' || status === 'Progress') {
@@ -989,6 +1084,16 @@
             });
 
             document.getElementById('resultWrapper').classList.add('show');
+        }
+
+        window.openQrisModal = function() {
+            const modal = document.getElementById('qrisModalOverlay');
+            if (modal) modal.classList.add('show');
+        }
+
+        window.closeQrisModal = function() {
+            const modal = document.getElementById('qrisModalOverlay');
+            if (modal) modal.classList.remove('show');
         }
 
         window.navigateToHome = function() {
