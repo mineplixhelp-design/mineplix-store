@@ -30,7 +30,7 @@
             --crimson-red: #ef4444;
             --premium-blue: #3b82f6;
             --translucent-white-90: rgba(255, 255, 255, 0.9);
-            --nav-height: 80px;
+            --nav-height: 64px;
             --nav-padding-x: 48px;
         }
 
@@ -47,10 +47,16 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--purple-primary);
             color: var(--text-white);
             line-height: 1.5;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        .main-content-wrapper {
+            background-color: var(--bg-dark);
+            width: 100%;
         }
 
         .navbar {
@@ -63,7 +69,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: var(--bg-dark);
+            background: linear-gradient(to bottom, #16131a 0%, rgba(22, 19, 26, 0.75) 60%, transparent 100%);
             z-index: 1000;
         }
 
@@ -74,7 +80,7 @@
         }
 
         .logo-img {
-            height: 38px;
+            height: 32px;
             width: auto;
             object-fit: contain;
         }
@@ -103,9 +109,9 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: #2b2633;
+            background-color: rgba(255, 255, 255, 0.15);
             color: var(--text-white);
-            padding: 8px 18px 8px 10px;
+            padding: 6px 16px 6px 8px;
             border-radius: 30px;
             font-size: 0.9rem;
             font-weight: 600;
@@ -117,20 +123,55 @@
         }
 
         .auth-icon-circle {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background-color: var(--purple-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-white);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
         }
 
+        /* Mobile Bottom Navigation Bar */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 380px;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 36px;
+            padding: 10px 24px;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            gap: 2px;
+        }
+
+        .mobile-nav-item.active {
+            color: var(--text-white);
+        }
+
+        .mobile-nav-item i {
+            font-size: 1.15rem;
+        }
+
         .hero {
-            padding: 150px 24px 50px 24px;
+            padding: 130px 24px 50px 24px;
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -149,15 +190,6 @@
             width: 100%;
         }
 
-        .selected-highlight {
-            display: inline-block;
-            background-color: var(--purple-primary);
-            color: var(--text-white);
-            padding: 2px 14px;
-            border-radius: 8px;
-            margin-top: 6px;
-        }
-
         .hero-description {
             font-size: 1.15rem;
             color: var(--text-muted);
@@ -169,9 +201,9 @@
         .action-bars-grid {
             display: flex;
             flex-direction: row;
-            gap: 12px;
+            gap: 14px;
             width: 100%;
-            max-width: 500px;
+            max-width: 560px;
             margin-bottom: 40px;
             justify-content: center;
             flex-wrap: nowrap;
@@ -181,13 +213,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            padding: 10px 16px;
-            border-radius: 16px;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 18px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.95rem;
             color: #fff;
-            text-decoration: none;
             background-color: var(--purple-primary);
             transition: transform 0.2s ease, opacity 0.2s ease;
             flex: 1;
@@ -243,18 +274,19 @@
             margin-bottom: 8px;
         }
 
+        .title-vip { color: var(--vip-orange); }
+        .title-mvp { color: var(--mvp-purple); }
+        .title-supreme { color: var(--supreme-red); }
+        .title-common { color: var(--common-white); }
+        .title-crimson { color: var(--crimson-red); }
+        .title-premium { color: var(--premium-blue); }
+
         .rank-price {
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 20px;
+            color: var(--text-white);
         }
-
-        .price-vip { color: var(--vip-orange); }
-        .price-mvp { color: var(--mvp-purple); }
-        .price-supreme { color: var(--supreme-red); }
-        .price-common { color: var(--common-white); }
-        .price-crimson { color: var(--crimson-red); }
-        .price-premium { color: var(--premium-blue); }
 
         .rank-features {
             list-style: none;
@@ -292,27 +324,30 @@
         .select-rank-btn.btn-crimson { background-color: var(--crimson-red); color: #fff; }
         .select-rank-btn.btn-premium { background-color: var(--premium-blue); color: #fff; }
 
+        /* Checkout Modal Overlay with Blur */
         .checkout-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.75);
-            backdrop-filter: blur(6px);
+            background-color: rgba(22, 19, 26, 0.65);
+            backdrop-filter: blur(8px);
             display: flex; align-items: center; justify-content: center;
             z-index: 2500; opacity: 0; visibility: hidden;
             transition: all 0.25s ease;
-            padding: 20px;
+            padding: 24px;
+            overflow-y: auto;
         }
         .checkout-modal-overlay.show { opacity: 1; visibility: visible; }
         
         .checkout-modal-box {
-            background-color: var(--card-bg);
-            width: 100%; max-width: 550px;
-            border-radius: 32px; padding: 36px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            background-color: #211c29;
+            box-shadow: none;
+            border: none;
+            width: 100%; max-width: 520px;
+            border-radius: 32px; padding: 40px 36px;
             transform: translateY(20px);
             transition: transform 0.25s ease;
-            max-height: 90vh;
-            overflow-y: auto;
+            position: relative;
+            margin: auto;
         }
         .checkout-modal-overlay.show .checkout-modal-box { transform: translateY(0); }
 
@@ -471,8 +506,8 @@
         .custom-notice-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.75);
-            backdrop-filter: blur(5px);
+            background-color: rgba(22, 19, 26, 0.65);
+            backdrop-filter: blur(6px);
             display: flex; align-items: center; justify-content: center;
             z-index: 3000; opacity: 0; visibility: hidden;
             transition: all 0.25s ease;
@@ -493,15 +528,6 @@
         .custom-notice-overlay.show .custom-notice-box { transform: scale(1); }
         .custom-notice-box.error-border {
             border-color: var(--supreme-red);
-        }
-
-        .notice-icon-circle {
-            width: 56px; height: 56px;
-            border-radius: 50%;
-            background-color: rgba(124, 58, 237, 0.15);
-            color: var(--purple-primary);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; margin: 0 auto 16px auto;
         }
 
         .status-section {
@@ -583,8 +609,8 @@
 
         .faq-section {
             max-width: 900px;
-            margin: 80px auto;
-            padding: 0 24px;
+            margin: 80px auto 0 auto;
+            padding: 0 24px 80px 24px;
         }
 
         .faq-container {
@@ -630,16 +656,16 @@
         }
 
         .footer-wrapper {
-            background-color: var(--bg-dark);
+            background-color: var(--purple-primary);
             width: 100%;
-            margin-top: 60px;
+            margin-top: 0;
         }
 
         .footer-banner {
             background-color: var(--purple-primary);
             color: #fff;
             text-align: center;
-            padding: 60px 24px;
+            padding: 60px 24px 80px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -660,8 +686,8 @@
         .custom-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            background-color: rgba(22, 19, 26, 0.65);
+            backdrop-filter: blur(6px);
             display: flex; align-items: center; justify-content: center;
             z-index: 2000; opacity: 0; visibility: hidden;
             transition: all 0.25s ease;
@@ -688,13 +714,14 @@
         @media (max-width: 768px) {
             .navbar { padding: 0 20px; }
             .nav-links { display: none; }
+            .mobile-bottom-nav { display: flex; }
             .hero-title { font-size: 2.3rem; letter-spacing: -0.5px; }
             .section-title { font-size: 1.65rem; }
             .footer-banner-title { font-size: 1.75rem; }
             .rank-name { font-size: 1.3rem; }
             .rank-price { font-size: 1.15rem; }
-            .action-bars-grid { gap: 8px; max-width: 100%; }
-            .action-bar-item { padding: 8px 12px; font-size: 0.75rem; gap: 6px; }
+            .action-bars-grid { gap: 10px; max-width: 100%; }
+            .action-bar-item { padding: 12px 14px; font-size: 0.85rem; gap: 8px; }
             
             .ranks-grid {
                 display: flex;
@@ -711,7 +738,7 @@
             }
 
             #ordersContainer { grid-template-columns: 1fr; }
-            .checkout-modal-box { padding: 24px; border-radius: 24px; }
+            .checkout-modal-box { padding: 32px 24px; }
             .order-id-label { font-size: 0.95rem; }
             .status-item-line { font-size: 0.85rem; }
         }
@@ -719,228 +746,237 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">
-            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
-        </div>
-
-        <ul class="nav-links">
-            <li><a class="nav-link-item active" onclick="window.scrollTo({top:0, behavior:'smooth'})">Home</a></li>
-            <li><a class="nav-link-item" onclick="document.getElementById('ranks-section').scrollIntoView({behavior:'smooth'})">Ranks Store</a></li>
-            <li><a class="nav-link-item" onclick="document.getElementById('keys-section').scrollIntoView({behavior:'smooth'})">Keys Gacha</a></li>
-            <li><a class="nav-link-item" onclick="document.getElementById('status-section').scrollIntoView({behavior:'smooth'})">Status Order</a></li>
-            <li><a class="nav-link-item" onclick="document.getElementById('faq-section').scrollIntoView({behavior:'smooth'})">FAQ</a></li>
-        </ul>
-
-        <div class="nav-right-container">
-            <div id="authContainer">
-                <div class="auth-bar" onclick="handleAuthAction()">
-                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
-                    <span>Login</span>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <h1 class="hero-title">
-            Mineplix Store <br>
-            <span class="selected-highlight">Let's For Survive</span> (Team War)
-        </h1>
-        <p class="hero-description">
-            Dukung server kami dan dapatkan keuntungan eksklusif ingame dengan membeli rank resmi Mineplix. Aman, cepat, dan otomatis!
-        </p>
-
-        <div class="action-bars-grid">
-            <a href="https://chat.whatsapp.com/GSylylDvgYX1XX57vsrRpZ" target="_blank" class="action-bar-item">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> WhatsApp
-            </a>
-            <a href="https://discord.gg/SUqrcFYyYE" target="_blank" class="action-bar-item">
-                <i class="fa-brands fa-discord" style="font-size: 1rem;"></i> Discord
-            </a>
-            <a href="https://minecraft-mp.com/server/365502/vote/" target="_blank" class="action-bar-item">
-                <i class="fa-solid fa-check-to-slot" style="font-size: 1rem;"></i> Vote
-            </a>
-        </div>
-    </section>
-
-    <section class="store-container" id="ranks-section">
-        <h2 class="section-title">Pilih Ranks Server</h2>
-        <p class="section-subtitle">Pilih rank favoritmu di bawah ini untuk melanjutkan pembelian.</p>
-
-        <div class="ranks-grid">
-            <div class="rank-card" id="card-rank-vip">
-                <div>
-                    <h3 class="rank-name">VIP Rank</h3>
-                    <div class="rank-price price-vip">Rp 18.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Batas Home : 5 Lokasi</li>
-                        <li><i class="fa-solid fa-check"></i> Kits Vip : Harian</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /craft</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /tpahere</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-vip" onclick="openCheckoutModal('VIP Rank', 18000, 'rank')">Pilih Rank Ini</button>
+    <div class="main-content-wrapper">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
             </div>
 
-            <div class="rank-card" id="card-rank-mvp">
-                <div>
-                    <h3 class="rank-name">MVP Rank</h3>
-                    <div class="rank-price price-mvp">Rp 32.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Batas Home : 10 Lokasi</li>
-                        <li><i class="fa-solid fa-check"></i> Kits Mvp : Harian</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /enderchest</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-mvp" onclick="openCheckoutModal('MVP Rank', 32000, 'rank')">Pilih Rank Ini</button>
-            </div>
+            <ul class="nav-links">
+                <li><a class="nav-link-item active" href="/server">Home</a></li>
+                <li><a class="nav-link-item" href="/server/wiki">Wiki</a></li>
+            </ul>
 
-            <div class="rank-card" id="card-rank-supreme">
-                <div>
-                    <h3 class="rank-name">Supreme Rank</h3>
-                    <div class="rank-price price-supreme">Rp 50.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Batas Home : 15 Lokasi</li>
-                        <li><i class="fa-solid fa-check"></i> Kits Supreme : Harian</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /nick & /vanish</li>
-                        <li><i class="fa-solid fa-check"></i> Akses : /enderchest & /heal</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-supreme" onclick="openCheckoutModal('Supreme Rank', 50000, 'rank')">Pilih Rank Ini</button>
-            </div>
-        </div>
-    </section>
-
-    <section class="store-container" id="keys-section">
-        <h2 class="section-title">Pilih Key Gacha</h2>
-        <p class="section-subtitle">Dapatkan kunci crate gacha spesial untuk item in-game terbaikmu.</p>
-
-        <div class="ranks-grid">
-            <div class="rank-card" id="card-key-common">
-                <div>
-                    <h3 class="rank-name">Common Key</h3>
-                    <div class="rank-price price-common">Rp 2.000</div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Common</li>
-                        <li><i class="fa-solid fa-check"></i> Peluang Item Survival Dasar</li>
-                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-common" onclick="openCheckoutModal('Common Key', 2000, 'key')">Pilih Key Ini</button>
-            </div>
-
-            <div class="rank-card" id="card-key-crimson">
-                <div>
-                    <h3 class="rank-name">Crimson Key</h3>
-                    <div class="rank-price price-crimson">Rp 5.000</div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Crimson</li>
-                        <li><i class="fa-solid fa-check"></i> Peluang Item & Armor Menengah</li>
-                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-crimson" onclick="openCheckoutModal('Crimson Key', 5000, 'key')">Pilih Key Ini</button>
-            </div>
-
-            <div class="rank-card" id="card-key-premium">
-                <div>
-                    <h3 class="rank-name">Premium Key</h3>
-                    <div class="rank-price price-premium">Rp 10.000</div>
-                    <ul class="rank-features">
-                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Premium</li>
-                        <li><i class="fa-solid fa-check"></i> Peluang Item Langka & OP</li>
-                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
-                    </ul>
-                </div>
-                <button type="button" class="select-rank-btn btn-premium" onclick="openCheckoutModal('Premium Key', 10000, 'key')">Pilih Key Ini</button>
-            </div>
-        </div>
-    </section>
-
-    <div class="checkout-modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()">
-        <div class="checkout-modal-box" onclick="event.stopPropagation()">
-            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; text-align: center;">Form Checkout Pembelian</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; text-align: center;" id="selectedProductText">Produk Terpilih: <b>VIP Rank (Rp 18.000)</b>[span_0](start_span)[span_0](end_span)</p>
-
-            <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
-                <div class="form-group">
-                    <label class="form-label">Platform Minecraft</label>
-                    <div class="custom-dropdown-container">
-                        <div class="dropdown-toggle-bar" id="platformDropdownToggle" onclick="togglePlatformDropdown(event)">
-                            <span id="selectedPlatformText">Java Edition</span>
-                            <i class="fa-solid fa-chevron-down" id="platformChevron"></i>
-                        </div>
-                        <div class="dropdown-menu-list" id="platformDropdownList">
-                            <div class="dropdown-item-option" onclick="selectPlatformOption('java', 'Java Edition')">Java Edition</div>
-                            <div class="dropdown-item-option" onclick="selectPlatformOption('bedrock', 'Bedrock Edition')">Bedrock Edition</div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="platformSelect" value="java">
-                </div>
-
-                <div class="form-group" id="quantityGroup" style="display: none;">
-                    <label class="form-label">Jumlah (Quantity)</label>
-                    <div class="quantity-control-wrapper">
-                        <button type="button" class="qty-btn" onclick="adjustQuantity(-1)">-</button>
-                        <span class="qty-display" id="qtyDisplay">1</span>
-                        <button type="button" class="qty-btn" onclick="adjustQuantity(1)">+</button>
+            <div class="nav-right-container">
+                <div id="authContainer">
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
                     </div>
                 </div>
+            </div>
+        </nav>
 
-                <div class="form-group">
-                    <label class="form-label">Username Ingame</label>
-                    <input type="text" id="minecraftUsername" class="form-input" placeholder="Masukkan username kamu..." required oninput="this.classList.remove('input-error')">
-                    <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;" id="usernameHint">Masukkan nickname akun Minecraft kamu sesuai platform</span>
+        <!-- Mobile Bottom Navigation Bar -->
+        <div class="mobile-bottom-nav">
+            <div class="mobile-nav-item active" onclick="window.location.href='/server'">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+            <div class="mobile-nav-item" onclick="window.location.href='/server/wiki'">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Wiki</span>
+            </div>
+        </div>
+
+        <section class="hero">
+            <h1 class="hero-title">
+                Mineplix Store <br>
+                Let's For Survive (Team War)
+            </h1>
+            <p class="hero-description">
+                Dukung server kami dan dapatkan keuntungan eksklusif ingame dengan membeli rank resmi Mineplix. Aman, cepat, dan otomatis!
+            </p>
+
+            <div class="action-bars-grid">
+                <div class="action-bar-item" onclick="window.open('https://chat.whatsapp.com/GSylylDvgYX1XX57vsrRpZ', '_blank')">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.15rem;"></i> WhatsApp
+                </div>
+                <div class="action-bar-item" onclick="window.open('https://discord.gg/SUqrcFYyYE', '_blank')">
+                    <i class="fa-brands fa-discord" style="font-size: 1.15rem;"></i> Discord
+                </div>
+                <div class="action-bar-item" onclick="window.open('https://minecraft-mp.com/server/365502/vote/', '_blank')">
+                    <i class="fa-solid fa-check-to-slot" style="font-size: 1.15rem;"></i> Vote
+                </div>
+            </div>
+        </section>
+
+        <section class="store-container" id="ranks-section">
+            <h2 class="section-title">Pilih Ranks Server</h2>
+            <p class="section-subtitle">Pilih rank favoritmu di bawah ini untuk melanjutkan pembelian.</p>
+
+            <div class="ranks-grid">
+                <div class="rank-card" id="card-rank-vip">
+                    <div>
+                        <h3 class="rank-name title-vip">VIP Rank</h3>
+                        <div class="rank-price">Rp 18.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Batas Home : 5 Lokasi</li>
+                            <li><i class="fa-solid fa-check"></i> Kits Vip : Harian</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /fly & /craft</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /tpahere</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-vip" onclick="openCheckoutModal('VIP Rank', 18000, 'rank')">Pilih Rank Ini</button>
                 </div>
 
-                <button type="submit" class="checkout-btn">Proses Pembayaran Sekarang</button>
-                <button type="button" class="modal-close-btn" onclick="closeCheckoutModal()">Tutup</button>
-            </form>
+                <div class="rank-card" id="card-rank-mvp">
+                    <div>
+                        <h3 class="rank-name title-mvp">MVP Rank</h3>
+                        <div class="rank-price">Rp 32.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Batas Home : 10 Lokasi</li>
+                            <li><i class="fa-solid fa-check"></i> Kits Mvp : Harian</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /enderchest</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-mvp" onclick="openCheckoutModal('MVP Rank', 32000, 'rank')">Pilih Rank Ini</button>
+                </div>
+
+                <div class="rank-card" id="card-rank-supreme">
+                    <div>
+                        <h3 class="rank-name title-supreme">Supreme Rank</h3>
+                        <div class="rank-price">Rp 50.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Batas Home : 15 Lokasi</li>
+                            <li><i class="fa-solid fa-check"></i> Kits Supreme : Harian</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /nick & /vanish</li>
+                            <li><i class="fa-solid fa-check"></i> Akses : /enderchest & /heal</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-supreme" onclick="openCheckoutModal('Supreme Rank', 50000, 'rank')">Pilih Rank Ini</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="store-container" id="keys-section">
+            <h2 class="section-title">Pilih Key Gacha</h2>
+            <p class="section-subtitle">Dapatkan kunci crate gacha spesial untuk item in-game terbaikmu.</p>
+
+            <div class="ranks-grid">
+                <div class="rank-card" id="card-key-common">
+                    <div>
+                        <h3 class="rank-name title-common">Common Key</h3>
+                        <div class="rank-price">Rp 2.000</div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Common</li>
+                            <li><i class="fa-solid fa-check"></i> Peluang Item Survival Dasar</li>
+                            <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-common" onclick="openCheckoutModal('Common Key', 2000, 'key')">Pilih Key Ini</button>
+                </div>
+
+                <div class="rank-card" id="card-key-crimson">
+                    <div>
+                        <h3 class="rank-name title-crimson">Crimson Key</h3>
+                        <div class="rank-price">Rp 5.000</div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Crimson</li>
+                            <li><i class="fa-solid fa-check"></i> Peluang Item & Armor Menengah</li>
+                            <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-crimson" onclick="openCheckoutModal('Crimson Key', 5000, 'key')">Pilih Key Ini</button>
+                </div>
+
+                <div class="rank-card" id="card-key-premium">
+                    <div>
+                        <h3 class="rank-name title-premium">Premium Key</h3>
+                        <div class="rank-price">Rp 10.000</div>
+                        <ul class="rank-features">
+                            <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Premium</li>
+                            <li><i class="fa-solid fa-check"></i> Peluang Item Langka & OP</li>
+                            <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                        </ul>
+                    </div>
+                    <button type="button" class="select-rank-btn btn-premium" onclick="openCheckoutModal('Premium Key', 10000, 'key')">Pilih Key Ini</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fullscreen Checkout Modal -->
+        <div class="checkout-modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()">
+            <div class="checkout-modal-box" onclick="event.stopPropagation()">
+                <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; text-align: center;">Form Checkout Pembelian</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; text-align: center;" id="selectedProductText">Produk Terpilih: <b>VIP Rank (Rp 18.000)</b></p>
+
+                <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+                    <div class="form-group">
+                        <label class="form-label">Platform Minecraft</label>
+                        <div class="custom-dropdown-container">
+                            <div class="dropdown-toggle-bar" id="platformDropdownToggle" onclick="togglePlatformDropdown(event)">
+                                <span id="selectedPlatformText">Java Edition</span>
+                                <i class="fa-solid fa-chevron-down" id="platformChevron"></i>
+                            </div>
+                            <div class="dropdown-menu-list" id="platformDropdownList">
+                                <div class="dropdown-item-option" onclick="selectPlatformOption('java', 'Java Edition')">Java Edition</div>
+                                <div class="dropdown-item-option" onclick="selectPlatformOption('bedrock', 'Bedrock Edition')">Bedrock Edition</div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="platformSelect" value="java">
+                    </div>
+
+                    <div class="form-group" id="quantityGroup" style="display: none;">
+                        <label class="form-label">Jumlah (Quantity)</label>
+                        <div class="quantity-control-wrapper">
+                            <button type="button" class="qty-btn" onclick="adjustQuantity(-1)">-</button>
+                            <span class="qty-display" id="qtyDisplay">1</span>
+                            <button type="button" class="qty-btn" onclick="adjustQuantity(1)">+</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Username Ingame</label>
+                        <input type="text" id="minecraftUsername" class="form-input" placeholder="Masukkan username kamu..." required oninput="this.classList.remove('input-error')">
+                        <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;" id="usernameHint">Masukkan nickname akun Minecraft kamu sesuai platform</span>
+                    </div>
+
+                    <button type="submit" class="checkout-btn">Proses Pembayaran Sekarang</button>
+                    <button type="button" class="modal-close-btn" onclick="closeCheckoutModal()">Tutup</button>
+                </form>
+            </div>
         </div>
+
+        <!-- Custom Notice / Login Required Modal -->
+        <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
+            <div class="custom-notice-box" id="customNoticeBox" onclick="event.stopPropagation()">
+                <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Pemberitahuan</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.4;" id="noticeMessage">Pesan akan muncul di sini.</p>
+                
+                <div id="noticeActionContainer">
+                    <button type="button" class="modal-btn" style="background-color: var(--purple-primary);" onclick="closeCustomNotice()">Mengerti</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="status-section" id="status-section">
+            <h2 class="section-title">Status Pemesanan Anda</h2>
+            <p class="section-subtitle">Otomatis terdeteksi berdasarkan akun Google yang sedang aktif</p>
+
+            <p id="errorMsg" style="color: var(--text-muted); font-size: 0.9rem; display: none; margin-top: 20px;"></p>
+
+            <div class="result-wrapper" id="resultWrapper" style="display: none;">
+                <div id="ordersContainer"></div>
+            </div>
+        </section>
+
+        <section class="faq-section" id="faq-section">
+            <h2 class="section-title">Pertanyaan Umum (FAQ)</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question"><span>Bagaimana cara kerja pembelian rank otomatis?</span><i class="faq-icon fa-solid fa-plus"></i></div>
+                    <div class="faq-answer-wrapper"><div class="faq-answer-inner">Setelah kamu melakukan checkout dan menyelesaikan pembayaran via QRIS, sistem kami akan memproses rank ke akun ingame kamu dalam 1-5 menit secara otomatis.</div></div>
+                </div>
+            </div>
+        </section>
     </div>
-
-    <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
-        <div class="custom-notice-box" id="customNoticeBox" onclick="event.stopPropagation()">
-            <div class="notice-icon-circle" id="noticeIconCircle">
-                <i class="fa-solid fa-circle-info" id="noticeIcon"></i>
-            </div>
-            <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Pemberitahuan</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.4;" id="noticeMessage">Pesan akan muncul di sini.</p>
-            <button type="button" class="modal-btn" style="background-color: var(--purple-primary);" onclick="closeCustomNotice()">Mengerti</button>
-        </div>
-    </div>
-
-    <section class="status-section" id="status-section">
-        <h2 class="section-title">Status Pemesanan Anda</h2>
-        <p class="section-subtitle">Otomatis terdeteksi berdasarkan akun Google yang sedang aktif</p>
-
-        <p id="errorMsg" style="color: var(--text-muted); font-size: 0.9rem; display: none; margin-top: 20px;"></p>
-
-        <div class="result-wrapper" id="resultWrapper" style="display: none;">
-            <div id="ordersContainer"></div>
-        </div>
-    </section>
-
-    <section class="faq-section" id="faq-section">
-        <h2 class="section-title">Pertanyaan Umum (FAQ)</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question"><span>Bagaimana cara kerja pembelian rank otomatis?</span><i class="faq-icon fa-solid fa-plus"></i></div>
-                <div class="faq-answer-wrapper"><div class="faq-answer-inner">Setelah kamu melakukan checkout dan menyelesaikan pembayaran via QRIS, sistem kami akan memproses rank ke akun ingame kamu dalam 1-5 menit secara otomatis.</div></div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question"><span>Apa perbedaan format username Java dan Bedrock?</span><i class="faq-icon fa-solid fa-plus"></i></div>
-                <div class="faq-answer-wrapper"><div class="faq-answer-inner">Pemain Java Edition menggunakan nickname standar, sedangkan pemain Bedrock Edition biasanya perlu menyertakan prefix yang sesuai dengan ketentuan server.</div></div>
-            </div>
-        </div>
-    </section>
 
     <footer class="footer-wrapper">
         <div class="footer-banner">
@@ -963,7 +999,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
-        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
@@ -988,16 +1024,27 @@
         let selectedProduct = { name: 'VIP Rank', basePrice: 18000, type: 'rank' };
         let currentQuantity = 1;
 
-        window.showCustomNotice = function(title, message, iconClass = "fa-solid fa-circle-info", isError = false) {
+        window.showCustomNotice = function(title, message, isError = false, isLoginPrompt = false) {
             document.getElementById('noticeTitle').innerText = title;
             document.getElementById('noticeMessage').innerText = message;
-            document.getElementById('noticeIcon').className = iconClass;
             
             const noticeBox = document.getElementById('customNoticeBox');
             if (isError) {
                 noticeBox.classList.add('error-border');
             } else {
                 noticeBox.classList.remove('error-border');
+            }
+
+            const actionContainer = document.getElementById('noticeActionContainer');
+            if (isLoginPrompt) {
+                actionContainer.innerHTML = `
+                    <button type="button" class="modal-btn" style="background-color: var(--purple-primary); margin-bottom: 8px;" onclick="executeGoogleLogin()">Google Login</button>
+                    <button type="button" class="modal-btn" onclick="closeCustomNotice()">Tutup</button>
+                `;
+            } else {
+                actionContainer.innerHTML = `
+                    <button type="button" class="modal-btn" style="background-color: var(--purple-primary);" onclick="closeCustomNotice()">Mengerti</button>
+                `;
             }
 
             document.getElementById('customNoticeOverlay').classList.add('show');
@@ -1007,10 +1054,16 @@
             document.getElementById('customNoticeOverlay').classList.remove('show');
         }
 
+        window.executeGoogleLogin = async function() {
+            closeCustomNotice();
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) { console.error("Login Error:", error); }
+        }
+
         window.openCheckoutModal = function(name, priceNum, type) {
             if (!currentUser) {
-                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu untuk melanjutkan pembelian!", "fa-solid fa-lock", false);
-                handleAuthAction();
+                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu untuk melanjutkan pembelian!", false, true);
                 return;
             }
 
@@ -1118,7 +1171,7 @@
         window.handleCheckoutSubmit = async function(event) {
             event.preventDefault();
             if (!currentUser) {
-                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu!", "fa-solid fa-lock", false);
+                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu!", false, true);
                 return;
             }
 
@@ -1128,7 +1181,7 @@
 
             if (!username) {
                 usernameInput.classList.add('input-error');
-                showCustomNotice("Peringatan", "Mohon masukkan username Minecraft Anda terlebih dahulu!", "fa-solid fa-circle-exclamation", true);
+                showCustomNotice("Peringatan", "Mohon masukkan username Minecraft Anda terlebih dahulu!", true, false);
                 return;
             }
 
@@ -1164,7 +1217,7 @@
                 document.getElementById('status-section').scrollIntoView({ behavior: 'smooth' });
             } catch (err) {
                 console.error(err);
-                showCustomNotice("Gagal", "Gagal membuat pesanan. Silakan coba lagi nanti.", "fa-solid fa-triangle-exclamation", true);
+                showCustomNotice("Gagal", "Gagal membuat pesanan. Silakan coba lagi nanti.", true, false);
             }
         }
 
