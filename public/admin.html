@@ -12,23 +12,22 @@
 
     <style>
         :root {
-            --bg-dark: #16131a;
-            --text-white: #ffffff;
-            --text-muted: #a1a1aa;
-            --card-bg: #211c29;
+            --bg-dark: #0c0a0e;
+            --card-bg: #1a1622;
+            --card-inner: #131019;
+            --search-bg: #2d2638;
+            --control-bg: #221d2d;
             --purple-primary: #7c3aed;
-            --star-green: #00b67a;
+            --purple-hover: #6d28d9;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
             --supreme-red: #ef4444;
-            --translucent-white-85: rgba(255, 255, 255, 0.85);
-            --translucent-white-90: rgba(255, 255, 255, 0.9);
-            --translucent-white-20: rgba(255, 255, 255, 0.2);
-            --nav-height: 80px;
-            --nav-padding-x: 48px;
+            --topbar-height: 82px;
         }
 
         ::selection {
             background-color: var(--purple-primary);
-            color: var(--text-white);
+            color: #ffffff;
         }
 
         * {
@@ -40,10 +39,13 @@
 
         body {
             background-color: var(--bg-dark);
-            color: var(--text-white);
+            color: var(--text-main);
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .fullscreen-loader {
@@ -67,8 +69,8 @@
 
         .loader-center-wrapper {
             position: relative;
-            width: 90px;
-            height: 90px;
+            width: 80px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -81,14 +83,14 @@
             width: 100%;
             height: 100%;
             border: 4px solid rgba(255, 255, 255, 0.2);
-            border-top: 4px solid var(--text-white);
+            border-top: 4px solid #ffffff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
         .loader-icon-img {
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
         }
 
@@ -97,156 +99,175 @@
             100% { transform: rotate(360deg); }
         }
 
-        .navbar {
-            width: 100%;
-            height: var(--nav-height);
+        .top-navbar {
+            height: var(--topbar-height);
+            background-color: #1e1829;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 var(--nav-padding-x);
+            padding: 0 40px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: var(--bg-dark);
+            width: 100%;
             z-index: 1000;
         }
 
-        .logo {
+        .navbar-brand {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-weight: 800;
-            font-size: 1.45rem;
-            letter-spacing: -0.5px;
-            line-height: 1;
         }
 
-        .logo-img {
-            height: 38px;
-            width: auto;
+        .brand-logo-img {
+            width: 36px;
+            height: 36px;
             object-fit: contain;
-            display: block;
+        }
+
+        .navbar-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-box {
+            background-color: var(--search-bg);
+            border-radius: 30px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 360px;
+        }
+
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-box i {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .auth-bar {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: #2b2633;
-            color: var(--text-white);
-            padding: 8px 18px 8px 10px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+            background-color: var(--card-inner);
+            color: var(--text-main);
+            padding: 6px 16px 6px 8px;
+            border-radius: 40px;
+            font-size: 0.8rem;
             font-weight: 600;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            transition: opacity 0.2s;
         }
 
         .auth-bar:hover {
-            transform: scale(0.95);
-            opacity: 0.9;
+            opacity: 0.85;
         }
 
         .auth-icon-circle {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             background-color: var(--purple-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-white);
-            font-size: 0.85rem;
+            color: #ffffff;
+            font-size: 0.72rem;
             font-weight: 700;
         }
 
         .main-container {
-            max-width: 1200px;
-            margin: 140px auto 60px auto;
-            padding: 0 24px;
+            max-width: 1300px;
+            width: 100%;
+            margin: calc(var(--topbar-height) + 30px) auto 40px auto;
+            padding: 0 30px;
+            flex: 1;
         }
 
-        .admin-header {
-            text-align: center;
-            margin-bottom: 40px;
+        .pre-login-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
         }
 
-        .admin-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
+        .dashboard-section {
+            display: none;
         }
 
-        .admin-subtitle {
-            color: var(--text-muted);
-            font-size: 1rem;
+        .dashboard-section.active {
+            display: block;
         }
 
         .login-prompt-card {
             background-color: var(--card-bg);
-            max-width: 500px;
-            margin: 40px auto;
-            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            padding: 44px 36px;
             border-radius: 32px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-        }
-
-        .login-prompt-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background-color: rgba(124, 58, 237, 0.15);
-            color: var(--purple-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 4px;
+            gap: 18px;
         }
 
         .login-prompt-title {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
+            color: var(--text-main);
         }
 
         .login-prompt-desc {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             line-height: 1.5;
         }
 
         .login-google-btn {
             background-color: var(--purple-primary);
-            color: var(--text-white);
+            color: #ffffff;
             border: none;
             width: 100%;
-            height: 52px;
-            border-radius: 20px;
+            height: 48px;
+            border-radius: 24px;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.88rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            gap: 10px;
+            transition: background-color 0.2s;
         }
 
         .login-google-btn:hover {
-            transform: scale(0.97);
-            opacity: 0.9;
+            background-color: var(--purple-hover);
         }
 
         .setup-admin-box {
-            background-color: #16131a;
-            border: 1px dashed rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 20px;
-            margin-top: 10px;
+            background-color: var(--card-inner);
+            padding: 18px;
+            border-radius: 24px;
+            margin-top: 6px;
             width: 100%;
             text-align: left;
         }
@@ -254,148 +275,218 @@
         .setup-input {
             width: 100%;
             height: 44px;
-            padding: 0 14px;
-            background-color: #211c29;
-            border: 1px solid transparent;
-            border-radius: 12px;
-            color: var(--text-white);
-            font-size: 0.9rem;
+            padding: 0 16px;
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 18px;
+            color: var(--text-main);
+            font-size: 0.85rem;
             margin-top: 8px;
             margin-bottom: 12px;
             outline: none;
         }
 
         .setup-btn {
-            background-color: #2b2633;
-            color: var(--text-white);
+            background-color: var(--purple-primary);
+            color: #ffffff;
             border: none;
             width: 100%;
-            height: 40px;
-            border-radius: 12px;
+            height: 42px;
+            border-radius: 18px;
             font-weight: 700;
-            font-size: 0.85rem;
-            transition: transform 0.2s ease;
+            font-size: 0.82rem;
+            transition: background-color 0.2s;
         }
 
         .setup-btn:hover {
-            transform: scale(0.97);
+            background-color: var(--purple-hover);
         }
 
         .orders-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
             gap: 24px;
         }
 
         .order-admin-card {
             background-color: var(--card-bg);
+            color: var(--text-main);
             border-radius: 32px;
-            padding: 32px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding: 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 20px;
+            gap: 18px;
         }
 
         .card-top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #2b2633;
-            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 12px;
         }
 
         .order-id {
             font-family: monospace;
             font-weight: 800;
-            font-size: 1.15rem;
-            color: var(--text-white);
-        }
-
-        .order-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-main);
         }
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 14px;
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
 
         .info-box {
-            background-color: #16131a;
-            padding: 14px;
-            border-radius: 16px;
+            background-color: transparent;
+            padding: 8px 0px;
         }
 
         .info-label {
-            font-size: 0.8rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             margin-bottom: 4px;
-            font-weight: 500;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .info-value {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--text-white);
+            color: var(--text-main);
             word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-key {
+            text-align: left;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: capitalize;
+        }
+
+        .detail-val {
+            text-align: right;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 0.78rem;
         }
 
         .admin-control-group {
-            background-color: #16131a;
-            padding: 20px;
-            border-radius: 20px;
+            background-color: transparent;
+            padding: 0px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
         .control-label {
-            font-size: 0.85rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            color: var(--text-white);
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: block;
         }
 
-        .admin-select, .admin-input {
+        .admin-input {
             width: 100%;
-            height: 48px;
+            height: 42px;
             padding: 0 16px;
-            background-color: #2b2633;
-            border: 1px solid transparent;
-            border-radius: 14px;
-            color: var(--text-white);
-            font-size: 0.95rem;
+            background-color: var(--control-bg);
+            border: none;
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 0.82rem;
             font-weight: 600;
             outline: none;
-            transition: border-color 0.2s ease;
         }
 
-        .admin-select:focus, .admin-input:focus {
-            border-color: var(--purple-primary);
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            user-select: none;
+        }
+
+        .custom-dropdown-selected {
+            height: 42px;
+            padding: 0 16px;
+            background-color: var(--control-bg);
+            border-radius: 16px;
+            color: var(--text-main);
+            font-size: 0.82rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .custom-dropdown-options {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            width: 100%;
+            background-color: #2a2336;
+            border-radius: 16px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .custom-dropdown.open .custom-dropdown-options {
+            max-height: 200px;
+            opacity: 1;
+        }
+
+        .custom-dropdown-option {
+            padding: 10px 16px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: background-color 0.15s;
+        }
+
+        .custom-dropdown-option.selected {
+            color: var(--purple-primary);
         }
 
         .save-btn {
             background-color: var(--purple-primary);
-            color: var(--text-white);
+            color: var(--text-main);
             border: none;
             width: 100%;
-            height: 48px;
-            border-radius: 14px;
+            height: 44px;
+            border-radius: 16px;
             font-weight: 700;
-            font-size: 0.95rem;
-            transition: transform 0.2s ease, opacity 0.2s ease;
+            font-size: 0.82rem;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            transition: opacity 0.2s;
         }
 
         .save-btn:hover {
-            transform: scale(0.97);
             opacity: 0.9;
         }
 
@@ -406,7 +497,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -414,7 +505,7 @@
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.25s ease, visibility 0.25s ease;
-            padding: 20px;
+            padding: 16px;
         }
 
         .custom-notice-overlay.show {
@@ -425,11 +516,10 @@
         .custom-notice-box {
             background-color: var(--card-bg);
             width: 100%;
-            max-width: 400px;
+            max-width: 340px;
             border-radius: 28px;
-            padding: 28px;
+            padding: 24px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
             transform: scale(0.9);
             transition: transform 0.25s ease;
         }
@@ -439,41 +529,40 @@
         }
 
         .notice-icon-circle {
-            width: 56px;
-            height: 56px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background-color: rgba(124, 58, 237, 0.15);
+            background-color: rgba(124, 58, 237, 0.2);
             color: var(--purple-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin: 0 auto 16px auto;
+            font-size: 1.1rem;
+            margin: 0 auto 12px auto;
         }
 
         .notice-btn {
             background-color: var(--purple-primary);
-            color: var(--text-white);
+            color: #ffffff;
             border: none;
             width: 100%;
-            padding: 12px;
-            border-radius: 20px;
+            padding: 10px;
+            border-radius: 16px;
             font-weight: 700;
-            font-size: 0.95rem;
-            margin-top: 16px;
-            transition: transform 0.2s ease;
-        }
-
-        .notice-btn:hover {
-            transform: scale(0.96);
+            font-size: 0.82rem;
+            margin-top: 14px;
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 0 20px; }
-            .admin-title { font-size: 2.1rem; }
-            .orders-grid { grid-template-columns: 1fr; }
-            .info-grid { grid-template-columns: 1fr; }
-            .order-admin-card { padding: 22px; border-radius: 24px; }
+            .top-navbar {
+                padding: 0 20px;
+            }
+            .main-container {
+                padding: 0 16px;
+            }
+            .search-box {
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -486,13 +575,29 @@
         </div>
     </div>
 
-    <nav class="navbar">
-        <div class="logo" onclick="window.location.href='/'">
-            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
-            MINEPLIX
+    <div id="preLoginWrapper" class="pre-login-wrapper" style="display: none;">
+        <div class="login-prompt-card">
+            <h3 class="login-prompt-title">Autentikasi Diperlukan</h3>
+            <p class="login-prompt-desc">Silakan login dengan akun Google terlebih dahulu untuk memverifikasi hak akses admin Anda.</p>
+            <button type="button" class="login-google-btn" onclick="handleAuthAction()">
+                <i class="fa-brands fa-google"></i> Login dengan Google
+            </button>
+        </div>
+    </div>
+
+    <header class="top-navbar">
+        <div class="navbar-brand" onclick="window.location.href='/'">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="brand-logo-img">
         </div>
 
-        <div class="nav-right-container">
+        <div class="navbar-center">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Cari pesanan..." oninput="filterOrders()">
+            </div>
+        </div>
+
+        <div class="navbar-right">
             <div id="authContainer">
                 <div class="auth-bar" onclick="handleAuthAction()">
                     <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
@@ -500,41 +605,24 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
     <div class="main-container">
-        <div class="admin-header">
-            <h1 class="admin-title">Admin Dashboard</h1>
-            <p class="admin-subtitle">Kelola status pesanan dan perbarui harga total tagihan pelanggan secara real-time.</p>
-        </div>
-
-        <div id="loginPromptSection" class="login-prompt-card" style="display: none;">
-            <div class="login-prompt-icon">
-                <i class="fa-solid fa-lock"></i>
-            </div>
-            <h3 class="login-prompt-title">Autentikasi Diperlukan</h3>
-            <p class="login-prompt-desc">Silakan login dengan akun Google terlebih dahulu untuk memverifikasi hak akses admin Anda.</p>
-            <button type="button" class="login-google-btn" onclick="handleAuthAction()">
-                <i class="fa-brands fa-google"></i> Login dengan Google
-            </button>
-        </div>
-
-        <div id="unauthorizedSection" class="login-prompt-card" style="display: none;">
-            <div class="login-prompt-icon" style="background-color: rgba(239, 68, 68, 0.15); color: var(--supreme-red);">
-                <i class="fa-solid fa-triangle-exclamation"></i>
-            </div>
-            <h3 class="login-prompt-title">Akses Ditolak</h3>
-            <p class="login-prompt-desc">Akun Anda tidak memiliki role admin. Silakan masukkan secret key untuk menjadikan akun ini sebagai admin atau akun akan dialihkan.</p>
+        <div id="unauthorizedSection" class="login-prompt-card" style="display: none; margin: 40px auto;">
+            <h3 class="login-prompt-title" style="color: var(--supreme-red);">Akses Ditolak</h3>
+            <p class="login-prompt-desc">Akun Anda tidak memiliki hak akses admin. Masukkan secret key di bawah untuk menjadikan akun ini sebagai admin.</p>
             
             <div class="setup-admin-box">
-                <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Setup Cepat: Jadikan akun yang sedang login ini sebagai admin.</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted); display: block;">Setup Cepat: Jadikan akun ini admin</span>
                 <input type="text" id="setupSecretInput" class="setup-input" placeholder="Masukkan secret key admin...">
                 <button type="button" class="setup-btn" onclick="makeCurrentAccountAdmin()">Set Akun Ini Jadi Admin</button>
             </div>
         </div>
 
-        <div id="adminContent" style="display: none;">
-            <div class="orders-grid" id="adminOrdersContainer"></div>
+        <div id="ordersSection" class="dashboard-section active">
+            <div id="adminContent" style="display: none;">
+                <div class="orders-grid" id="adminOrdersContainer"></div>
+            </div>
         </div>
     </div>
 
@@ -543,8 +631,8 @@
             <div class="notice-icon-circle">
                 <i class="fa-solid fa-circle-check" id="noticeIcon"></i>
             </div>
-            <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Berhasil</h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.4;" id="noticeMessage">Perubahan berhasil disimpan.</p>
+            <h3 style="font-weight: 800; font-size: 1rem; margin-bottom: 4px; color: var(--text-main);" id="noticeTitle">Berhasil</h3>
+            <p style="color: var(--text-muted); font-size: 0.78rem; line-height: 1.4;" id="noticeMessage">Perubahan berhasil disimpan.</p>
             <button type="button" class="notice-btn" onclick="closeCustomNotice()">Mengerti</button>
         </div>
     </div>
@@ -585,33 +673,25 @@
         const db = getDatabase(app);
 
         const authContainer = document.getElementById('authContainer');
-        const loginPromptSection = document.getElementById('loginPromptSection');
+        const preLoginWrapper = document.getElementById('preLoginWrapper');
         const unauthorizedSection = document.getElementById('unauthorizedSection');
         const adminContent = document.getElementById('adminContent');
         const adminOrdersContainer = document.getElementById('adminOrdersContainer');
         const fullscreenLoader = document.getElementById('fullscreenLoader');
 
         function showLoader() {
-            if (fullscreenLoader) {
-                fullscreenLoader.classList.remove('hidden');
-            }
+            if (fullscreenLoader) fullscreenLoader.classList.remove('hidden');
         }
 
         function hideLoader() {
-            if (fullscreenLoader) {
-                fullscreenLoader.classList.add('hidden');
-            }
+            if (fullscreenLoader) fullscreenLoader.classList.add('hidden');
         }
 
         window.showNotice = function(title, message, isError = false) {
             document.getElementById('noticeTitle').innerText = title;
             document.getElementById('noticeMessage').innerText = message;
             const icon = document.getElementById('noticeIcon');
-            if (isError) {
-                icon.className = "fa-solid fa-triangle-exclamation";
-            } else {
-                icon.className = "fa-solid fa-circle-check";
-            }
+            icon.className = isError ? "fa-solid fa-triangle-exclamation" : "fa-solid fa-circle-check";
             document.getElementById('customNoticeOverlay').classList.add('show');
         }
 
@@ -644,6 +724,7 @@
 
         let currentUser = null;
         let ordersListenerRef = null;
+        let allFetchedOrders = {};
 
         onAuthStateChanged(auth, async (user) => {
             showLoader();
@@ -657,7 +738,7 @@
                     </div>
                 `;
 
-                loginPromptSection.style.display = 'none';
+                preLoginWrapper.style.display = 'none';
                 unauthorizedSection.style.display = 'none';
                 adminContent.style.display = 'none';
 
@@ -694,17 +775,11 @@
                     } else {
                         hideLoader();
                         unauthorizedSection.style.display = 'flex';
-                        setTimeout(() => {
-                            if (!isAdmin && currentUser === user) {
-                                window.location.href = '/';
-                            }
-                        }, 4000);
                     }
 
                 } catch (err) {
                     console.error("Auth check error:", err);
                     hideLoader();
-                    window.location.href = '/';
                 }
 
             } else {
@@ -716,7 +791,7 @@
                 `;
                 hideLoader();
                 unauthorizedSection.style.display = 'none';
-                loginPromptSection.style.display = 'flex';
+                preLoginWrapper.style.display = 'flex';
                 adminContent.style.display = 'none';
             }
         });
@@ -738,9 +813,7 @@
                     role: 'admin'
                 });
                 showNotice("Berhasil", "Akun Anda kini menjadi admin! Memuat ulang...", false);
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
+                setTimeout(() => location.reload(), 1500);
             } catch (err) {
                 console.error("Setup admin error:", err);
                 hideLoader();
@@ -751,108 +824,174 @@
         function initAdminDashboard() {
             ordersListenerRef = ref(db, `account/data/checkout`);
             onValue(ordersListenerRef, (snapshot) => {
-                adminOrdersContainer.innerHTML = '';
                 if (snapshot.exists()) {
-                    const ordersObj = snapshot.val();
-                    const ordersArray = Object.entries(ordersObj);
-
-                    if (ordersArray.length === 0) {
-                        adminContent.style.display = 'none';
-                        return;
-                    }
-
+                    allFetchedOrders = snapshot.val();
+                    renderOrders(allFetchedOrders);
                     adminContent.style.display = 'block';
-
-                    ordersArray.forEach(([orderId, data]) => {
-                        let formattedDate = '-';
-                        if (data.orderDate) {
-                            try {
-                                const d = new Date(data.orderDate);
-                                formattedDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                            } catch (e) {
-                                formattedDate = data.orderDate;
-                            }
-                        }
-
-                        let specText = '';
-                        let typeBadge = 'Project Service';
-                        let typeBadgeColor = 'var(--purple-primary)';
-
-                        if (data.minecraftUsername) {
-                            typeBadge = 'Minecraft Store';
-                            typeBadgeColor = '#f59e0b';
-                            specText = `Username: ${data.minecraftUsername} (${data.platform || 'java'})`;
-                        } else if (data.mapType) {
-                            typeBadge = 'Custom Map';
-                            specText = `Map: ${data.mapType}, ${data.mapSize}`;
-                        } else if (data.webType) {
-                            typeBadge = 'Web Design';
-                            specText = `Web: ${data.webType}, ${data.pageComplexity}`;
-                        } else if (data.graphicType) {
-                            typeBadge = 'Graphic Design';
-                            specText = `Graphic: ${data.graphicType}`;
-                        } else {
-                            specText = data.serviceCategory || 'Custom Project';
-                        }
-
-                        const currentStatus = data.status || 'Pending';
-                        const currentPrice = data.totalPrice || '';
-
-                        const cardHtml = `
-                            <div class="order-admin-card" id="card-${orderId}">
-                                <div>
-                                    <div class="card-top-row">
-                                        <span class="order-id">${orderId}</span>
-                                        <span style="font-size:0.75rem; font-weight:700; background-color:${typeBadgeColor}; color:#fff; padding:2px 10px; border-radius:10px;">${typeBadge}</span>
-                                    </div>
-
-                                    <div class="info-grid" style="margin-top: 16px;">
-                                        <div class="info-box">
-                                            <div class="info-label">Pemesan & Email</div>
-                                            <div class="info-value">${data.customerName || 'Anonymous'}<br><span style="font-size:0.75rem; color:var(--text-muted);">${data.customerEmail || '-'}</span></div>
-                                        </div>
-                                        <div class="info-box">
-                                            <div class="info-label">Detail / Target</div>
-                                            <div class="info-value">${specText}</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="admin-control-group">
-                                    <div>
-                                        <label class="control-label">Ubah Status Pesanan</label>
-                                        <select class="admin-select" id="status-${orderId}">
-                                            <option value="Pending" ${currentStatus === 'Pending' ? 'selected' : ''}>Pending</option>
-                                            <option value="Menunggu Pembayaran" ${currentStatus === 'Menunggu Pembayaran' ? 'selected' : ''}>Menunggu Pembayaran</option>
-                                            <option value="Pengerjaan" ${currentStatus === 'Pengerjaan' ? 'selected' : ''}>Pengerjaan</option>
-                                            <option value="Selesai" ${currentStatus === 'Selesai' ? 'selected' : ''}>Selesai</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label class="control-label">Ubah Harga Total Tagihan</label>
-                                        <input type="text" class="admin-input" id="price-${orderId}" value="${currentPrice}" placeholder="Contoh: Rp 18.000">
-                                    </div>
-
-                                    <button type="button" class="save-btn" onclick="updateOrder('${orderId}')">
-                                        <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
-                                    </button>
-                                </div>
-                            </div>
-                        `;
-                        adminOrdersContainer.innerHTML += cardHtml;
-                    });
-
                 } else {
+                    allFetchedOrders = {};
+                    adminOrdersContainer.innerHTML = '';
                     adminContent.style.display = 'none';
                 }
-            }, (error) => {
-                console.error("Database error:", error);
+            });
+        }
+
+        window.filterOrders = function() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = {};
+            Object.entries(allFetchedOrders).forEach(([id, data]) => {
+                const matchId = id.toLowerCase().includes(query);
+                const matchName = (data.customerName || '').toLowerCase().includes(query);
+                const matchEmail = (data.customerEmail || '').toLowerCase().includes(query);
+                const matchCategory = (data.serviceCategory || '').toLowerCase().includes(query);
+                if (matchId || matchName || matchEmail || matchCategory) {
+                    filtered[id] = data;
+                }
+            });
+            renderOrders(filtered);
+        }
+
+        window.toggleCustomDropdown = function(orderId) {
+            const dropdown = document.getElementById(`dropdown-${orderId}`);
+            document.querySelectorAll('.custom-dropdown').forEach(el => {
+                if (el !== dropdown) el.classList.remove('open');
+            });
+            dropdown.classList.toggle('open');
+        }
+
+        window.selectCustomOption = function(orderId, value, label) {
+            document.getElementById(`status-val-${orderId}`).value = value;
+            document.getElementById(`status-text-${orderId}`).innerText = label;
+            
+            const dropdown = document.getElementById(`dropdown-${orderId}`);
+            dropdown.querySelectorAll('.custom-dropdown-option').forEach(opt => {
+                if (opt.getAttribute('data-value') === value) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
+                }
+            });
+            dropdown.classList.remove('open');
+        }
+
+        window.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-dropdown')) {
+                document.querySelectorAll('.custom-dropdown').forEach(el => el.classList.remove('open'));
+            }
+        });
+
+        function renderOrders(ordersObj) {
+            adminOrdersContainer.innerHTML = '';
+            const ordersArray = Object.entries(ordersObj);
+
+            if (ordersArray.length === 0) {
+                adminOrdersContainer.innerHTML = `<div style="grid-column: 1/-1; text-align:center; color:var(--text-muted); padding: 40px; font-size:0.85rem;">Tidak ada pesanan ditemukan.</div>`;
+                return;
+            }
+
+            ordersArray.forEach(([orderId, data]) => {
+                let formattedDate = '-';
+                if (data.orderDate) {
+                    try {
+                        const d = new Date(data.orderDate);
+                        formattedDate = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    } catch (e) {
+                        formattedDate = data.orderDate;
+                    }
+                }
+
+                let typeBadge = 'Project Service';
+                let typeBadgeBg = 'rgba(255, 255, 255, 0.1)';
+                let typeBadgeColor = '#ffffff';
+
+                if (data.minecraftUsername || data.serviceCategory?.toLowerCase().includes('rank') || data.serviceCategory?.toLowerCase().includes('key')) {
+                    typeBadge = 'Minecraft Store';
+                } else if (data.mapType) {
+                    typeBadge = 'Custom Map';
+                } else if (data.webType) {
+                    typeBadge = 'Web Design';
+                } else if (data.graphicType) {
+                    typeBadge = 'Graphic Design';
+                }
+
+                let detailsHtml = '';
+                if (data.serviceCategory) detailsHtml += `<div class="detail-row"><span class="detail-key">Kategori</span><span class="detail-val">${data.serviceCategory}</span></div>`;
+                if (data.minecraftUsername) detailsHtml += `<div class="detail-row"><span class="detail-key">Username</span><span class="detail-val">${data.minecraftUsername} (${data.platform || 'java'})</span></div>`;
+                if (data.mapType) detailsHtml += `<div class="detail-row"><span class="detail-key">Map</span><span class="detail-val">${data.mapType} (${data.mapSize || '-'})</span></div>`;
+                if (data.webType) detailsHtml += `<div class="detail-row"><span class="detail-key">Web</span><span class="detail-val">${data.webType}, ${data.pageComplexity || '-'}</span></div>`;
+                if (data.designTheme) detailsHtml += `<div class="detail-row"><span class="detail-key">Tema</span><span class="detail-val">${data.designTheme}</span></div>`;
+                if (data.projectDescription) detailsHtml += `<div class="detail-row"><span class="detail-key">Deskripsi</span><span class="detail-val">${data.projectDescription}</span></div>`;
+                if (!detailsHtml) detailsHtml = `<div class="detail-row"><span class="detail-key">Detail</span><span class="detail-val">-</span></div>`;
+
+                const currentStatus = data.status || 'Pending';
+                const currentPrice = data.totalPrice || '';
+
+                const statuses = ['Pending', 'Menunggu Pembayaran', 'Pengerjaan', 'Selesai'];
+                let optionsHtml = '';
+                statuses.forEach(st => {
+                    const isSel = st === currentStatus ? 'selected' : '';
+                    optionsHtml += `<div class="custom-dropdown-option ${isSel}" data-value="${st}" onclick="selectCustomOption('${orderId}', '${st}', '${st}')">${st}</div>`;
+                });
+
+                const cardHtml = `
+                    <div class="order-admin-card" id="card-${orderId}">
+                        <div>
+                            <div class="card-top-row">
+                                <span class="order-id">${orderId}</span>
+                                <span style="font-size:0.65rem; font-weight:700; background-color:${typeBadgeBg}; color:${typeBadgeColor}; padding:4px 10px; border-radius:12px;">${typeBadge}</span>
+                            </div>
+
+                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top: 10px;">
+                                <i class="fa-regular fa-clock"></i> ${formattedDate}
+                            </div>
+
+                            <div class="info-grid" style="margin-top: 12px;">
+                                <div class="info-box">
+                                    <div class="info-label">Pelanggan</div>
+                                    <div class="detail-row"><span class="detail-key">Nama</span><span class="detail-val">${data.customerName || 'Anonymous'}</span></div>
+                                    <div class="detail-row"><span class="detail-key">Email</span><span class="detail-val">${data.customerEmail || '-'}</span></div>
+                                </div>
+                                <div class="info-box" style="margin-top: 8px;">
+                                    <div class="info-label">Rincian Detail</div>
+                                    <div style="display: flex; flex-direction: column; width: 100%; margin-top: 2px;">
+                                        ${detailsHtml}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin-control-group">
+                            <div>
+                                <label class="control-label">Status Pesanan</label>
+                                <div class="custom-dropdown" id="dropdown-${orderId}">
+                                    <input type="hidden" id="status-val-${orderId}" value="${currentStatus}">
+                                    <div class="custom-dropdown-selected" onclick="toggleCustomDropdown('${orderId}')">
+                                        <span id="status-text-${orderId}">${currentStatus}</span>
+                                        <i class="fa-solid fa-chevron-down" style="font-size:0.75rem; color:var(--text-muted);"></i>
+                                    </div>
+                                    <div class="custom-dropdown-options">
+                                        ${optionsHtml}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="control-label">Harga Tagihan</label>
+                                <input type="text" class="admin-input" id="price-${orderId}" value="${currentPrice}" placeholder="Contoh: Rp 18.000">
+                            </div>
+
+                            <button type="button" class="save-btn" onclick="updateOrder('${orderId}')">
+                                <i class="fa-solid fa-floppy-disk"></i> Simpan Perubahan
+                            </button>
+                        </div>
+                    </div>
+                `;
+                adminOrdersContainer.innerHTML += cardHtml;
             });
         }
 
         window.updateOrder = async function(orderId) {
-            const statusSelect = document.getElementById(`status-${orderId}`).value;
+            const statusSelect = document.getElementById(`status-val-${orderId}`).value;
             const priceInput = document.getElementById(`price-${orderId}`).value.trim();
 
             try {
