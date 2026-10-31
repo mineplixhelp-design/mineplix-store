@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mineplix Store - Let's For Survive (Team War)</title>
+    <meta name="description" content="Official Store Mineplix Server Minecraft - Let's For Survive Team War. Beli rank eksklusif dan dukung server kami.">
+    
+    <meta property="og:title" content="Mineplix Store - Let's For Survive">
+    <meta property="og:description" content="Official Store Mineplix Server Minecraft - Let's For Survive Team War.">
+    <meta property="og:image" content="/img/banner.png">
+    <meta property="og:type" content="website">
+
+    <link rel="icon" href="/img/icon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #16131a;
+            --text-white: #ffffff;
+            --text-muted: #a1a1aa;
+            --card-bg: #211c29;
+            --purple-primary: #7c3aed;
+            --star-green: #00b67a;
+            --vip-orange: #f59e0b;
+            --mvp-purple: #8b5cf6;
+            --supreme-red: #ef4444;
+            --common-white: #ffffff;
+            --crimson-red: #ef4444;
+            --premium-blue: #3b82f6;
+            --translucent-white-90: rgba(255, 255, 255, 0.9);
+            --nav-height: 80px;
+            --nav-padding-x: 48px;
+        }
+
+        ::selection {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            height: var(--nav-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--nav-padding-x);
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-dark);
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-img {
+            height: 38px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-link-item {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.25s ease;
+            text-decoration: none;
+        }
+
+        .nav-link-item.active, .nav-link-item:hover {
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
+        .auth-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #2b2633;
+            color: var(--text-white);
+            padding: 8px 18px 8px 10px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .auth-bar:hover {
+            transform: scale(0.95);
+        }
+
+        .auth-icon-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--purple-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-white);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .hero {
+            padding: 150px 24px 50px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.8rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .selected-highlight {
+            display: inline-block;
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            padding: 2px 14px;
+            border-radius: 8px;
+            margin-top: 6px;
+        }
+
+        .hero-description {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .action-bars-grid {
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 40px;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+
+        .action-bar-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: #fff;
+            text-decoration: none;
+            background-color: var(--purple-primary);
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .action-bar-item:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .store-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            padding: 0 24px;
+        }
+
+        .ranks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .rank-card {
+            background-color: var(--card-bg);
+            border-radius: 28px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .rank-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .rank-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .price-vip { color: var(--vip-orange); }
+        .price-mvp { color: var(--mvp-purple); }
+        .price-supreme { color: var(--supreme-red); }
+        .price-common { color: var(--common-white); }
+        .price-crimson { color: var(--crimson-red); }
+        .price-premium { color: var(--premium-blue); }
+
+        .rank-features {
+            list-style: none;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .rank-features li i {
+            color: var(--star-green);
+            margin-right: 8px;
+        }
+
+        .select-rank-btn {
+            background-color: #2b2633;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 16px;
+            font-weight: 700;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .select-rank-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .select-rank-btn.btn-vip { background-color: var(--vip-orange); color: #000; }
+        .select-rank-btn.btn-mvp { background-color: var(--mvp-purple); color: #fff; }
+        .select-rank-btn.btn-supreme { background-color: var(--supreme-red); color: #fff; }
+        .select-rank-btn.btn-common { background-color: var(--common-white); color: #000; }
+        .select-rank-btn.btn-crimson { background-color: var(--crimson-red); color: #fff; }
+        .select-rank-btn.btn-premium { background-color: var(--premium-blue); color: #fff; }
+
+        .checkout-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.75);
+            backdrop-filter: blur(6px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2500; opacity: 0; visibility: hidden;
+            transition: all 0.25s ease;
+            padding: 20px;
+        }
+        .checkout-modal-overlay.show { opacity: 1; visibility: visible; }
+        
+        .checkout-modal-box {
+            background-color: var(--card-bg);
+            width: 100%; max-width: 550px;
+            border-radius: 32px; padding: 36px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: translateY(20px);
+            transition: transform 0.25s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .checkout-modal-overlay.show .checkout-modal-box { transform: translateY(0); }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 52px;
+            padding: 0 20px;
+            background-color: #16131a;
+            border: 1px solid transparent;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input.input-error {
+            border-color: var(--supreme-red);
+        }
+
+        .quantity-control-wrapper {
+            display: flex;
+            align-items: center;
+            background-color: #16131a;
+            border-radius: 16px;
+            height: 52px;
+            padding: 0 10px;
+            justify-content: space-between;
+        }
+
+        .qty-btn {
+            background-color: #2b2633;
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .qty-btn:hover {
+            transform: scale(0.92);
+        }
+
+        .qty-display {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .custom-dropdown-container {
+            position: relative;
+            width: 100%;
+            user-select: none;
+        }
+
+        .dropdown-toggle-bar {
+            width: 100%;
+            height: 52px;
+            padding: 0 20px;
+            background-color: #16131a;
+            border: none;
+            border-radius: 16px;
+            color: #fff;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown-toggle-bar i {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dropdown-menu-list {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background-color: #16131a;
+            border-radius: 16px;
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .dropdown-menu-list.show {
+            max-height: 200px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-item-option {
+            padding: 14px 20px;
+            font-size: 0.95rem;
+            color: var(--text-white);
+            transition: background 0.2s;
+        }
+
+        .dropdown-item-option:hover {
+            background-color: #2b2633;
+        }
+
+        .checkout-btn {
+            background-color: var(--purple-primary);
+            color: #fff;
+            border: none;
+            width: 100%;
+            height: 54px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            margin-top: 10px;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(0.95);
+            opacity: 0.9;
+        }
+
+        .modal-close-btn {
+            background-color: #2b2633;
+            color: #fff;
+            border: none;
+            width: 100%;
+            height: 48px;
+            border-radius: 20px;
+            font-weight: 700;
+            margin-top: 10px;
+            transition: transform 0.2s ease;
+        }
+        .modal-close-btn:hover { transform: scale(0.95); }
+
+        .custom-notice-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.75);
+            backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3000; opacity: 0; visibility: hidden;
+            transition: all 0.25s ease;
+            padding: 20px;
+        }
+        .custom-notice-overlay.show { opacity: 1; visibility: visible; }
+
+        .custom-notice-box {
+            background-color: var(--card-bg);
+            width: 100%; max-width: 420px;
+            border-radius: 28px; padding: 28px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transform: scale(0.9);
+            transition: transform 0.25s ease;
+            border: 2px solid transparent;
+        }
+        .custom-notice-overlay.show .custom-notice-box { transform: scale(1); }
+        .custom-notice-box.error-border {
+            border-color: var(--supreme-red);
+        }
+
+        .notice-icon-circle {
+            width: 56px; height: 56px;
+            border-radius: 50%;
+            background-color: rgba(124, 58, 237, 0.15);
+            color: var(--purple-primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; margin: 0 auto 16px auto;
+        }
+
+        .status-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 24px;
+            text-align: center;
+        }
+
+        #ordersContainer {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            text-align: left;
+            margin-top: 24px;
+        }
+
+        .status-bar-row {
+            width: 100%;
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .status-bar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
+            margin-bottom: 4px;
+        }
+
+        .order-id-label {
+            font-family: monospace;
+            font-weight: 400;
+            font-size: 1.05rem;
+            color: var(--text-white);
+        }
+
+        .status-item-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        .status-label-left {
+            color: var(--text-muted);
+        }
+
+        .status-value-right {
+            color: var(--text-white);
+            text-align: right;
+            font-weight: 400;
+        }
+
+        .open-qris-modal-btn {
+            background-color: var(--purple-primary);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: transform 0.2s ease;
+            margin-top: 8px;
+        }
+
+        .open-qris-modal-btn:hover {
+            transform: scale(0.95);
+        }
+
+        .faq-section {
+            max-width: 900px;
+            margin: 80px auto;
+            padding: 0 24px;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .faq-item {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .faq-answer-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer-wrapper {
+            grid-template-rows: 1fr;
+        }
+
+        .faq-answer-inner {
+            overflow: hidden;
+            padding: 0 24px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer-inner {
+            padding-bottom: 20px;
+        }
+
+        .footer-wrapper {
+            background-color: var(--bg-dark);
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        .footer-banner {
+            background-color: var(--purple-primary);
+            color: #fff;
+            text-align: center;
+            padding: 60px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-banner-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .footer-copy {
+            font-size: 0.9rem;
+            color: var(--translucent-white-90);
+            margin-top: 30px;
+        }
+
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 2000; opacity: 0; visibility: hidden;
+            transition: all 0.25s ease;
+            padding: 20px;
+        }
+        .custom-modal-overlay.show { opacity: 1; visibility: visible; }
+        .custom-modal-box {
+            background-color: var(--card-bg);
+            width: 100%; max-width: 400px;
+            border-radius: 28px; padding: 28px; text-align: center;
+        }
+        .qris-modal-img {
+            width: 100%; max-height: 260px; object-fit: contain;
+            background: #fff; border-radius: 12px; margin: 12px 0;
+        }
+        .modal-btn {
+            background-color: #2b2633; color: #fff; border: none;
+            width: 100%; padding: 12px; border-radius: 20px; font-weight: 700;
+            margin-top: 8px;
+            transition: transform 0.2s ease;
+        }
+        .modal-btn:hover { transform: scale(0.95); }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 0 20px; }
+            .nav-links { display: none; }
+            .hero-title { font-size: 2.3rem; letter-spacing: -0.5px; }
+            .section-title { font-size: 1.65rem; }
+            .footer-banner-title { font-size: 1.75rem; }
+            .rank-name { font-size: 1.3rem; }
+            .rank-price { font-size: 1.15rem; }
+            .action-bars-grid { gap: 8px; max-width: 100%; }
+            .action-bar-item { padding: 8px 12px; font-size: 0.75rem; gap: 6px; }
+            
+            .ranks-grid {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                gap: 16px;
+                padding-bottom: 16px;
+                justify-content: flex-start;
+            }
+            .rank-card {
+                min-width: 280px;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
+            }
+
+            #ordersContainer { grid-template-columns: 1fr; }
+            .checkout-modal-box { padding: 24px; border-radius: 24px; }
+            .order-id-label { font-size: 0.95rem; }
+            .status-item-line { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="/img/icon.png" alt="Mineplix Logo" class="logo-img">
+        </div>
+
+        <ul class="nav-links">
+            <li><a class="nav-link-item active" onclick="window.scrollTo({top:0, behavior:'smooth'})">Home</a></li>
+            <li><a class="nav-link-item" onclick="document.getElementById('ranks-section').scrollIntoView({behavior:'smooth'})">Ranks Store</a></li>
+            <li><a class="nav-link-item" onclick="document.getElementById('keys-section').scrollIntoView({behavior:'smooth'})">Keys Gacha</a></li>
+            <li><a class="nav-link-item" onclick="document.getElementById('status-section').scrollIntoView({behavior:'smooth'})">Status Order</a></li>
+            <li><a class="nav-link-item" onclick="document.getElementById('faq-section').scrollIntoView({behavior:'smooth'})">FAQ</a></li>
+        </ul>
+
+        <div class="nav-right-container">
+            <div id="authContainer">
+                <div class="auth-bar" onclick="handleAuthAction()">
+                    <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                    <span>Login</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1 class="hero-title">
+            Mineplix Store <br>
+            <span class="selected-highlight">Let's For Survive</span> (Team War)
+        </h1>
+        <p class="hero-description">
+            Dukung server kami dan dapatkan keuntungan eksklusif ingame dengan membeli rank resmi Mineplix. Aman, cepat, dan otomatis!
+        </p>
+
+        <div class="action-bars-grid">
+            <a href="https://chat.whatsapp.com/GSylylDvgYX1XX57vsrRpZ" target="_blank" class="action-bar-item">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1rem;"></i> WhatsApp
+            </a>
+            <a href="https://discord.gg/SUqrcFYyYE" target="_blank" class="action-bar-item">
+                <i class="fa-brands fa-discord" style="font-size: 1rem;"></i> Discord
+            </a>
+            <a href="https://minecraft-mp.com/server/365502/vote/" target="_blank" class="action-bar-item">
+                <i class="fa-solid fa-check-to-slot" style="font-size: 1rem;"></i> Vote
+            </a>
+        </div>
+    </section>
+
+    <section class="store-container" id="ranks-section">
+        <h2 class="section-title">Pilih Ranks Server</h2>
+        <p class="section-subtitle">Pilih rank favoritmu di bawah ini untuk melanjutkan pembelian.</p>
+
+        <div class="ranks-grid">
+            <div class="rank-card" id="card-rank-vip">
+                <div>
+                    <h3 class="rank-name">VIP Rank</h3>
+                    <div class="rank-price price-vip">Rp 18.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Batas Home : 5 Lokasi</li>
+                        <li><i class="fa-solid fa-check"></i> Kits Vip : Harian</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /craft</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /tpahere</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-vip" onclick="openCheckoutModal('VIP Rank', 18000, 'rank')">Pilih Rank Ini</button>
+            </div>
+
+            <div class="rank-card" id="card-rank-mvp">
+                <div>
+                    <h3 class="rank-name">MVP Rank</h3>
+                    <div class="rank-price price-mvp">Rp 32.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Batas Home : 10 Lokasi</li>
+                        <li><i class="fa-solid fa-check"></i> Kits Mvp : Harian</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /enderchest</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-mvp" onclick="openCheckoutModal('MVP Rank', 32000, 'rank')">Pilih Rank Ini</button>
+            </div>
+
+            <div class="rank-card" id="card-rank-supreme">
+                <div>
+                    <h3 class="rank-name">Supreme Rank</h3>
+                    <div class="rank-price price-supreme">Rp 50.000 <span style="font-size:0.85rem; font-weight:400; color:var(--text-muted);">/ bulan</span></div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Batas Home : 15 Lokasi</li>
+                        <li><i class="fa-solid fa-check"></i> Kits Supreme : Harian</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /fly & /tpahere</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /craft & /anvil</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /carttable & /feed</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /nick & /vanish</li>
+                        <li><i class="fa-solid fa-check"></i> Akses : /enderchest & /heal</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-supreme" onclick="openCheckoutModal('Supreme Rank', 50000, 'rank')">Pilih Rank Ini</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="store-container" id="keys-section">
+        <h2 class="section-title">Pilih Key Gacha</h2>
+        <p class="section-subtitle">Dapatkan kunci crate gacha spesial untuk item in-game terbaikmu.</p>
+
+        <div class="ranks-grid">
+            <div class="rank-card" id="card-key-common">
+                <div>
+                    <h3 class="rank-name">Common Key</h3>
+                    <div class="rank-price price-common">Rp 2.000</div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Common</li>
+                        <li><i class="fa-solid fa-check"></i> Peluang Item Survival Dasar</li>
+                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-common" onclick="openCheckoutModal('Common Key', 2000, 'key')">Pilih Key Ini</button>
+            </div>
+
+            <div class="rank-card" id="card-key-crimson">
+                <div>
+                    <h3 class="rank-name">Crimson Key</h3>
+                    <div class="rank-price price-crimson">Rp 5.000</div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Crimson</li>
+                        <li><i class="fa-solid fa-check"></i> Peluang Item & Armor Menengah</li>
+                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-crimson" onclick="openCheckoutModal('Crimson Key', 5000, 'key')">Pilih Key Ini</button>
+            </div>
+
+            <div class="rank-card" id="card-key-premium">
+                <div>
+                    <h3 class="rank-name">Premium Key</h3>
+                    <div class="rank-price price-premium">Rp 10.000</div>
+                    <ul class="rank-features">
+                        <li><i class="fa-solid fa-check"></i> Akses Gacha Crate Premium</li>
+                        <li><i class="fa-solid fa-check"></i> Peluang Item Langka & OP</li>
+                        <li><i class="fa-solid fa-check"></i> Proses Instant Otomatis</li>
+                    </ul>
+                </div>
+                <button type="button" class="select-rank-btn btn-premium" onclick="openCheckoutModal('Premium Key', 10000, 'key')">Pilih Key Ini</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="checkout-modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()">
+        <div class="checkout-modal-box" onclick="event.stopPropagation()">
+            <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; text-align: center;">Form Checkout Pembelian</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 24px; text-align: center;" id="selectedProductText">Produk Terpilih: <b>VIP Rank (Rp 18.000)</b>[span_0](start_span)[span_0](end_span)</p>
+
+            <form id="checkoutForm" onsubmit="handleCheckoutSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Platform Minecraft</label>
+                    <div class="custom-dropdown-container">
+                        <div class="dropdown-toggle-bar" id="platformDropdownToggle" onclick="togglePlatformDropdown(event)">
+                            <span id="selectedPlatformText">Java Edition</span>
+                            <i class="fa-solid fa-chevron-down" id="platformChevron"></i>
+                        </div>
+                        <div class="dropdown-menu-list" id="platformDropdownList">
+                            <div class="dropdown-item-option" onclick="selectPlatformOption('java', 'Java Edition')">Java Edition</div>
+                            <div class="dropdown-item-option" onclick="selectPlatformOption('bedrock', 'Bedrock Edition')">Bedrock Edition</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="platformSelect" value="java">
+                </div>
+
+                <div class="form-group" id="quantityGroup" style="display: none;">
+                    <label class="form-label">Jumlah (Quantity)</label>
+                    <div class="quantity-control-wrapper">
+                        <button type="button" class="qty-btn" onclick="adjustQuantity(-1)">-</button>
+                        <span class="qty-display" id="qtyDisplay">1</span>
+                        <button type="button" class="qty-btn" onclick="adjustQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Username Ingame</label>
+                    <input type="text" id="minecraftUsername" class="form-input" placeholder="Masukkan username kamu..." required oninput="this.classList.remove('input-error')">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; display: block;" id="usernameHint">Masukkan nickname akun Minecraft kamu sesuai platform</span>
+                </div>
+
+                <button type="submit" class="checkout-btn">Proses Pembayaran Sekarang</button>
+                <button type="button" class="modal-close-btn" onclick="closeCheckoutModal()">Tutup</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
+        <div class="custom-notice-box" id="customNoticeBox" onclick="event.stopPropagation()">
+            <div class="notice-icon-circle" id="noticeIconCircle">
+                <i class="fa-solid fa-circle-info" id="noticeIcon"></i>
+            </div>
+            <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Pemberitahuan</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.4;" id="noticeMessage">Pesan akan muncul di sini.</p>
+            <button type="button" class="modal-btn" style="background-color: var(--purple-primary);" onclick="closeCustomNotice()">Mengerti</button>
+        </div>
+    </div>
+
+    <section class="status-section" id="status-section">
+        <h2 class="section-title">Status Pemesanan Anda</h2>
+        <p class="section-subtitle">Otomatis terdeteksi berdasarkan akun Google yang sedang aktif</p>
+
+        <p id="errorMsg" style="color: var(--text-muted); font-size: 0.9rem; display: none; margin-top: 20px;"></p>
+
+        <div class="result-wrapper" id="resultWrapper" style="display: none;">
+            <div id="ordersContainer"></div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq-section">
+        <h2 class="section-title">Pertanyaan Umum (FAQ)</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question"><span>Bagaimana cara kerja pembelian rank otomatis?</span><i class="faq-icon fa-solid fa-plus"></i></div>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">Setelah kamu melakukan checkout dan menyelesaikan pembayaran via QRIS, sistem kami akan memproses rank ke akun ingame kamu dalam 1-5 menit secara otomatis.</div></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span>Apa perbedaan format username Java dan Bedrock?</span><i class="faq-icon fa-solid fa-plus"></i></div>
+                <div class="faq-answer-wrapper"><div class="faq-answer-inner">Pemain Java Edition menggunakan nickname standar, sedangkan pemain Bedrock Edition biasanya perlu menyertakan prefix yang sesuai dengan ketentuan server.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-wrapper">
+        <div class="footer-banner">
+            <h2 class="footer-banner-title">Let's For Survive & Win Team War!</h2>
+            <p style="color: rgba(255,255,255,0.85); max-width: 600px; margin-bottom: 24px;">Bergabunglah bersama ratusan pemain lainnya di server Minecraft Mineplix sekarang juga.</p>
+            <p class="footer-copy">&copy; 2026 Mineplix Store. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div class="custom-modal-overlay" id="qrisModalOverlay" onclick="closeQrisModal()">
+        <div class="custom-modal-box" onclick="event.stopPropagation()">
+            <h3 style="font-weight: 800; margin-bottom: 4px;">QRIS Pembayaran</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px;" id="qrisPriceDesc">Silakan scan QRIS di bawah ini untuk total pembayaran: -</p>
+            <img src="/img/qris.png" alt="QRIS Mineplix" class="qris-modal-img">
+            <a href="/img/qris.jpeg" download="QRIS-Mineplix.jpeg" class="modal-btn" style="display:block; text-decoration:none; text-align:center; background:var(--purple-primary);">Download QRIS</a>
+            <button type="button" class="modal-btn" onclick="closeQrisModal()">Tutup</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCdZkTVOW_TrOiKtsYwojUI5GHHVh_ZMwk",
+          authDomain: "mineplix-3d91c.firebaseapp.com",
+          databaseURL: "https://mineplix-3d91c-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "mineplix-3d91c",
+          storageBucket: "mineplix-3d91c.firebasestorage.app",
+          messagingSenderId: "932702850146",
+          appId: "1:932702850146:web:0933bde133e94b4254953b",
+          measurementId: "G-VTMMJV3HY7"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const db = getDatabase(app);
+
+        const authContainer = document.getElementById('authContainer');
+        let currentUser = null;
+        let activeListenerRef = null;
+
+        let selectedProduct = { name: 'VIP Rank', basePrice: 18000, type: 'rank' };
+        let currentQuantity = 1;
+
+        window.showCustomNotice = function(title, message, iconClass = "fa-solid fa-circle-info", isError = false) {
+            document.getElementById('noticeTitle').innerText = title;
+            document.getElementById('noticeMessage').innerText = message;
+            document.getElementById('noticeIcon').className = iconClass;
+            
+            const noticeBox = document.getElementById('customNoticeBox');
+            if (isError) {
+                noticeBox.classList.add('error-border');
+            } else {
+                noticeBox.classList.remove('error-border');
+            }
+
+            document.getElementById('customNoticeOverlay').classList.add('show');
+        }
+
+        window.closeCustomNotice = function() {
+            document.getElementById('customNoticeOverlay').classList.remove('show');
+        }
+
+        window.openCheckoutModal = function(name, priceNum, type) {
+            if (!currentUser) {
+                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu untuk melanjutkan pembelian!", "fa-solid fa-lock", false);
+                handleAuthAction();
+                return;
+            }
+
+            selectedProduct = { name: name, basePrice: priceNum, type: type };
+            currentQuantity = 1;
+
+            const quantityGroup = document.getElementById('quantityGroup');
+            if (type === 'key') {
+                quantityGroup.style.display = 'block';
+                document.getElementById('qtyDisplay').innerText = currentQuantity;
+            } else {
+                quantityGroup.style.display = 'none';
+            }
+
+            updateModalProductText();
+            document.getElementById('minecraftUsername').value = '';
+            document.getElementById('minecraftUsername').classList.remove('input-error');
+            
+            document.getElementById('checkoutModalOverlay').classList.add('show');
+        }
+
+        window.adjustQuantity = function(amount) {
+            currentQuantity += amount;
+            if (currentQuantity < 1) currentQuantity = 1;
+            document.getElementById('qtyDisplay').innerText = currentQuantity;
+            updateModalProductText();
+        }
+
+        function updateModalProductText() {
+            let finalPrice = selectedProduct.basePrice;
+            let displayName = selectedProduct.name;
+            if (selectedProduct.type === 'key') {
+                finalPrice = selectedProduct.basePrice * currentQuantity;
+                displayName = `${selectedProduct.name} (${currentQuantity}x)`;
+            }
+            const formattedPrice = 'Rp ' + finalPrice.toLocaleString('id-ID');
+            selectedProduct.currentFormattedPrice = formattedPrice;
+            document.getElementById('selectedProductText').innerHTML = `Produk Terpilih: <b>${displayName} (${formattedPrice})</b>`;
+        }
+
+        window.closeCheckoutModal = function() {
+            document.getElementById('checkoutModalOverlay').classList.remove('show');
+        }
+
+        window.togglePlatformDropdown = function(e) {
+            e.stopPropagation();
+            const list = document.getElementById('platformDropdownList');
+            const chevron = document.getElementById('platformChevron');
+            const isShown = list.classList.contains('show');
+            list.classList.toggle('show', !isShown);
+            chevron.style.transform = isShown ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+
+        window.selectPlatformOption = function(val, text) {
+            document.getElementById('platformSelect').value = val;
+            document.getElementById('selectedPlatformText').innerText = text;
+            document.getElementById('platformDropdownList').classList.remove('show');
+            document.getElementById('platformChevron').style.transform = 'rotate(0deg)';
+        }
+
+        window.addEventListener('click', () => {
+            const list = document.getElementById('platformDropdownList');
+            const chevron = document.getElementById('platformChevron');
+            if (list && list.classList.contains('show')) {
+                list.classList.remove('show');
+                if(chevron) chevron.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        window.handleAuthAction = async () => {
+            if (!currentUser) {
+                try {
+                    await signInWithPopup(auth, provider);
+                } catch (error) { console.error("Login Error:", error); }
+            } else {
+                try {
+                    if (activeListenerRef) { onValue(activeListenerRef, null); activeListenerRef = null; }
+                    await signOut(auth);
+                } catch (error) { console.error("Logout Error:", error); }
+            }
+        };
+
+        onAuthStateChanged(auth, (user) => {
+            currentUser = user;
+            if (user) {
+                const initial = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle">${initial}</div>
+                        <span>Logout</span>
+                    </div>
+                `;
+                window.searchOrderStatus();
+            } else {
+                authContainer.innerHTML = `
+                    <div class="auth-bar" onclick="handleAuthAction()">
+                        <div class="auth-icon-circle"><i class="fa-brands fa-google"></i></div>
+                        <span>Login</span>
+                    </div>
+                `;
+                window.searchOrderStatus();
+            }
+        });
+
+        window.handleCheckoutSubmit = async function(event) {
+            event.preventDefault();
+            if (!currentUser) {
+                showCustomNotice("Login Diperlukan", "Silakan login dengan Google terlebih dahulu!", "fa-solid fa-lock", false);
+                return;
+            }
+
+            const usernameInput = document.getElementById('minecraftUsername');
+            const username = usernameInput.value.trim();
+            const platform = document.getElementById('platformSelect').value;
+
+            if (!username) {
+                usernameInput.classList.add('input-error');
+                showCustomNotice("Peringatan", "Mohon masukkan username Minecraft Anda terlebih dahulu!", "fa-solid fa-circle-exclamation", true);
+                return;
+            }
+
+            let categoryName = selectedProduct.name;
+            if (selectedProduct.type === 'key') {
+                categoryName = `${selectedProduct.name} x${currentQuantity}`;
+            }
+
+            const randomId = 'ORD-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+            const orderData = {
+                orderId: randomId,
+                serviceCategory: categoryName,
+                uid: currentUser.uid,
+                customerName: currentUser.displayName || 'Anonymous',
+                customerEmail: currentUser.email || 'No Email',
+                minecraftUsername: username,
+                platform: platform,
+                totalPrice: selectedProduct.currentFormattedPrice,
+                orderDate: new Date().toISOString(),
+                status: 'Menunggu Pembayaran'
+            };
+
+            try {
+                const checkoutRef = ref(db, `account/data/checkout/${randomId}`);
+                await set(checkoutRef, orderData);
+                closeCheckoutModal();
+                
+                document.getElementById('qrisPriceDesc').innerText = `Silakan scan QRIS di bawah ini untuk total pembayaran: ${selectedProduct.currentFormattedPrice}`;
+                document.getElementById('qrisModalOverlay').classList.add('show');
+
+                usernameInput.value = '';
+                window.searchOrderStatus();
+                document.getElementById('status-section').scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                console.error(err);
+                showCustomNotice("Gagal", "Gagal membuat pesanan. Silakan coba lagi nanti.", "fa-solid fa-triangle-exclamation", true);
+            }
+        }
+
+        window.searchOrderStatus = function() {
+            const errorMsg = document.getElementById('errorMsg');
+            const resultWrapper = document.getElementById('resultWrapper');
+            const ordersContainer = document.getElementById('ordersContainer');
+
+            errorMsg.style.display = 'none';
+            resultWrapper.style.display = 'none';
+            ordersContainer.innerHTML = '';
+
+            if (activeListenerRef) {
+                onValue(activeListenerRef, null);
+                activeListenerRef = null;
+            }
+
+            if (!currentUser) {
+                errorMsg.innerText = 'Silakan login dengan akun Google untuk melihat status pemesanan.';
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            activeListenerRef = ref(db, `account/data/checkout`);
+            onValue(activeListenerRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const all = snapshot.val();
+                    const matched = [];
+                    Object.values(all).forEach(ord => {
+                        if (ord.uid === currentUser.uid || ord.customerEmail === currentUser.email) {
+                            matched.push(ord);
+                        }
+                    });
+                    if (matched.length > 0) {
+                        renderOrders(matched);
+                    } else {
+                        errorMsg.innerText = 'Belum ada riwayat pesanan untuk akun Anda.';
+                        errorMsg.style.display = 'block';
+                    }
+                } else {
+                    errorMsg.innerText = 'Belum ada data pesanan.';
+                    errorMsg.style.display = 'block';
+                }
+            });
+        }
+
+        function renderOrders(list) {
+            const container = document.getElementById('ordersContainer');
+            container.innerHTML = '';
+            list.forEach(ord => {
+                const dateStr = new Date(ord.orderDate).toLocaleDateString('id-ID');
+                container.innerHTML += `
+                    <div class="status-bar-row">
+                        <div class="status-bar-header">
+                            <span class="order-id-label">${ord.orderId}</span>
+                            <span style="font-size:0.85rem; color:var(--text-muted);">${dateStr}</span>
+                        </div>
+                        
+                        <div class="status-item-line">
+                            <span class="status-label-left">Produk</span>
+                            <span class="status-value-right">${ord.serviceCategory}</span>
+                        </div>
+                        <div class="status-item-line">
+                            <span class="status-label-left">Username MC</span>
+                            <span class="status-value-right">${ord.minecraftUsername || '-'}</span>
+                        </div>
+                        <div class="status-item-line">
+                            <span class="status-label-left">Status</span>
+                            <span class="status-value-right">${ord.status}</span>
+                        </div>
+                        <div class="status-item-line">
+                            <span class="status-label-left">Total</span>
+                            <span class="status-value-right">${ord.totalPrice}</span>
+                        </div>
+
+                        ${ord.status === 'Menunggu Pembayaran' ? `<button class="open-qris-modal-btn" onclick="openQrisModalWithPrice('${ord.totalPrice}')">Lihat QRIS Pembayaran</button>` : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('resultWrapper').style.display = 'block';
+        }
+
+        window.openQrisModalWithPrice = function(priceText) {
+            document.getElementById('qrisPriceDesc').innerText = `Silakan scan QRIS di bawah ini untuk total pembayaran: ${priceText}`;
+            document.getElementById('qrisModalOverlay').classList.add('show');
+        }
+
+        window.openQrisModal = () => {
+            document.getElementById('qrisPriceDesc').innerText = `Silakan scan QRIS di bawah ini sesuai total tagihan pesanan Anda.`;
+            document.getElementById('qrisModalOverlay').classList.add('show');
+        }
+        window.closeQrisModal = () => document.getElementById('qrisModalOverlay').classList.remove('show');
+
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    const icon = el.querySelector('.faq-icon');
+                    if(icon) {
+                        icon.classList.remove('fa-minus');
+                        icon.classList.add('fa-plus');
+                    }
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    const icon = q.querySelector('.faq-icon');
+                    if(icon) {
+                        icon.classList.remove('fa-plus');
+                        icon.classList.add('fa-minus');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
