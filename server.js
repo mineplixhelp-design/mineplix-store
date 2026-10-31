@@ -20,6 +20,10 @@ app.get('/server', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'server.html'));
 });
 
+app.get('/server/wiki', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'wiki.html'));
+});
+
 app.get('/envadminanv', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
