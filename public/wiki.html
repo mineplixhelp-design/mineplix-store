@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mineplix Wiki - Panduan Server Let's For Survive</title>
-    <meta name="description" content="Panduan dan Wiki resmi server Minecraft Mineplix Let's For Survive. Pelajari command essentials, economy, skills, jobs, dan jadwal crime time.">
+    <meta name="description" content="Panduan dan Wiki resmi server Minecraft Mineplix Let's For Survive. Pelajari command essentials, economy, skills, jobs, auction, dan jadwal crime time.">
     
     <meta property="og:title" content="Mineplix Wiki - Panduan Server">
     <meta property="og:description" content="Panduan dan Wiki resmi server Minecraft Mineplix Let's For Survive.">
@@ -14,6 +14,8 @@
     <link rel="icon" href="/img/icon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js untuk Grafik Real-time -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
@@ -130,14 +132,13 @@
             font-weight: 700;
         }
 
-        /* Mobile Bottom Navigation Bar */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: calc(100% - 48px);
+            width: calc(100% - 32px);
             max-width: 380px;
             background-color: rgba(255, 255, 255, 0.15);
             border-radius: 36px;
@@ -167,7 +168,7 @@
         }
 
         .hero {
-            padding: 130px 24px 30px 24px;
+            padding: 130px 16px 30px 16px;
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -194,89 +195,62 @@
             text-align: center;
         }
 
-        /* Dropdown Filter Bar */
-        .wiki-filter-container {
+        .wiki-tabs-wrapper {
             width: 100%;
-            max-width: 440px;
-            margin: 0 auto 40px auto;
-            padding: 0 24px;
+            max-width: 850px;
+            margin: 0 auto 30px auto;
+            padding: 0 16px;
         }
 
-        .custom-dropdown-container {
-            position: relative;
-            width: 100%;
-            user-select: none;
-        }
-
-        .dropdown-toggle-bar {
-            width: 100%;
-            height: 52px;
-            padding: 0 20px;
-            background-color: var(--card-bg);
-            border: none;
-            border-radius: 16px;
-            color: #fff;
-            font-size: 0.95rem;
-            font-weight: 600;
+        .wiki-tabs-container {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            white-space: nowrap;
         }
 
-        .dropdown-toggle-bar svg {
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            fill: var(--text-muted);
+        .wiki-tabs-container::-webkit-scrollbar {
+            display: none;
         }
 
-        .dropdown-menu-list {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            width: 100%;
+        .wiki-tab-btn {
             background-color: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            max-height: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, visibility 0.3s ease;
-            z-index: 10;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            color: var(--text-muted);
             border: none;
-        }
-
-        .dropdown-menu-list.show {
-            max-height: 320px;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .dropdown-item-option {
-            padding: 14px 20px;
+            padding: 12px 20px;
+            border-radius: 16px;
             font-size: 0.92rem;
-            color: var(--text-white);
-            transition: background 0.2s;
-            font-weight: 500;
-            text-align: left;
+            font-weight: 600;
+            flex: 0 0 auto;
+            transition: all 0.25s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        .dropdown-item-option:hover {
+        .wiki-tab-btn:hover {
+            color: var(--text-white);
             background-color: #2b2633;
         }
 
-        /* Wiki Content - Clean Minimalist Style */
+        .wiki-tab-btn.active {
+            background-color: var(--purple-primary);
+            color: var(--text-white);
+            font-weight: 700;
+        }
+
         .wiki-container {
             width: 100%;
             max-width: 850px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 16px;
         }
 
         .wiki-section-box {
             display: none;
             flex-direction: column;
-            gap: 32px;
+            gap: 28px;
         }
 
         .wiki-section-box.active {
@@ -286,47 +260,46 @@
         .wiki-article-block {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .wiki-h2 {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--text-white);
             letter-spacing: -0.5px;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .wiki-p {
             color: var(--text-muted);
-            font-size: 1rem;
-            line-height: 1.7;
+            font-size: 0.95rem;
+            line-height: 1.65;
         }
 
         .wiki-list {
             list-style-type: disc;
-            padding-left: 20px;
+            padding-left: 18px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .wiki-list li {
             color: var(--text-muted);
-            font-size: 0.98rem;
-            line-height: 1.6;
+            font-size: 0.92rem;
+            line-height: 1.55;
         }
 
-        /* Command Box: Border Kiri Putih, Teks Putih, Tanpa Border Keliling */
         .command-code-box {
             background-color: #110e14;
             border: none;
-            border-left: 4px solid #ffffff;
+            border-left: 2px solid #ffffff;
             border-radius: 0px;
-            padding: 14px 18px;
+            padding: 12px 16px;
             font-family: monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #ffffff;
             margin: 6px 0;
             display: flex;
@@ -352,11 +325,85 @@
             border-radius: 4px;
             opacity: 0;
             transition: opacity 0.2s ease;
-            pointer-events: none;
         }
 
         .copy-toast.show {
             opacity: 1;
+        }
+
+        /* Market & Inflation Section Style (Transparent Background & Scrollable Vertical Chart) */
+        .market-inflation-wrapper {
+            margin-top: 50px;
+            background-color: transparent;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .chart-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            background-color: transparent;
+            box-shadow: none;
+            padding: 0;
+            margin-bottom: 24px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .chart-inner {
+            position: relative;
+            width: 100%;
+            min-width: 650px;
+            height: 300px;
+        }
+
+        .market-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .market-item-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 14px 16px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .market-item-name {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--text-white);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .market-item-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .market-detail-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .market-detail-col span {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .market-detail-col b {
+            font-size: 0.85rem;
+            color: var(--text-white);
         }
 
         .footer-wrapper {
@@ -369,31 +416,48 @@
             background-color: var(--purple-primary);
             color: #fff;
             text-align: center;
-            padding: 60px 24px 80px 24px;
+            padding: 50px 16px 70px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .footer-banner-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .footer-copy {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--translucent-white-90);
-            margin-top: 30px;
+            margin-top: 24px;
+        }
+
+        .wiki-img-content {
+            width: 100%;
+            max-width: 280px;
+            border-radius: 12px;
+            margin-top: 10px;
+            object-fit: contain;
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 0 20px; }
+            .navbar { padding: 0 16px; }
             .nav-links { display: none; }
             .mobile-bottom-nav { display: flex; }
-            .hero-title { font-size: 2.2rem; letter-spacing: -0.5px; }
-            .wiki-h2 { font-size: 1.35rem; }
-            .footer-banner-title { font-size: 1.75rem; }
+            .hero { padding-top: 110px; }
+            .hero-title { font-size: 1.85rem; letter-spacing: -0.5px; }
+            .hero-description { font-size: 0.88rem; }
+            .wiki-h2 { font-size: 1.2rem; }
+            .wiki-p { font-size: 0.85rem; }
+            .wiki-list li { font-size: 0.82rem; }
+            .command-code-box { font-size: 0.82rem; padding: 10px 12px; }
+            .footer-banner-title { font-size: 1.4rem; }
+            .wiki-img-content { max-width: 100%; }
+            .wiki-tab-btn { padding: 8px 14px; font-size: 0.82rem; }
+            .market-items-grid { grid-template-columns: 1fr; }
+            .chart-inner { height: 260px; }
         }
     </style>
 </head>
@@ -420,7 +484,6 @@
             </div>
         </nav>
 
-        <!-- Mobile Bottom Navigation Bar -->
         <div class="mobile-bottom-nav">
             <div class="mobile-nav-item" onclick="window.location.href='/server'">
                 <i class="fa-solid fa-house"></i>
@@ -437,35 +500,26 @@
                 Mineplix Server Wiki
             </h1>
             <p class="hero-description">
-                Dokumentasi dan panduan lengkap seputar land claim, team, essentials, ekonomi, skills, jobs, hingga jadwal crime time di server Mineplix.
+                Dokumentasi dan panduan lengkap seputar land claim, team, essentials, ekonomi, auction house, crates & vote, skills, jobs, hingga grafik harga pasar server.
             </p>
         </section>
 
-        <!-- Dropdown Kategori Wiki -->
-        <div class="wiki-filter-container">
-            <div class="custom-dropdown-container">
-                <div class="dropdown-toggle-bar" id="wikiDropdownToggle" onclick="toggleWikiDropdown(event)">
-                    <span id="selectedWikiCategoryText">1. Land Claim (Golden Shovel)</span>
-                    <svg id="wikiChevron" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-                </div>
-                <div class="dropdown-menu-list" id="wikiDropdownList">
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('claim', '1. Land Claim (Golden Shovel)')">1. Land Claim (Golden Shovel)</div>
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('team', '2. Plugin Team (War & Group)')">2. Plugin Team (War & Group)</div>
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('essentials', '3. Essentials & Economy')">3. Essentials & Economy</div>
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('skillsjobs', '4. Skills & Jobs Reborn')">4. Skills & Jobs Reborn</div>
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('crimetime', '5. Jadwal Crime Time')">5. Jadwal Crime Time</div>
-                    <div class="dropdown-item-option" onclick="selectWikiCategory('origins', '6. Origins Reborn Orb')">6. Origins Reborn Orb</div>
-                </div>
+        <div class="wiki-tabs-wrapper">
+            <div class="wiki-tabs-container">
+                <button type="button" class="wiki-tab-btn active" id="tab-claim" onclick="selectWikiCategory('claim', this)">1. Land Claim</button>
+                <button type="button" class="wiki-tab-btn" id="tab-team" onclick="selectWikiCategory('team', this)">2. Plugin Team</button>
+                <button type="button" class="wiki-tab-btn" id="tab-essentials" onclick="selectWikiCategory('essentials', this)">3. Essentials & Economy</button>
+                <button type="button" class="wiki-tab-btn" id="tab-skillsjobs" onclick="selectWikiCategory('skillsjobs', this)">4. Skills & Jobs</button>
+                <button type="button" class="wiki-tab-btn" id="tab-crimetime" onclick="selectWikiCategory('crimetime', this)">5. Crime Time</button>
+                <button type="button" class="wiki-tab-btn" id="tab-origins" onclick="selectWikiCategory('origins', this)">6. Origins Orb</button>
             </div>
         </div>
 
-        <!-- Konten Wiki Clean -->
         <div class="wiki-container">
             
-            <!-- KATEGORI 1: LAND CLAIM -->
             <div class="wiki-section-box active" id="section-claim">
                 <div class="wiki-article-block">
-                    <h2 class="wiki-h2">Panduan Land Claim (Golden Shovel)</h2>
+                    <h2 class="wiki-h2">Panduan Land Claim (GriefPrevention)</h2>
                     <p class="wiki-p">
                         Lindungi seluruh hasil kerja keras, bangunan, dan peti penyimpanan kamu dari tindakan griefing maupun pencurian oleh pemain lain menggunakan alat Golden Shovel secara otomatis.
                     </p>
@@ -473,6 +527,7 @@
                         <li><b>Ambil Golden Shovel:</b> Pegang item Golden Shovel di tangan utama kamu untuk mengaktifkan mode klaim wilayah.</li>
                         <li><b>Klik Sudut Pertama & Kedua:</b> Klik kanan pada blok sudut awal (misal: kanan atas), lalu klik kanan pada blok sudut diagonal seberangnya (kiri bawah) untuk membentuk area proteksi persegi.</li>
                     </ul>
+                    <img src="/img/land.jpg" alt="Land Claim Preview" class="wiki-img-content">
                 </div>
 
                 <div class="wiki-article-block" style="margin-top: 10px;">
@@ -488,8 +543,8 @@
                     </div>
 
                     <div style="margin-top: 12px;">
-                        <div class="command-code-box" onclick="copyCommand(this, '/trust')">
-                            <span>/trust [NamaPlayer]</span>
+                        <div class="command-code-box" onclick="copyCommand(this, '/trust &lt;player&gt;')">
+                            <span>/trust &lt;player&gt;</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
                         <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Memberikan izin kepada pemain lain agar dapat berinteraksi, membuka chest, dan membangun di dalam area claim milikmu.</p>
@@ -497,16 +552,15 @@
                 </div>
             </div>
 
-            <!-- KATEGORI 2: PLUGIN TEAM -->
             <div class="wiki-section-box" id="section-team">
                 <div class="wiki-article-block">
-                    <h2 class="wiki-h2">Plugin Team (Let's For Survive)</h2>
+                    <h2 class="wiki-h2">Plugin SimpleTeams (Let's For Survive)</h2>
                     <p class="wiki-p">
                         Bentuk kelompok atau faksi bersama rekan-rekanmu untuk saling melindungi, berbagi sumber daya, dan bersiap menghadapi peperangan tim.
                     </p>
                     
                     <div style="margin-top: 8px;">
-                        <div class="command-code-box" onclick="copyCommand(this, '/team create')">
+                        <div class="command-code-box" onclick="copyCommand(this, '/team create &lt;name&gt;')">
                             <span>/team create &lt;name&gt;</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
@@ -514,7 +568,7 @@
                     </div>
 
                     <div style="margin-top: 12px;">
-                        <div class="command-code-box" onclick="copyCommand(this, '/team invite')">
+                        <div class="command-code-box" onclick="copyCommand(this, '/team invite &lt;player&gt;')">
                             <span>/team invite &lt;player&gt;</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
@@ -539,17 +593,16 @@
                 </div>
             </div>
 
-            <!-- KATEGORI 3: ESSENTIALS & ECONOMY -->
             <div class="wiki-section-box" id="section-essentials">
                 <div class="wiki-article-block">
-                    <h2 class="wiki-h2">Essentials & Vault Economy</h2>
+                    <h2 class="wiki-h2">Essentials, Economy, Auction & Crate</h2>
                     <p class="wiki-p">
-                        Daftar command penting untuk teleportasi, pengelolaan rumah, warp, serta transaksi ekonomi in-game.
+                        Daftar command penting untuk teleportasi, pengelolaan rumah, warp, transaksi ekonomi, lelang barang, serta klaim hadiah vote/crate server.
                     </p>
                     
                     <div style="margin-top: 8px;">
-                        <div class="command-code-box" onclick="copyCommand(this, '/tpa')">
-                            <span>/tpa [NamaPlayer] & /tpaccept /tpdeny</span>
+                        <div class="command-code-box" onclick="copyCommand(this, '/tpa &lt;player&gt;')">
+                            <span>/tpa &lt;player&gt; & /tpaccept /tpdeny</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
                         <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Mengirim permintaan teleport ke pemain lain. Ketik /tpaccept untuk menerima atau /tpdeny untuk menolak.</p>
@@ -560,7 +613,7 @@
                             <span>/rtp</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
-                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Teleport secara acak ke area wilderness yang jauh dari titik spawn utama.</p>
+                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Teleport secara acak menggunakan plugin BetterRTP ke area wilderness yang jauh dari titik spawn utama.</p>
                     </div>
 
                     <div style="margin-top: 12px;">
@@ -573,7 +626,7 @@
 
                     <div style="margin-top: 12px;">
                         <div class="command-code-box" onclick="copyCommand(this, '/warp')">
-                            <span>/warp [nama] & /kits</span>
+                            <span>/warp &lt;name&gt; & /kits</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
                         <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Berpindah ke lokasi publik server menggunakan /warp dan klaim perlengkapan via /kits.</p>
@@ -581,7 +634,7 @@
 
                     <div style="margin-top: 12px;">
                         <div class="command-code-box" onclick="copyCommand(this, '/balance')">
-                            <span>/balance (/bal) & /pay [player] [jumlah]</span>
+                            <span>/balance (/bal) & /pay &lt;player&gt; &lt;amount&gt;</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
                         <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Mengecek saldo uang Anda atau mengirimkan uang ke pemain lain.</p>
@@ -592,26 +645,40 @@
                             <span>/shop, /sell, & /keyshop</span>
                             <span class="copy-toast">Tersalin!</span>
                         </div>
-                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Membuka toko server, menjual item, dan membeli kunci gacha menggunakan saldo in-game.</p>
+                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Membuka EconomyShopGUI server, menjual item, dan membeli kunci gacha menggunakan saldo in-game.</p>
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <div class="command-code-box" onclick="copyCommand(this, '/ah')">
+                            <span>/ah (/auction)</span>
+                            <span class="copy-toast">Tersalin!</span>
+                        </div>
+                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Membuka Auction House untuk pasang lelang item atau membeli barang dari pemain lain secara aman.</p>
+                    </div>
+
+                    <div style="margin-top: 12px;">
+                        <div class="command-code-box" onclick="copyCommand(this, '/vote')">
+                            <span>/vote & /crates</span>
+                            <span class="copy-toast">Tersalin!</span>
+                        </div>
+                        <p class="wiki-p" style="font-size: 0.9rem; margin-top: 4px;">Lakukan vote server untuk mendapatkan reward kunci CrazyCrates dan gunakan di area crate spawn.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- KATEGORI 4: SKILLS & JOBS -->
             <div class="wiki-section-box" id="section-skillsjobs">
                 <div class="wiki-article-block">
-                    <h2 class="wiki-h2">Auralium Skills & Jobs Reborn</h2>
+                    <h2 class="wiki-h2">AuraSkills & Jobs Reborn</h2>
                     <p class="wiki-p">
                         Tingkatkan kemampuan karakter Anda dan cari penghasilan tambahan melalui sistem profesi kerja.
                     </p>
                     <ul class="wiki-list">
-                        <li><b>Auralium Skills:</b> Sistem peningkatan skill karakter (seperti kekuatan, ketahanan, kelincahan, dan kemampuan memancing/menambang) yang berkembang seiring aktivitas bertahan hidup Anda.</li>
+                        <li><b>AuraSkills:</b> Sistem peningkatan skill karakter (seperti kekuatan, ketahanan, kelincahan, dan kemampuan memancing/menambang) yang berkembang seiring aktivitas bertahan hidup Anda.</li>
                         <li><b>Jobs Reborn:</b> Sistem pekerjaan in-game untuk mendapatkan penghasilan tambahan. Peraturan penting: <b>Setiap player hanya bisa memilih 1 job saja per player</b>, jadi pilihlah profesi yang paling sesuai dengan gaya bermain Anda!</li>
                     </ul>
                 </div>
             </div>
 
-            <!-- KATEGORI 5: JADWAL CRIME TIME -->
             <div class="wiki-section-box" id="section-crimetime">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Jadwal Crime Time</h2>
@@ -627,13 +694,13 @@
                 </div>
             </div>
 
-            <!-- KATEGORI 6: ORIGINS REBORN ORB -->
             <div class="wiki-section-box" id="section-origins">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Origins Reborn Orb</h2>
                     <p class="wiki-p">
-                        Origins Reborn Orb adalah item spesial yang memungkinkan Anda untuk mereset atau mengganti pilihan Origin (ras/kemampuan khusus) karakter Anda di server.
+                        Origins-Reborn Orb adalah item spesial yang memungkinkan Anda untuk mereset atau mengganti pilihan Origin (ras/kemampuan khusus) karakter Anda di server.
                     </p>
+                    <img src="/img/opsiras.webp" alt="Origins Preview" class="wiki-img-content">
                 </div>
 
                 <div class="wiki-article-block" style="margin-top: 10px;">
@@ -645,9 +712,32 @@
                         <li><b>Nether Star:</b> Diletakkan tepat di slot bagian <b>tengah</b> crafting grid.</li>
                         <li><b>Diamond:</b> Diletakkan sebanyak 4 buah mengelilingi Nether Star di posisi atas, bawah, kiri, dan kanan (membentuk pola plus / silang).</li>
                     </ul>
+                    <img src="/img/craftorb.jpg" alt="Crafting Orb Preview" class="wiki-img-content">
                 </div>
             </div>
 
+        </div>
+
+        <!-- Live Server Market Prices & Chart Section (Vertical Chart at Top, Card Grid at Bottom) -->
+        <div class="wiki-container">
+            <div class="market-inflation-wrapper">
+                <h2 class="wiki-h2" style="margin-bottom: 6px;">Live Server Economy Prices</h2>
+                <p class="wiki-p" style="margin-bottom: 16px; font-size: 0.9rem;">Grafik perbandingan harga buy/sell dan daftar item pasar server secara real-time.</p>
+
+                <!-- Scrollable Vertical Chart Box at Top -->
+                <div class="chart-scroll-wrapper">
+                    <div class="chart-inner">
+                        <canvas id="inflationChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Market Items Grid at Bottom (Material Top, Details Side-by-Side) -->
+                <div class="market-items-grid" id="marketItemsGrid">
+                    <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 20px;">
+                        Memuat data pasar dari database...
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -683,6 +773,7 @@
         const authContainer = document.getElementById('authContainer');
         let currentUser = null;
         let activeListenerRef = null;
+        let inflationChartInstance = null;
 
         window.handleAuthAction = async () => {
             if (!currentUser) {
@@ -717,20 +808,11 @@
             }
         });
 
-        // Script Dropdown Filter Wiki (Dibuat Global ke window)
-        window.toggleWikiDropdown = function(e) {
-            e.stopPropagation();
-            const list = document.getElementById('wikiDropdownList');
-            const chevron = document.getElementById('wikiChevron');
-            const isShown = list.classList.contains('show');
-            list.classList.toggle('show', !isShown);
-            chevron.style.transform = isShown ? 'rotate(0deg)' : 'rotate(180deg)';
-        }
-
-        window.selectWikiCategory = function(categoryKey, categoryLabel) {
-            document.getElementById('selectedWikiCategoryText').innerText = categoryLabel;
-            document.getElementById('wikiDropdownList').classList.remove('show');
-            document.getElementById('wikiChevron').style.transform = 'rotate(0deg)';
+        window.selectWikiCategory = function(categoryKey, btnElement) {
+            document.querySelectorAll('.wiki-tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnElement.classList.add('active');
 
             document.querySelectorAll('.wiki-section-box').forEach(box => {
                 box.classList.remove('active');
@@ -738,7 +820,6 @@
             document.getElementById('section-' + categoryKey).classList.add('active');
         }
 
-        // Script Otomatis Salin Command
         window.copyCommand = function(element, textToCopy) {
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const toast = element.querySelector('.copy-toast');
@@ -753,14 +834,102 @@
             });
         }
 
-        window.addEventListener('click', () => {
-            const list = document.getElementById('wikiDropdownList');
-            const chevron = document.getElementById('wikiChevron');
-            if (list && list.classList.contains('show')) {
-                list.classList.remove('show');
-                if(chevron) chevron.style.transform = 'rotate(0deg)';
+        // Realtime Firebase Market Monitor & Card Grid Builder
+        const marketRef = ref(db, 'server/market/prices');
+        onValue(marketRef, (snapshot) => {
+            const gridContainer = document.getElementById('marketItemsGrid');
+            gridContainer.innerHTML = '';
+
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                let labels = [];
+                let buyPrices = [];
+                let sellPrices = [];
+
+                Object.values(data).forEach(item => {
+                    const material = item.material || 'UNKNOWN';
+                    const buy = parseFloat(item.buy) || 0;
+                    const sell = parseFloat(item.sell) || 0;
+                    const ratio = sell > 0 ? (buy / sell).toFixed(2) : 'N/A';
+
+                    labels.push(material);
+                    buyPrices.push(buy);
+                    sellPrices.push(sell);
+
+                    gridContainer.innerHTML += `
+                        <div class="market-item-card">
+                            <div class="market-item-name">${material}</div>
+                            <div class="market-item-details">
+                                <div class="market-detail-col">
+                                    <span>Buy</span>
+                                    <b>$md ${buy.toLocaleString('id-ID')}</b>
+                                </div>
+                                <div class="market-detail-col">
+                                    <span>Sell</span>
+                                    <b>$md ${sell.toLocaleString('id-ID')}</b>
+                                </div>
+                                <div class="market-detail-col">
+                                    <span>Rasio</span>
+                                    <b>${ratio}x</b>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                renderInflationChart(labels, buyPrices, sellPrices);
+            } else {
+                gridContainer.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 20px;">Belum ada data market di database. (Path: server/market/prices)</div>`;
             }
         });
+
+        // Vertical Bar Chart inside scrollable container
+        function renderInflationChart(labels, buyData, sellData) {
+            const ctx = document.getElementById('inflationChart').getContext('2d');
+            if (inflationChartInstance) {
+                inflationChartInstance.destroy();
+            }
+
+            inflationChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Harga Buy (Beli)',
+                            data: buyData,
+                            backgroundColor: '#7c3aed',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Harga Sell (Jual)',
+                            data: sellData,
+                            backgroundColor: '#00b67a',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#a1a1aa', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#a1a1aa', font: { size: 10 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        },
+                        y: {
+                            ticks: { color: '#a1a1aa', font: { size: 10 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' }
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
