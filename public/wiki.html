@@ -168,7 +168,7 @@
         }
 
         .hero {
-            padding: 130px 16px 30px 16px;
+            padding: 130px 24px 30px 24px;
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -190,16 +190,16 @@
         .hero-description {
             font-size: 1.05rem;
             color: var(--text-muted);
-            max-width: 650px;
+            max-width: 750px;
             margin-bottom: 30px;
             text-align: center;
         }
 
         .wiki-tabs-wrapper {
             width: 100%;
-            max-width: 850px;
+            max-width: 1150px;
             margin: 0 auto 30px auto;
-            padding: 0 16px;
+            padding: 0 24px;
         }
 
         .wiki-tabs-container {
@@ -242,9 +242,10 @@
 
         .wiki-container {
             width: 100%;
-            max-width: 850px;
+            max-width: 1150px;
             margin: 0 auto;
-            padding: 0 16px;
+            padding: 0 24px;
+            overflow-x: auto;
         }
 
         .wiki-section-box {
@@ -331,12 +332,13 @@
             opacity: 1;
         }
 
-        /* Market & Inflation Section Style (Transparent Background & Scrollable Vertical Chart) */
+        /* Market & Inflation Section Style */
         .market-inflation-wrapper {
-            margin-top: 50px;
+            margin-top: 0;
             background-color: transparent;
             padding: 0;
             box-shadow: none;
+            width: 100%;
         }
 
         .chart-scroll-wrapper {
@@ -352,41 +354,41 @@
         .chart-inner {
             position: relative;
             width: 100%;
-            min-width: 650px;
+            min-width: 1000px;
             height: 300px;
         }
 
         .market-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
             margin-top: 16px;
         }
 
         .market-item-card {
             background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 14px 16px;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            padding: 10px 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .market-item-name {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 800;
             color: var(--text-white);
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            padding-bottom: 6px;
-            letter-spacing: 0.3px;
+            padding-bottom: 4px;
+            letter-spacing: 0.2px;
         }
 
         .market-item-details {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         .market-detail-col {
@@ -395,21 +397,21 @@
         }
 
         .market-detail-col span {
-            font-size: 0.7rem;
+            font-size: 0.62rem;
             color: var(--text-muted);
             text-transform: uppercase;
             font-weight: 700;
         }
 
         .market-detail-col b {
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             color: var(--text-white);
         }
 
         .footer-wrapper {
             background-color: var(--purple-primary);
             width: 100%;
-            margin-top: 0;
+            margin-top: 50px;
         }
 
         .footer-banner {
@@ -456,8 +458,8 @@
             .footer-banner-title { font-size: 1.4rem; }
             .wiki-img-content { max-width: 100%; }
             .wiki-tab-btn { padding: 8px 14px; font-size: 0.82rem; }
-            .market-items-grid { grid-template-columns: 1fr; }
-            .chart-inner { height: 260px; }
+            .market-items-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            .chart-inner { height: 260px; min-width: 850px; }
         }
     </style>
 </head>
@@ -504,6 +506,7 @@
             </p>
         </section>
 
+        <!-- Wiki Navigation Tab Bar -->
         <div class="wiki-tabs-wrapper">
             <div class="wiki-tabs-container">
                 <button type="button" class="wiki-tab-btn active" id="tab-claim" onclick="selectWikiCategory('claim', this)">1. Land Claim</button>
@@ -512,11 +515,13 @@
                 <button type="button" class="wiki-tab-btn" id="tab-skillsjobs" onclick="selectWikiCategory('skillsjobs', this)">4. Skills & Jobs</button>
                 <button type="button" class="wiki-tab-btn" id="tab-crimetime" onclick="selectWikiCategory('crimetime', this)">5. Crime Time</button>
                 <button type="button" class="wiki-tab-btn" id="tab-origins" onclick="selectWikiCategory('origins', this)">6. Origins Orb</button>
+                <button type="button" class="wiki-tab-btn" id="tab-market" onclick="selectWikiCategory('market', this)">7. Live Market</button>
             </div>
         </div>
 
         <div class="wiki-container">
             
+            <!-- Section 1: Land Claim -->
             <div class="wiki-section-box active" id="section-claim">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Panduan Land Claim (GriefPrevention)</h2>
@@ -526,6 +531,7 @@
                     <ul class="wiki-list">
                         <li><b>Ambil Golden Shovel:</b> Pegang item Golden Shovel di tangan utama kamu untuk mengaktifkan mode klaim wilayah.</li>
                         <li><b>Klik Sudut Pertama & Kedua:</b> Klik kanan pada blok sudut awal (misal: kanan atas), lalu klik kanan pada blok sudut diagonal seberangnya (kiri bawah) untuk membentuk area proteksi persegi.</li>
+                        <li><b>Memperluas Land:</b> Untuk memperluas area claim Anda, cukup klik pada blok glowstone di pojok wilayah claim yang sudah ada, lalu klik pada blok sudut baru yang diinginkan untuk memperluas batas proteksi.</li>
                     </ul>
                     <img src="/img/land.jpg" alt="Land Claim Preview" class="wiki-img-content">
                 </div>
@@ -552,6 +558,7 @@
                 </div>
             </div>
 
+            <!-- Section 2: Plugin Team -->
             <div class="wiki-section-box" id="section-team">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Plugin SimpleTeams (Let's For Survive)</h2>
@@ -593,6 +600,7 @@
                 </div>
             </div>
 
+            <!-- Section 3: Essentials & Economy -->
             <div class="wiki-section-box" id="section-essentials">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Essentials, Economy, Auction & Crate</h2>
@@ -666,6 +674,7 @@
                 </div>
             </div>
 
+            <!-- Section 4: Skills & Jobs -->
             <div class="wiki-section-box" id="section-skillsjobs">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">AuraSkills & Jobs Reborn</h2>
@@ -679,6 +688,7 @@
                 </div>
             </div>
 
+            <!-- Section 5: Crime Time -->
             <div class="wiki-section-box" id="section-crimetime">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Jadwal Crime Time</h2>
@@ -686,14 +696,15 @@
                         Crime Time adalah waktu khusus di mana elemen pertempuran antar pemain menjadi lebih menantang. Harap perhatikan jadwal dan aturan mainnya:
                     </p>
                     <ul class="wiki-list">
-                        <li><b>Sesi 1:</b> 10:00 sampai 12:00 WIB</li>
-                        <li><b>Sesi 2:</b> 15:00 sampai 17:00 WIB</li>
+                        <li><b>Sesi 1:</b> 10:00 sampai 11:00 WIB</li>
+                        <li><b>Sesi 2:</b> 15:00 sampai 16:00 WIB</li>
                         <li><b>Sesi 3:</b> 20:00 sampai 22:00 WIB</li>
                         <li><b>Aturan Penting:</b> Ketika <b>Crime Time</b> berlangsung, fitur <b>Keep Inventory mati</b> sehingga item bawaan Anda bisa drop saat tereliminasi. Selalu berhati-hati dan simpan barang berharga sebelum jam Crime Time dimulai!</li>
                     </ul>
                 </div>
             </div>
 
+            <!-- Section 6: Origins Orb -->
             <div class="wiki-section-box" id="section-origins">
                 <div class="wiki-article-block">
                     <h2 class="wiki-h2">Origins Reborn Orb</h2>
@@ -716,28 +727,28 @@
                 </div>
             </div>
 
-        </div>
+            <!-- Section 7: Live Market -->
+            <div class="wiki-section-box" id="section-market">
+                <div class="market-inflation-wrapper">
+                    <h2 class="wiki-h2" style="margin-bottom: 6px;">Live Server Economy Prices</h2>
+                    <p class="wiki-p" style="margin-bottom: 16px; font-size: 0.9rem;">Grafik perbandingan harga buy/sell dan daftar item pasar server secara real-time.</p>
 
-        <!-- Live Server Market Prices & Chart Section (Vertical Chart at Top, Card Grid at Bottom) -->
-        <div class="wiki-container">
-            <div class="market-inflation-wrapper">
-                <h2 class="wiki-h2" style="margin-bottom: 6px;">Live Server Economy Prices</h2>
-                <p class="wiki-p" style="margin-bottom: 16px; font-size: 0.9rem;">Grafik perbandingan harga buy/sell dan daftar item pasar server secara real-time.</p>
-
-                <!-- Scrollable Vertical Chart Box at Top -->
-                <div class="chart-scroll-wrapper">
-                    <div class="chart-inner">
-                        <canvas id="inflationChart"></canvas>
+                    <!-- Scrollable Vertical Chart Box at Top -->
+                    <div class="chart-scroll-wrapper">
+                        <div class="chart-inner">
+                            <canvas id="inflationChart"></canvas>
+                        </div>
                     </div>
-                </div>
 
-                <!-- Market Items Grid at Bottom (Material Top, Details Side-by-Side) -->
-                <div class="market-items-grid" id="marketItemsGrid">
-                    <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 20px;">
-                        Memuat data pasar dari database...
+                    <!-- Market Items Grid at Bottom -->
+                    <div class="market-items-grid" id="marketItemsGrid">
+                        <div style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 20px;">
+                            Memuat data pasar dari database...
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -774,6 +785,7 @@
         let currentUser = null;
         let activeListenerRef = null;
         let inflationChartInstance = null;
+        let marketRawData = {};
 
         window.handleAuthAction = async () => {
             if (!currentUser) {
@@ -834,6 +846,26 @@
             });
         }
 
+        // Helper function to parse values like '1.5k', '2m', '500'
+        function parsePrice(val) {
+            if (typeof val === 'number') return val;
+            if (!val) return 0;
+            let s = String(val).toLowerCase().trim();
+            let multiplier = 1;
+            if (s.endsWith('k')) {
+                multiplier = 1000;
+                s = s.slice(0, -1);
+            } else if (s.endsWith('m')) {
+                multiplier = 1000000;
+                s = s.slice(0, -1);
+            } else if (s.endsWith('b')) {
+                multiplier = 1000000000;
+                s = s.slice(0, -1);
+            }
+            let num = parseFloat(s.replace(',', '.')) || 0;
+            return num * multiplier;
+        }
+
         // Realtime Firebase Market Monitor & Card Grid Builder
         const marketRef = ref(db, 'server/market/prices');
         onValue(marketRef, (snapshot) => {
@@ -841,20 +873,25 @@
             gridContainer.innerHTML = '';
 
             if (snapshot.exists()) {
-                const data = snapshot.val();
+                marketRawData = snapshot.val();
                 let labels = [];
                 let buyPrices = [];
                 let sellPrices = [];
 
-                Object.values(data).forEach(item => {
+                Object.values(marketRawData).forEach(item => {
                     const material = item.material || 'UNKNOWN';
-                    const buy = parseFloat(item.buy) || 0;
-                    const sell = parseFloat(item.sell) || 0;
+                    const rawBuy = item.buy;
+                    const rawSell = item.sell;
+                    const buy = parsePrice(rawBuy);
+                    const sell = parsePrice(rawSell);
                     const ratio = sell > 0 ? (buy / sell).toFixed(2) : 'N/A';
 
                     labels.push(material);
-                    buyPrices.push(buy);
-                    sellPrices.push(sell);
+                    buyPrices.push(buy > 0 ? buy : 1);
+                    sellPrices.push(sell > 0 ? sell : 1);
+
+                    const displayBuy = typeof rawBuy === 'string' && isNaN(rawBuy) ? rawBuy : `$ ${buy.toLocaleString('id-ID')}`;
+                    const displaySell = typeof rawSell === 'string' && isNaN(rawSell) ? rawSell : `$ ${sell.toLocaleString('id-ID')}`;
 
                     gridContainer.innerHTML += `
                         <div class="market-item-card">
@@ -862,11 +899,11 @@
                             <div class="market-item-details">
                                 <div class="market-detail-col">
                                     <span>Buy</span>
-                                    <b>$md ${buy.toLocaleString('id-ID')}</b>
+                                    <b>${displayBuy}</b>
                                 </div>
                                 <div class="market-detail-col">
                                     <span>Sell</span>
-                                    <b>$md ${sell.toLocaleString('id-ID')}</b>
+                                    <b>${displaySell}</b>
                                 </div>
                                 <div class="market-detail-col">
                                     <span>Rasio</span>
@@ -883,7 +920,7 @@
             }
         });
 
-        // Vertical Bar Chart inside scrollable container
+        // Vertical Bar Chart with logarithmic scale & (Sell/Buy) ratio tooltips
         function renderInflationChart(labels, buyData, sellData) {
             const ctx = document.getElementById('inflationChart').getContext('2d');
             if (inflationChartInstance) {
@@ -899,13 +936,17 @@
                             label: 'Harga Buy (Beli)',
                             data: buyData,
                             backgroundColor: '#7c3aed',
-                            borderRadius: 4
+                            borderRadius: 4,
+                            barPercentage: 0.95,
+                            categoryPercentage: 0.95
                         },
                         {
                             label: 'Harga Sell (Jual)',
                             data: sellData,
                             backgroundColor: '#00b67a',
-                            borderRadius: 4
+                            borderRadius: 4,
+                            barPercentage: 0.95,
+                            categoryPercentage: 0.95
                         }
                     ]
                 },
@@ -915,6 +956,28 @@
                     plugins: {
                         legend: {
                             labels: { color: '#a1a1aa', font: { family: 'Plus Jakarta Sans', size: 11 } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    let rawValue = context.raw;
+                                    return `${label}: $ ${rawValue.toLocaleString('id-ID')}`;
+                                },
+                                afterBody: function(tooltipItems) {
+                                    if (tooltipItems.length > 0) {
+                                        let index = tooltipItems[0].dataIndex;
+                                        let itemValues = Object.values(marketRawData)[index];
+                                        if (itemValues) {
+                                            let b = parsePrice(itemValues.buy);
+                                            let s = parsePrice(itemValues.sell);
+                                            let ratioVal = s > 0 ? (b / s).toFixed(2) : 'N/A';
+                                            return `Rasio (Buy/Sell): ${ratioVal}x`;
+                                        }
+                                    }
+                                    return '';
+                                }
+                            }
                         }
                     },
                     scales: {
@@ -923,7 +986,14 @@
                             grid: { color: 'rgba(255, 255, 255, 0.05)' }
                         },
                         y: {
-                            ticks: { color: '#a1a1aa', font: { size: 10 } },
+                            type: 'logarithmic',
+                            ticks: { 
+                                color: '#a1a1aa', 
+                                font: { size: 10 },
+                                callback: function(value) {
+                                    return '$ ' + Number(value).toLocaleString('id-ID');
+                                }
+                            },
                             grid: { color: 'rgba(255, 255, 255, 0.05)' }
                         }
                     }
