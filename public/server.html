@@ -135,7 +135,6 @@
             font-weight: 700;
         }
 
-        /* Mobile Bottom Navigation Bar */
         .mobile-bottom-nav {
             display: none;
             position: fixed;
@@ -324,7 +323,6 @@
         .select-rank-btn.btn-crimson { background-color: var(--crimson-red); color: #fff; }
         .select-rank-btn.btn-premium { background-color: var(--premium-blue); color: #fff; }
 
-        /* Checkout Modal Overlay with Blur */
         .checkout-modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -715,13 +713,16 @@
             .navbar { padding: 0 20px; }
             .nav-links { display: none; }
             .mobile-bottom-nav { display: flex; }
-            .hero-title { font-size: 2.3rem; letter-spacing: -0.5px; }
-            .section-title { font-size: 1.65rem; }
-            .footer-banner-title { font-size: 1.75rem; }
-            .rank-name { font-size: 1.3rem; }
-            .rank-price { font-size: 1.15rem; }
-            .action-bars-grid { gap: 10px; max-width: 100%; }
-            .action-bar-item { padding: 12px 14px; font-size: 0.85rem; gap: 8px; }
+            .hero-title { font-size: 2rem; letter-spacing: -0.5px; }
+            .hero-description { font-size: 0.95rem; }
+            .section-title { font-size: 1.5rem; }
+            .section-subtitle { font-size: 0.88rem; margin-bottom: 24px; }
+            .footer-banner-title { font-size: 1.5rem; }
+            .rank-name { font-size: 1.2rem; }
+            .rank-price { font-size: 1.05rem; }
+            .rank-features { font-size: 0.82rem; }
+            .action-bars-grid { gap: 8px; max-width: 100%; }
+            .action-bar-item { padding: 10px 12px; font-size: 0.8rem; gap: 6px; }
             
             .ranks-grid {
                 display: flex;
@@ -732,15 +733,18 @@
                 justify-content: flex-start;
             }
             .rank-card {
-                min-width: 280px;
+                min-width: 260px;
+                padding: 24px;
                 flex: 0 0 auto;
                 scroll-snap-align: start;
             }
 
             #ordersContainer { grid-template-columns: 1fr; }
-            .checkout-modal-box { padding: 32px 24px; }
-            .order-id-label { font-size: 0.95rem; }
-            .status-item-line { font-size: 0.85rem; }
+            .checkout-modal-box { padding: 28px 20px; }
+            .order-id-label { font-size: 0.9rem; }
+            .status-item-line { font-size: 0.82rem; }
+            .form-input { height: 46px; font-size: 0.9rem; padding: 0 16px; }
+            .form-label { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -767,7 +771,6 @@
             </div>
         </nav>
 
-        <!-- Mobile Bottom Navigation Bar -->
         <div class="mobile-bottom-nav">
             <div class="mobile-nav-item active" onclick="window.location.href='/server'">
                 <i class="fa-solid fa-house"></i>
@@ -901,7 +904,6 @@
             </div>
         </section>
 
-        <!-- Fullscreen Checkout Modal -->
         <div class="checkout-modal-overlay" id="checkoutModalOverlay" onclick="closeCheckoutModal()">
             <div class="checkout-modal-box" onclick="event.stopPropagation()">
                 <h3 style="font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; text-align: center;">Form Checkout Pembelian</h3>
@@ -944,7 +946,6 @@
             </div>
         </div>
 
-        <!-- Custom Notice / Login Required Modal -->
         <div class="custom-notice-overlay" id="customNoticeOverlay" onclick="closeCustomNotice()">
             <div class="custom-notice-box" id="customNoticeBox" onclick="event.stopPropagation()">
                 <h3 style="font-weight: 800; font-size: 1.2rem; margin-bottom: 8px;" id="noticeTitle">Pemberitahuan</h3>
